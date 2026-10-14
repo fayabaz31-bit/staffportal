@@ -1,0 +1,1305 @@
+Product Requirements Document (PRD)
+
+University Staff Self-Service Portal
+
+Institution: Nigeria French Language Village (NfLV), Badagry
+Version: 1.0
+Date: 13 October 2026
+Initial scale: Approximately 500 staff users
+Product type: Secure, responsive web application
+
+1. Executive Summary
+
+The Nigeria French Language Village (NfLV), Badagry, requires a secure, cen-
+tralised Staff Self-Service Portal that digitises staff correspondence and adminis-
+trative services involving the Registry, Bursary, ICT Unit, Heads of Department
+and institutional management.
+
+The portal will provide each staff member with a personal account through which
+they can receive official memos, manage their profile, access monthly payslips,
+apply for leave, track approvals, download official letters and communicate with
+relevant administrative units.
+
+Authorised officers will use dedicated administrative dashboards to manage staff
+records, distribute correspondence, process applications, publish payslips, gen-
+erate official letters and monitor outstanding requests.
+
+The product will be developed as a responsive web application, using the institu-
+tion's existing technical expertise and institutional email infrastructure wherever
+practical.
+
+1.1 Product Vision
+
+Establish one trusted digital platform through which staff can access autho-
+rised personnel information and complete routine administrative transactions
+without depending on paper-based correspondence or repeated physical visits
+to administrative offices.
+
+1.2 Business Objectives
+
+   · Reduce paper-based memos and routine administrative correspondence.
+   · Improve the speed, traceability and accountability of leave approvals.
+   · Provide secure, timely access to payslips and personal official letters.
+   · Reduce manual work for Registry and Bursary officers.
+   · Establish a central, searchable record of staff correspondence and admin-
+
+       istrative transactions.
+   · Improve staff access to services from campus or off campus.
+
+                                                   1
+· Provide management with reliable reports on applications, correspondence
+   and administrative workloads.
+
+1.3 Product Scope
+
+The initial product will include:
+
+   1. Public landing page and secure staff login.
+   2. Staff account and profile management.
+   3. Role-based access control.
+   4. Memo and circular distribution.
+   5. Payslip publication and access.
+   6. Leave applications and approvals.
+   7. Official letter generation and delivery.
+   8. Registry and Bursary service requests.
+   9. Email and in-portal notifications.
+  10. Administrative reports, audit trails and system configuration.
+
+The portal is not intended to replace the institution's existing payroll calculation
+system, email hosting service or public website in the first release.
+
+2. Stakeholders and User Roles
+
+The system shall enforce role-based permissions on the server side. A user's role
+will determine the operations they can perform, while ownership, department,
+document classification and workflow status will further restrict access.
+
+Role                                Primary responsibilities
+Staff
+HR/Registry Administrator           Access personal records, view memos
+Bursary Administrator               and payslips, submit leave
+Head of Department / Supervisor     applications and service requests.
+Director / Authorised Approver      Manage personnel records, publish
+Superadmin - ICT                    authorised correspondence, verify
+                                    applications and issue HR letters.
+                                    Import approved payroll outputs,
+                                    validate payslip allocations and
+                                    respond to salary enquiries.
+                                    Review assigned staff requests,
+                                    recommend decisions and monitor
+                                    departmental cases.
+                                    Make decisions on applications and
+                                    correspondence within delegated
+                                    authority.
+                                    Manage technical configuration,
+                                    accounts, system availability, backups
+                                    and security.
+
+                                 2
+Role                            Primary responsibilities
+Superadmin - Institutional
+                                Manage high-level administrative
+Auditor / Read-only Officer     access, oversee governance and review
+                                system-wide reports within
+                                authorised scope.
+                                Review specifically authorised records
+                                and audit reports without changing
+                                business data.
+
+2.1 Permission Principles
+
+   · A staff member may access only their own private records unless an addi-
+       tional authorised role grants access.
+
+   · Bursary personnel may access payroll data only to the extent required by
+       their assigned duties.
+
+   · HR/Registry personnel may manage personnel records but must not au-
+       tomatically gain unrestricted payroll access.
+
+   · ICT administrators may manage technical operations without automati-
+       cally acquiring permission to approve leave or read confidential correspon-
+       dence.
+
+   · Approvers may decide only on requests routed to them under the config-
+       ured workflow.
+
+   · Privileged access must be individually assigned, reviewed periodically and
+       revoked when no longer needed.
+
+   · Emergency or exceptional access to confidential records must be restricted,
+       justified and audited.
+
+3. Product Architecture and Navigation
+
+3.1 Public Landing Page
+
+The unauthenticated landing page shall introduce the Staff Portal and provide
+a clear entry point for staff login.
+
+Required components:
+
+   · NfLV logo, name and official branding.
+   · Welcome heading and concise portal description.
+   · Service highlights for correspondence, payslips, leave and profile manage-
+
+       ment.
+   · Staff ID or institutional email login.
+   · Password field with optional visibility toggle.
+   · Forgot-password link.
+   · Login button with loading and error states.
+   · Contact information for ICT support.
+   · Privacy notice, terms of use and institutional footer.
+
+                             3
+   · Responsive design for desktop, tablet and mobile.
+   · Accessible contrast, keyboard navigation and readable text.
+
+The page must not display private staff records, internal memos, payslips or
+administrative reports before authentication.
+
+3.2 Authenticated Staff Dashboard
+
+The dashboard shall display:
+
+   · Staff name and profile summary.
+   · Unread memos and recent correspondence.
+   · Latest available payslip.
+   · Leave balance, subject to the institution's approved leave rules.
+   · Active leave applications and their statuses.
+   · Pending actions and requests for corrections.
+   · Recent letters and downloadable documents.
+   · Notifications and links to Registry/Bursary services.
+
+3.3 Administrative Navigation
+
+Administrators shall see navigation items appropriate to their permissions, such
+as:
+
+   · Dashboard and reports.
+   · Staff directory and personnel records.
+   · Memo and correspondence management.
+   · Leave applications and approval queues.
+   · Payslip imports and publication.
+   · Letter templates and document issuance.
+   · Service requests and enquiries.
+   · User roles and permissions.
+   · Audit records and system settings.
+
+Hiding a navigation item is not a security control; each action and protected
+record must also be authorised on the server.
+
+4. Functional Requirements
+
+Priority definitions:
+
+   · P0 -- Must have: Required for a secure initial production release.
+   · P1 -- Should have: Important for operational completeness, potentially
+
+       delivered after the first pilot.
+   · P2 -- Could have: Useful enhancement for a later release.
+
+4.1 Authentication and Account Management
+
+                                                   4
+ID       Requirement               Priority
+AUTH-01                            P0
+         Authenticate users
+AUTH-02  using a unique staff      P0
+AUTH-03  identifier or approved    P0
+AUTH-04  institutional email       P0
+AUTH-05  address.                  P0
+AUTH-06  Provide secure password   P0
+AUTH-07  reset using a verified    P0
+AUTH-08  recovery channel.         P0
+         Enforce server-side role
+AUTH-09  and resource              P0
+AUTH-10  permissions.              P1
+         Support multi-factor
+         authentication for
+         privileged accounts.
+         Allow administrators to
+         activate, suspend and
+         deactivate accounts.
+         Apply rate limits and
+         protections against
+         repeated login attempts.
+         Support logout and
+         session expiry according
+         to security policy.
+         Record relevant
+         authentication and
+         account-management
+         events.
+         Provision staff accounts
+         through an authorised
+         bulk-import process.
+         Support institutional
+         single sign-on if a
+         compatible identity
+         provider is available.
+
+Account provisioning must prevent duplicate staff accounts and provide a safe
+procedure for resolving mismatched staff identifiers.
+
+4.2 Staff Profile Management
+
+         5
+ID       Requirement                    Priority
+PROF-01                                 P0
+PROF-02  Allow staff to view their      P0
+         own authorised
+PROF-03  personnel profile.             P0
+PROF-04  Include approved fields        P0
+         such as staff number,
+PROF-05  name, department,              P0
+PROF-06  designation and                P0
+         employment status.
+PROF-07  Allow staff to request         P1
+PROF-08  changes to permitted           P0
+         personal information.
+         Require approval for
+         changes to sensitive or
+         official employment
+         fields.
+         Retain a history of
+         material profile changes.
+         Allow authorised
+         Registry staff to create,
+         correct and deactivate
+         personnel records.
+         Allow staff to view
+         profile-update request
+         status.
+         Support controlled
+         imports of existing
+         personnel records.
+
+The system must distinguish editable contact information from official employ-
+ment information. A staff member must not directly change their grade level,
+salary, employment status or bank details without the relevant verification pro-
+cess.
+
+4.3 Memo and Correspondence Management
+
+ID       Requirement                    Priority
+MEM-01                                  P0
+         Allow authorised officers
+         to create, edit, preview
+         and publish memos.
+
+         6
+ID      Requirement               Priority
+MEM-02                            P0
+        Support recipients by
+MEM-03  individual, department,   P0
+MEM-04  staff group or            P0
+MEM-05  institution-wide          P0
+MEM-06  distribution.             P0
+MEM-07  Restrict confidential     P0
+MEM-08  memos to authorised       P0
+        recipients.
+MEM-09  Support draft, pending    P1
+MEM-10  approval, published,      P1
+MEM-11  withdrawn and archived    P1
+        states.
+        Support approved
+        document attachments.
+        Allow staff to view and
+        download
+        correspondence
+        addressed to them.
+        Send in-portal and
+        email notifications for
+        published
+        correspondence.
+        Record intended
+        recipients and delivery,
+        viewing or
+        acknowledgement events
+        as applicable.
+        Support search and
+        filtering by date,
+        subject, category and
+        status.
+        Support scheduled
+        publication and expiry
+        dates.
+        Provide version history
+        and an auditable
+        withdrawal process.
+
+A published memo must not silently change after recipients have accessed it.
+Material corrections should produce a new version or replacement record, with
+appropriate notification and an audit trail.
+
+4.4 Payslip Management
+
+                                                   7
+ID      Requirement               Priority
+PAY-01                            P0
+        Allow authorised
+PAY-02  Bursary users to upload   P0
+PAY-03  approved payslips         P0
+        individually or in
+PAY-04  batches.                  P0
+PAY-05  Associate each payslip    P0
+PAY-06  with the correct staff    P0
+PAY-07  identifier and payroll    P0
+PAY-08  period.                   P0
+PAY-09  Validate file format,     P0
+PAY-10  staff matching,           P1
+PAY-11  duplicates and missing    P1
+        records before
+        publication.
+        Require designated
+        approval of a batch
+        before publication.
+        Allow staff to view and
+        download only their
+        own authorised payslips.
+        Notify staff when a
+        payslip is published.
+        Maintain historical
+        payslips according to
+        the approved retention
+        policy.
+        Record who imported,
+        validated, approved and
+        published a batch.
+        Support controlled
+        replacement of
+        incorrectly allocated
+        payslips.
+        Provide reconciliation
+        reports for successful,
+        failed, missing and
+        duplicate records.
+        Support integration
+        with existing payroll
+        software when interfaces
+        and security
+        requirements are
+        confirmed.
+
+        8
+Initial implementation: the portal distributes approved payroll outputs; it
+does not calculate salaries or alter payroll results.
+
+A batch must not become visible to staff until validation and approval are
+complete. The system must prevent one staff member from retrieving another
+person's payslip by modifying a URL, identifier or request parameter.
+
+4.5 Leave Application and Approval
+
+ID        Requirement                Priority
+LEAVE-01                             P0
+          Allow staff to view
+LEAVE-02  applicable leave           P0
+LEAVE-03  categories and available   P0
+LEAVE-04  entitlement where          P0
+LEAVE-05  maintained.                P0
+LEAVE-06  Accept leave type, start   P0
+LEAVE-07  date, end date, reason     P0
+LEAVE-08  and required               P0
+LEAVE-09  attachments.               P0
+          Validate required fields
+          and flag overlapping or
+          invalid date ranges.
+          Route applications
+          according to
+          configurable approval
+          rules.
+          Allow approvers to
+          approve, reject or return
+          applications for
+          correction.
+          Allow staff to track
+          application status and
+          history.
+          Generate an official
+          approval or rejection
+          letter from an approved
+          template.
+          Notify staff and relevant
+          officers when an
+          application changes
+          status.
+          Maintain an audit trail
+          of every decision and
+          reassignment.
+
+          9
+ID        Requirement                Priority
+LEAVE-10                             P0
+          Calculate leave duration
+LEAVE-11  using approved rules for   P0
+LEAVE-12  weekends, public           P1
+LEAVE-13  holidays and applicable    P1
+          exclusions.
+          Update leave balances
+          according to approved
+          entitlement rules.
+          Support delegated
+          approval and escalation
+          of overdue requests.
+          Provide reports on
+          pending applications,
+          leave usage and
+          upcoming approved
+          absences.
+
+The approval route must be configurable by leave type and staff category. The
+software shall not presume that every leave application follows the same se-
+quence or that all staff have identical entitlement rules.
+
+4.6 Official Letter Generation
+
+ID        Requirement                Priority
+DOC-01                               P0
+          Allow authorised users
+DOC-02    to create and manage       P0
+          approved document
+DOC-03    templates.                 P0
+DOC-04    Support authorised staff   P0
+          details, dates, reference
+          numbers and approved
+          fields in templates.
+          Generate PDF letters
+          for approved
+          transactions.
+          Assign unique reference
+          numbers according to
+          an approved
+          institutional convention.
+
+                                10
+ID      Requirement                        Priority
+DOC-05                                     P0
+        Restrict approval and
+DOC-06  issuance to                        P0
+DOC-07  appropriately                      P0
+DOC-08  authorised officers.               P1
+        Store the issued version
+DOC-09  and issuance metadata.             P1
+        Allow staff to retrieve
+        issued letters from their
+        private document area.
+        Support electronic
+        signatures or verified
+        approval marks where
+        institutionally
+        authorised.
+        Support annual
+        increment and
+        promotion letters
+        through configurable
+        templates.
+
+A generated document must not be represented as formally signed or approved
+unless the required approval has actually occurred. Template updates must not
+silently alter letters already issued.
+
+4.7 Registry and Bursary Service Requests
+
+ID      Requirement                        Priority
+SRV-01                                     P0
+        Allow staff to submit
+SRV-02  requests to the                    P0
+SRV-03  appropriate                        P0
+SRV-04  administrative unit.               P0
+        Assign a unique
+        tracking reference to
+        each request.
+        Support categories,
+        descriptions and
+        authorised attachments.
+        Allow authorised
+        officers to assign,
+        respond to, escalate and
+        close requests.
+
+        11
+ID      Requirement               Priority
+SRV-05                            P0
+        Allow staff to view the
+SRV-06  status and response       P0
+SRV-07  history of their own      P1
+        requests.
+        Notify relevant users of
+        assignments, responses
+        and closure.
+        Support service-level
+        targets, overdue queues
+        and performance
+        reports.
+
+Requests concerning salary, bank details or other confidential matters must
+inherit appropriate access restrictions.
+
+4.8 Notifications
+
+The system shall provide:
+
+   · In-portal notifications for new memos, payslips, approvals, rejections and
+       service-request responses.
+
+   · Email notifications through the institution's existing email infrastructure.
+   · Notification preferences where permitted by institutional policy.
+   · Retry and failure logging for unsuccessful email deliveries.
+   · Queue processing for bulk notifications, avoiding long delays during nor-
+
+       mal user requests.
+   · Generic notification content for sensitive matters, directing users to sign
+
+       in rather than including confidential details in email.
+
+An email delivery failure must not erase the underlying portal record or falsely
+indicate that the email was delivered.
+
+4.9 Administration and Reporting
+
+Authorised administrators shall be able to:
+
+   · View dashboard summaries appropriate to their role.
+   · Search staff records within their authorised scope.
+   · Monitor pending leave applications and unresolved service requests.
+   · Review memo publication and acknowledgement statistics.
+   · View payslip batch reconciliation results.
+   · Generate approved operational reports.
+   · Export permitted reports using controlled access and audit logging.
+   · Configure approval rules, document templates and notification settings
+
+       within their authority.
+
+        12
+   · Review audit records according to their assigned permissions.
+
+Reports must not expose personal salary details to managers who are not au-
+thorised to view them.
+
+5. Non-Functional Requirements
+
+ID      Category                Requirement /
+NFR-01  Capacity                acceptance target
+NFR-02  Performance
+                                Support 500 registered
+NFR-03  Availability            staff and authorised
+NFR-04  Security                administrative users,
+NFR-05  Privacy                 with capacity for future
+NFR-06  Accessibility           growth.
+NFR-07  Compatibility           Target a 95th-percentile
+                                response time of 2
+                                seconds or less for
+                                routine authenticated
+                                pages under the agreed
+                                test load, excluding
+                                large downloads and
+                                external email delays.
+                                Target at least 99.5%
+                                monthly availability,
+                                excluding agreed
+                                maintenance windows.
+                                Use HTTPS, secure
+                                session handling,
+                                validated input,
+                                server-side authorisation
+                                and protected secrets.
+                                Prevent unauthorised
+                                access to staff profiles,
+                                payslips, leave records
+                                and confidential
+                                correspondence.
+                                Target WCAG 2.2 Level
+                                AA for key user
+                                journeys.
+                                Support current
+                                versions of major
+                                desktop and mobile
+                                browsers.
+
+        13
+ID      Category         Requirement /
+NFR-08  Responsiveness   acceptance target
+NFR-09  Recoverability
+NFR-10  Auditability     Support common
+                         desktop, tablet and
+NFR-11  Maintainability  smartphone screen sizes
+                         without a separate
+NFR-12  Data integrity   mobile application.
+NFR-13  Scalability      Establish approved
+NFR-14  Data retention   recovery-point and
+                         recovery-time objectives,
+                         with tested restoration
+                         procedures.
+                         Record sensitive
+                         changes and
+                         administrative decisions
+                         with actor, timestamp,
+                         action and affected
+                         record.
+                         Use modular code,
+                         automated tests,
+                         documented
+                         configuration and
+                         controlled database
+                         migrations.
+                         Use transactions and
+                         validation to prevent
+                         inconsistent approval,
+                         publication and balance
+                         updates.
+                         Permit additional
+                         modules and users
+                         without requiring an
+                         architectural rewrite.
+                         Apply approved
+                         retention and disposal
+                         schedules to personnel
+                         documents, payslips and
+                         audit records.
+
+Performance and availability figures are proposed service targets. They must be
+validated against hosting capacity, connectivity, actual usage patterns and the
+institution's support budget before becoming operational commitments.
+
+        14
+5.1 Security Standards and Controls
+
+The implementation shall incorporate:
+
+   · Protection against common web application risks, informed by the
+       OWASP Top 10.
+
+   · Secure password hashing using framework-supported algorithms.
+   · Multi-factor authentication for privileged users.
+   · Least-privilege role assignments and resource-level authorisation.
+   · CSRF protection, output escaping, input validation and safe database
+
+       queries.
+   · File upload restrictions, including allowed file types, size limits and mal-
+
+       ware scanning where available.
+   · Private storage for payslips and confidential attachments.
+   · Rate limiting and monitoring of suspicious authentication activity.
+   · Encrypted backups and appropriate protection of data in transit and at
+
+       rest.
+   · Controlled production access, secret management and timely security up-
+
+       dates.
+   · A documented security incident response process.
+
+The institution should assess its obligations under the Nigeria Data Protection
+Act 2023 and applicable Nigeria Data Protection Commission requirements, in-
+cluding appropriate notices, access controls, retention, incident handling and
+any required data-protection impact assessment.
+
+6. Proposed Database Entities
+
+Entity                Key information
+users
+                      Account identity, password hash,
+staff_profiles        status and authentication metadata
+                      Staff number, name, department,
+departments           designation and employment data
+                      Department code, name and active
+roles                 status
+permissions           Defined user roles
+role_assignments      Permitted actions
+memos                 User roles and optional scope
+                      Subject, content, classification,
+memo_recipients       author and publication state
+                      Intended recipient, delivery and
+documents             acknowledgement metadata
+                      File reference, document category,
+payslip_batches       version and ownership
+                      Payroll period, uploader, validation
+                      results and release status
+
+                  15
+Entity                  Key information
+payslips
+                        Staff association, period, private
+leave_types             document reference and publication
+leave_entitlements      status
+leave_applications      Approved leave categories and
+approval_steps          applicable rules
+letter_templates        Staff entitlement records for a defined
+issued_letters          period
+service_requests        Dates, reason, duration, applicant
+notifications           and current status
+audit_logs              Assigned approver, decision,
+system_settings         comments and timestamps
+                        Approved templates, version and
+                        permitted fields
+                        Reference number, recipient, issuing
+                        officer and final document
+                        Request category, owner, assigned
+                        unit, status and response history
+                        Recipient, channel, delivery status
+                        and retry information
+                        Actor, action, affected record,
+                        timestamp and relevant context
+                        Approved workflow, retention and
+                        configuration settings
+
+6.1 Data Design Rules
+
+   1. Every staff member shall have a unique institutional staff number.
+   2. Staff accounts shall reference personnel records through stable identifiers
+
+       rather than names.
+   3. Every private document shall have an explicit owner or authorised recipi-
+
+       ent set.
+   4. Approval decisions shall be preserved as historical records rather than
+
+       overwritten without trace.
+   5. Payslip publication and leave approval shall use database transactions
+
+       where multiple related records must change together.
+   6. File contents shall be stored in private storage, not directly in publicly
+
+       accessible web directories.
+   7. The system shall distinguish between soft deletion, account deactivation
+
+       and formal records disposal.
+   8. Access to audit logs shall be restricted and protected against unauthorised
+
+       alteration.
+   9. Retention and disposal rules shall be configurable according to approved
+
+       institutional policy and legal requirements.
+
+                    16
+7. Core Business Workflows
+
+7.1 Leave Application State Machine
+
+flowchart TD
+      A[Staff drafts application] --> B[Submit application]
+      B --> C[Validate dates and required fields]
+      C -->|Invalid| D[Return validation errors]
+      D --> A
+      C -->|Valid| E[Pending review]
+      E --> F[Supervisor review if required]
+      F -->|Return| G[Returned for correction]
+      G --> A
+      F -->|Reject| H[Rejected]
+      F -->|Recommend| I[HR verification]
+      E --> I
+      I -->|Needs correction| G
+      I -->|Verified| J[Authorised approver]
+      J -->|Reject| H
+      J -->|Approve| K[Record approval]
+      K --> L[Generate official letter]
+      L --> M[Notify staff and update balance]
+
+The precise path must be configurable. A leave category that does not require
+supervisor review shall not be forced through that stage. The system must also
+handle withdrawal, cancellation and correction of previously approved leave
+under controlled rules.
+
+7.2 Payslip Publication Workflow
+
+flowchart TD                                                  matching]
+      A[Bursary uploads batch] --> B[Validate file and staff
+      B --> C{Validation results}
+      C -->|Errors| D[Quarantine errors and prepare report]
+      D --> E[Bursary corrects and resubmits]
+      E --> B
+      C -->|Valid| F[Authorised release review]
+      F -->|Rejected| E
+      F -->|Approved| G[Publish to individual accounts]
+      G --> H[Record publication audit]
+      H --> I[Send generic email notifications]
+      I --> J[Staff securely views own payslip]
+
+A batch with unresolved material errors shall not be released. Publication shall
+be idempotent so retrying a failed operation does not accidentally duplicate
+payslips or notifications.
+
+17
+7.3 Memo Publication Workflow
+
+flowchart TD
+      A[Author drafts memo] --> B[Select recipients and classification]
+      B --> C[Submit for approval if required]
+      C --> D{Decision}
+      D -->|Return| A
+      D -->|Reject| E[Retain rejected draft]
+      D -->|Approve or no approval required| F[Publish memo]
+      F --> G[Create recipient records]
+      G --> H[Notify intended recipients]
+      H --> I[Record views and acknowledgements]
+
+8. Document Generation Requirements
+
+Official letters must use institution-approved templates and a consistent docu-
+ment identity.
+
+Each issued letter should contain, where applicable:
+
+   · Institution name, logo and official heading.
+   · Unique reference number.
+   · Issue date and recipient details.
+   · Subject and approved letter content.
+   · Authorised signatory's name and designation.
+   · Approval or signature information supported by the system.
+   · Appropriate classification or confidentiality marking.
+   · A document version or verification reference, where required.
+
+The institution shall determine whether electronic signatures, scanned signa-
+tures or a digitally verifiable approval mechanism are acceptable for each doc-
+ument type. A scanned signature image alone must not be treated as proof of
+document integrity or authenticity.
+
+9. User Experience and Accessibility
+
+The portal shall provide a consistent interface across public, staff and adminis-
+trative areas.
+
+9.1 Design Requirements
+
+   · Use official NfLV branding and an institution-approved colour palette.
+   · Display a clear primary action on each page.
+   · Use plain language for application statuses and validation errors.
+   · Provide confirmation screens for important actions.
+   · Distinguish clearly between drafts, submitted requests, approvals and re-
+
+       jected requests.
+   · Show loading, empty, success and error states.
+
+                                                  18
+· Support keyboard navigation, visible focus indicators and accessible form
+   labels.
+
+· Avoid relying on colour alone to communicate status.
+· Confirm before destructive or irreversible actions.
+
+9.2 Required Status Labels
+
+The system should use a consistent set of statuses, including:
+
+   · Draft
+   · Submitted
+   · Pending review
+   · Pending approval
+   · Returned for correction
+   · Approved
+   · Rejected
+   · Published
+   · Withdrawn
+   · Cancelled
+   · Closed
+
+Only statuses relevant to a particular module should be shown to users.
+
+10. Technical Implementation Requirements
+
+10.1 Recommended Stack
+
+Component                     Technology
+Backend framework
+Frontend                      Laravel
+Styling                       Blade + Livewire
+Database                      Tailwind CSS
+Authentication                PostgreSQL
+                              Laravel authentication with MFA for
+Permissions                   privileged users
+                              Laravel policies and gates; optionally
+Queue processing              Spatie Laravel Permission
+                              Laravel queues, with Redis
+PDF generation                introduced when needed
+                              Dompdf or an appropriate server-side
+Email delivery                PDF library
+Private document storage      Institutional SMTP
+                              Private filesystem or private object
+Web server                    storage
+                              Nginx + PHP-FPM on a supported
+Version control               Linux distribution
+                              Git with protected branches and
+                              reviewed changes
+
+                          19
+Component              Technology
+Automated testing
+Deployment             Pest or PHPUnit
+                       Separate development, staging and
+Monitoring             production environments
+                       Application logs, availability checks
+                       and backup alerts
+
+10.2 Application Modules
+
+The codebase should be organised into distinct modules or clearly separated
+application domains:
+
+   1. Identity and access management.
+   2. Staff directory and profile management.
+   3. Correspondence and memo management.
+   4. Payroll document distribution.
+   5. Leave management.
+   6. Workflow and approval engine.
+   7. Document templates and issuance.
+   8. Service requests.
+   9. Notifications.
+  10. Reporting and audit.
+  11. System configuration.
+
+A modular monolith is recommended for the first release. It avoids the oper-
+ational complexity of microservices while preserving clear boundaries between
+business functions.
+
+10.3 Integration Requirements
+
+The initial release shall integrate with:
+
+   · The institutional email system for notifications and recovery messages.
+   · Existing personnel records through controlled import.
+   · Existing payroll outputs through approved file imports.
+
+Potential later integrations include institutional single sign-on, payroll APIs,
+digital signature services and existing HR information systems.
+
+Every integration shall have defined permissions, error handling, data validation
+and operational ownership. No integration should require sharing an adminis-
+trator's personal credentials.
+
+11. Acceptance Criteria
+
+                   20
+ID     Test scenario            Expected result
+AC-01  A valid staff member
+AC-02  logs in.                 The correct personal
+AC-03  An unauthorised user     dashboard is displayed.
+AC-04  attempts to open a       Access is denied without
+AC-05  private staff URL.       revealing protected
+AC-06  Staff member A           content.
+AC-07  attempts to view staff   The request is denied
+AC-08  member B's payslip.      and the event is logged
+       Registry publishes a     appropriately.
+AC-09  memo to a selected       Only intended,
+AC-10  department.              authorised recipients
+       Bursary uploads a batch  can access it.
+AC-11  containing a             The error is identified
+       mismatched staff         and the affected payslip
+       number.                  is not incorrectly
+       Staff submits a valid    published.
+       leave application.       The application is saved
+                                and routed to the
+       An approver rejects an   correct configured
+       application.             approver.
+                                The decision, timestamp
+       An authorised approver   and required comments
+       approves leave.          are retained; the staff
+                                member is notified.
+       Staff submits a profile  The approved
+       correction.              transaction produces
+                                the correct official letter
+       A privileged             and updates leave
+       administrator changes a  records according to
+       role assignment.         policy.
+                                The request follows the
+       Email delivery fails.    required verification
+                                process before the
+                                official record changes.
+                                The change is
+                                authorised, recorded
+                                and reflected in
+                                subsequent permission
+                                checks.
+                                The underlying record
+                                remains available and
+                                the notification failure
+                                can be retried or
+                                investigated.
+
+       21
+ID                 Test scenario            Expected result
+AC-12              A backup restoration
+                   test is performed.       The database and
+AC-13                                       required documents are
+AC-14              Two authorised officers  restored within
+AC-15              act on the same pending  approved recovery
+                   application.             objectives.
+                                            Conflicting decisions are
+                   The application is       prevented or handled
+                   tested with the agreed   safely with an auditable
+                   concurrent user load.    outcome.
+                                            Performance and
+                   A staff account is       stability targets are met
+                   deactivated.             without unauthorised
+                                            access or data loss.
+                                            The user can no longer
+                                            sign in, while historical
+                                            records are retained
+                                            according to policy.
+
+Production acceptance shall require documented functional testing, permission
+testing, security testing, backup restoration, user acceptance and sign-off by
+designated institutional representatives.
+
+12. Rollout and Implementation Plan
+
+The proposed implementation schedule is approximately 14 weeks for a focused
+initial release, assuming an available development team, timely policy decisions
+and suitable hosting. This is a planning estimate rather than a guaranteed
+delivery date.
+
+Phase              Indicative timing        Deliverables
+1. Discovery       Weeks 1-2
+                                            Approved requirements,
+2. Foundation      Weeks 3-5                process maps, roles and
+                                            policy decisions
+3. Correspondence  Weeks 6-7                Authentication,
+4. Payslips        Week 8                   permissions, staff
+                                            records, audit logging
+                                            and core interface
+                                            Memo distribution,
+                                            document storage and
+                                            notifications
+                                            Validated batch import
+                                            and private payslip
+                                            access
+
+                              22
+Phase                 Indicative timing  Deliverables
+5. Leave              Weeks 9-10
+                                         Applications, approvals,
+6. Service requests   Week 11            balances and approval
+7. Testing and        Weeks 12-13        letters
+hardening                                Registry/Bursary
+8. Pilot and release  Week 14            enquiries and tracking
+                                         Security, performance,
+                                         integration and recovery
+                                         testing
+                                         Pilot sign-off, training
+                                         and staged staff
+                                         onboarding
+
+Some activities can run in parallel, while security testing and production readi-
+ness must remain release gates.
+
+12.1 Pilot Group
+
+Start with approximately 20-30 users from ICT, Registry, Bursary and selected
+departments. Include ordinary staff, supervisors, approvers and administrative
+users.
+
+The pilot shall test:
+
+   · Staff onboarding and account recovery.
+   · Memo publication and access restrictions.
+   · Payslip upload, reconciliation and private access.
+   · Leave submission, review and approval letters.
+   · Profile update requests.
+   · Email failures and notification retries.
+   · Audit logs and backup restoration.
+
+Use synthetic payroll and personnel data during development and demonstra-
+tions. Production data may be introduced only after authorisation and the
+required security checks.
+
+12.2 Staff Onboarding
+
+After successful pilot sign-off:
+
+   1. Import and reconcile the authorised staff register.
+   2. Verify staff numbers, departments and institutional email addresses.
+   3. Issue account activation instructions securely.
+   4. Train administrative officers and approvers.
+   5. Publish user guidance and ICT support contact details.
+   6. Onboard staff in controlled batches.
+
+                      23
+7. Monitor login failures, unresolved requests and support tickets during the
+   initial operating period.
+
+13. Project Team and Responsibilities
+
+Role                                        Responsibility
+Executive sponsor
+                                            Provides institutional sponsorship
+Product owner                               and resolves cross-departmental
+Registry/HR subject-matter expert           issues.
+Bursary subject-matter expert               Prioritises requirements and accepts
+ICT lead / technical architect              delivered functionality.
+Backend developer                           Defines personnel rules,
+Frontend developer                          correspondence and leave processes.
+QA/test engineer                            Defines payslip formats, reconciliation
+Data protection / legal representative      and release approval.
+Departmental pilot representatives          Owns architecture, deployment,
+                                            security and technical decisions.
+                                            Implements business rules, database
+                                            operations and integrations.
+                                            Implements responsive interfaces and
+                                            accessible user flows.
+                                            Maintains test cases, validates
+                                            workflows and records defects.
+                                            Reviews applicable privacy
+                                            obligations, retention and notices.
+                                            Test real workflows and provide
+                                            operational feedback.
+
+One person may fulfil multiple roles in a small team, but product approval,
+sensitive business decisions and technical access should still have clear account-
+ability.
+
+14. Risks and Mitigation
+
+Risk                   Potential impact          Mitigation
+Incorrect staff data
+                       Payslips or letters       Reconcile staff
+Unauthorised document  assigned to the wrong     identifiers and validate
+access                 person                    imports before release.
+                       Exposure of confidential  Enforce server-side
+                       information               permissions, private
+                                                 storage and security
+                                                 testing.
+
+                                        24
+Risk                    Potential impact         Mitigation
+Unclear approval        Delays or invalid
+authority               decisions                Obtain approved
+Email delivery failure                           workflow definitions
+                        Staff miss important     before configuration.
+Payroll import errors   notifications            Retain portal
+                                                 notifications, log failures
+Staff resistance or     Incorrect or incomplete  and provide retries.
+limited adoption        payslip publication      Validate batches,
+Loss of data or system                           quarantine exceptions
+outage                  Continued reliance on    and require release
+                        paper processes          approval.
+Scope expansion                                  Provide training,
+Developer dependency    Interrupted              support and a clear
+                        administrative services  transition plan.
+Regulatory                                       Maintain separate
+non-compliance          Budget overruns and      backups, monitor
+                        delayed delivery         availability and test
+                        Difficulty maintaining   restoration.
+                        the portal               Use phased releases and
+                                                 formal change control.
+                        Legal and reputational   Document the codebase,
+                        consequences             use version control and
+                                                 maintain institutional
+                                                 ownership.
+                                                 Review applicable data
+                                                 protection and
+                                                 records-management
+                                                 obligations before
+                                                 launch.
+
+15. Out of Scope for the Initial Release
+
+The following capabilities are excluded unless separately approved:
+
+   · Payroll calculations and salary disbursement.
+   · Full accounting or financial management.
+   · Recruitment and applicant tracking.
+   · Student information management.
+   · Library, hostel and student payment systems.
+   · A native Android or iOS application.
+   · Automatic electronic signatures without an approved signature process.
+   · Replacing the institution's existing email hosting service.
+   · Unrestricted editing of official personnel or salary records by staff.
+
+The architecture should allow future integrations without requiring these sys-
+tems to be built into the first release.
+
+                                                  25
+16. Success Metrics
+
+The institution should establish baseline measurements before deployment and
+evaluate performance after launch.
+
+Metric                Proposed initial target
+Staff onboarding
+                      At least 95% of the 500 staff accounts
+Payslip availability  provisioned and reconciled by the
+                      agreed rollout deadline.
+Leave tracking        At least 98% of valid payslips in an
+Correspondence        approved batch successfully published
+Security              to the correct staff accounts within
+                      the agreed service window.
+Auditability          100% of submitted applications have
+Staff adoption        a traceable status and history.
+                      100% of published memos have
+Reliability           recorded intended recipients.
+Support               Zero unresolved critical or
+                      high-severity security findings at
+                      production release.
+                      100% of designated sensitive actions
+                      generate the required audit records.
+                      At least 80% of staff have activated
+                      their accounts within the agreed
+                      adoption period.
+                      Meet the approved availability and
+                      recovery objectives.
+                      Track request resolution time,
+                      overdue cases and recurring problems.
+
+These are proposed targets, not existing performance figures. The institution
+should confirm the measurement period, service windows and baseline before
+adopting them formally.
+
+17. Governance and Decisions Required
+
+Before development begins, the project steering group should approve the fol-
+lowing:
+
+    Product owner and executive sponsor.
+    Official staff register and unique staff-number format.
+    Role-permission matrix and departmental responsibilities.
+    Leave categories, entitlement rules and approval chains.
+    Memo classifications and distribution rules.
+    Payslip file format, payroll reconciliation and release procedure.
+
+                                                  26
+    Official letter templates, reference numbering and signature rules.
+    Hosting arrangements, backup policy and recovery objectives.
+    Data retention policy, privacy notices and security responsibilities.
+    Email delivery configuration and support arrangements.
+    Pilot acceptance criteria, release approval and ongoing maintenance own-
+
+       ership.
+
+18. Definition of Done
+
+The initial portal shall be considered ready for production when:
+   1. All P0 requirements are implemented and tested.
+   2. All critical staff journeys work from login through completion.
+   3. Role and document-access restrictions pass negative testing.
+   4. Payslip imports and leave approvals pass end-to-end testing.
+   5. Required email notifications, retries and failure logs are operational.
+   6. Official document templates have been approved.
+   7. Backup restoration and incident response procedures have been tested.
+   8. No unresolved critical or high-severity security findings remain.
+   9. User documentation and administrator training are complete.
+
+  10. The pilot has passed its acceptance criteria and authorised institutional
+       representatives have signed off.
+
+Recommended Next Step
+
+This PRD provides the product requirements and proposed delivery bound-
+aries. The next deliverable should be a Software Requirements Specifica-
+tion (SRS) and technical design package containing:
+
+   · Detailed database schema and entity relationships.
+   · Complete role-permission matrix.
+   · Laravel project folder and module structure.
+   · API and integration specifications where required.
+   · Screen-by-screen wireframes for the landing page, staff dashboard and
+
+       admin dashboards.
+   · Detailed approval and document-generation rules.
+   · Test cases mapped to each requirement.
+   · Deployment, backup and security configuration.
+That package will give the IT team a practical implementation guide and reduce
+the risk of building features that do not match the institution's actual Registry,
+Bursary and management processes.
+
+                                                  27
+

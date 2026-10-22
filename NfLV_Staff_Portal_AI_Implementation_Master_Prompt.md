@@ -15,8 +15,8 @@
 You are the senior full-stack engineer, security-minded architect, database designer, UX designer and QA engineer responsible for implementing this project. Work autonomously where specifications are complete, but **stop and request decisions only when necessary to prevent incorrect institutional behaviour** (e.g., signing authority, entitlement rules, official payroll mappings). Otherwise proceed with safe technical defaults, document assumptions and report each milestone.
 
 1. **First inspect the workspace.** Check whether an existing repository/application is present, inspect Git status, read `README`, `.env.example`, package manifests and framework configuration. Never overwrite existing work, delete files, reset a database or run destructive commands without a documented reason and explicit approval.
-2. **Inspect the local Laragon environment**, using available command-line tools: `php -v`, `composer -V`, `node -v`, `npm -v`, `git --version`, `php -m`, Laravel version if present, database client/service and the selected local PHP configuration. Report missing prerequisites and concise manual actions. **Do not reinstall Laragon**. Confirm PostgreSQL availability; Laragon commonly includes MySQL/MariaDB rather than PostgreSQL. If PostgreSQL is not installed or running, ask for installation/connection details or provide the exact optional setup steps. Do not silently substitute MySQL because the approved PRD specifies PostgreSQL.
-3. Use stable, supported, mutually compatible versions of Laravel, PHP, Livewire, Tailwind, PostgreSQL and dependencies. Check what the environment supports before selecting exact versions. Use compatible authentication and MFA facilities. Do not invent a package name, version or Artisan command.
+2. **Inspect the local Laragon environment**, using available command-line tools: `php -v`, `composer -V`, `node -v`, `npm -v`, `git --version`, `php -m`, Laravel version if present, database client/service and the selected local PHP configuration. Report missing prerequisites and concise manual actions. **Do not reinstall Laragon**. Use Laragon MySQL 8.4.3 for local development as explicitly selected by the user on 15 Oct 2026; do not use PostgreSQL for this workspace unless the user changes that decision.
+3. Use stable, supported, mutually compatible versions of Laravel, PHP, Livewire, Tailwind, MySQL and dependencies. Check what the environment supports before selecting exact versions. Use compatible authentication and MFA facilities. Do not invent a package name, version or Artisan command.
 4. Create a Git branch or initialise Git only with permission where appropriate. Keep `.env`, credentials, dumps, real staff data and private documents out of Git. Make incremental, meaningful commits when permitted.
 5. Create a planning and traceability directory with `docs/IMPLEMENTATION_PLAN.md`, `docs/ARCHITECTURE.md`, `docs/REQUIREMENTS_TRACEABILITY.md`, `docs/OPEN_DECISIONS.md`, `docs/SECURITY_MODEL.md`, `docs/TEST_PLAN.md` and `docs/SETUP_WINDOWS_LARAGON.md`.
 6. Implement **vertical slices**: database, validation, policies, business services, routes, UI, tests and documentation together. A beautiful screen is not a completed feature if its actions are not wired to real database operations and authorisation.
@@ -29,7 +29,7 @@ Implement a **Laravel modular monolith**. No microservices or separate SPA are n
 
 - Server: Laravel + PHP; Laravel service classes/actions, jobs, events/listeners, requests, policies, notifications and database transactions.
 - Frontend: Blade + Livewire + Tailwind CSS + Vite; use minimal Alpine.js for appropriate client-side interactions. Responsive first; avoid an unrelated React frontend.
-- Database: PostgreSQL, normalised relational design, appropriate foreign keys, unique constraints, indexes and transaction boundaries.
+- Database: MySQL 8.4.3 for local development, normalised relational design, appropriate foreign keys, unique constraints, indexes and transaction boundaries.
 - Auth: framework-supported login, secure reset, session rotation, rate limiting, MFA for privileged accounts and deactivation checks.
 - Permissions: Laravel policies/gates and a tested role/permission implementation (Spatie Laravel Permission only if compatible and justified); add **record-level, department-level and workflow-level checks**. No blanket bypass for technical superadmins.
 - Queues: Laravel database-backed queue initially; optional Redis behind configuration when needed. Use queued mail and bulk notification jobs; implement retry behaviour and failed-job visibility.
@@ -205,7 +205,7 @@ Do not try to code the entire portal in a single unreviewed change. Execute in o
 
 **Phase 0 — Discovery/environment:** Inspect repo/Laragon/version compatibility. Parse the entire PRD. Produce requirements traceability and decisions list. Set up Git/testing conventions. **Exit:** confirmed environment, technical choices, explicit blockers.
 
-**Phase 1 — Foundation and UI:** Create Laravel app if needed, connect PostgreSQL, establish design tokens/layouts, build public landing/login, secure auth/MFA, roles/policies, staff dashboard shell, migrations/factories, seed synthetic demo accounts and baseline tests. **Exit:** every role can sign in to a working scoped dashboard; route and record permissions tested.
+**Phase 1 — Foundation and UI:** Create Laravel app if needed, connect Laragon MySQL, establish design tokens/layouts, build public landing/login, secure auth/MFA, roles/policies, staff dashboard shell, migrations/factories, seed synthetic demo accounts and baseline tests. **Exit:** every role can sign in to a working scoped dashboard; route and record permissions tested.
 
 **Phase 2 — Staff directory/profiles:** Build import preview/validation and safe commit, personnel view, profile change requests/verification, lifecycle. **Exit:** tested self vs admin access and import failures.
 
@@ -247,13 +247,13 @@ Use migrations + factories + isolated test database; tests must never point at p
 Write reproducible `docs/SETUP_WINDOWS_LARAGON.md` based on **actual detected local environment**. Cover:
 
 - Existing Laragon project root/path; don't assume `C:\\laragon\\www` without checking.
-- CLI PHP selection, Composer, Git, Node/npm and necessary PHP extensions (`pdo_pgsql`/`pgsql`, fileinfo, mbstring, openssl, intl etc. as required by chosen versions).
-- PostgreSQL service/credentials if present; otherwise exact missing-prerequisite notice and user approval before installation.
+- CLI PHP selection, Composer, Git, Node/npm and necessary PHP extensions (`pdo_mysql`, fileinfo, mbstring, openssl, intl etc. as required by chosen versions).
+- Laragon MySQL service/credentials and port; do not install or switch database engines without user approval.
 - Creating application/database/test database only with safe commands and explicitly named paths.
-- `.env.example` values for `APP_URL`, PGSQL connection, mail log/test configuration, queues, local storage and app timezone; do not include real passwords.
+- `.env.example` values for `APP_URL`, MySQL connection, mail log/test configuration, queues, local storage and app timezone; do not include real passwords.
 - `composer install`, `npm install`, `php artisan key:generate`, `php artisan migrate`, safe demo seeding, `npm run dev`, Laravel queue worker command and local test commands as appropriate.
 - Local HTTPS/domain choices if available; clarify dev/prod differences.
-- Troubleshooting Windows path, PHP extension, port collision, Vite/HMR, file permissions, PostgreSQL connection and mail issues.
+- Troubleshooting Windows path, PHP extension, port collision, Vite/HMR, file permissions, MySQL connection and mail issues.
 - Exact command to reset synthetic demo data only, with destructive operation warning; no silent `migrate:fresh` against valuable data.
 
 Provide a `.env.example`, non-sensitive example configuration and a README with the confirmed local URL and instructions only once known.
@@ -295,7 +295,7 @@ Maintain `docs/REQUIREMENTS_TRACEABILITY.md` with each P0 ID, implementing compo
 
 1. Read the complete uploaded `NfLV_Staff_Portal_PRD.pdf` and these instructions.
 2. Inspect existing project files and current Laragon dependencies without changing or deleting anything.
-3. Provide an environment compatibility report: installed PHP, Composer, Node/npm, Git, PostgreSQL availability, PHP extensions and active working directory. Detect whether the app already exists.
+3. Provide an environment compatibility report: installed PHP, Composer, Node/npm, Git, Laragon MySQL availability, PHP extensions and active working directory. Detect whether the app already exists.
 4. Create the project implementation checklist, module map, initial database ERD and role/permission matrix; mark all undecided institutional business rules.
 5. If prerequisites are satisfied, create the Laravel application (or safely continue the existing one), local config, auth/permissions skeleton, migrations and **first real deliverable: polished landing page + working login + role-appropriate dashboard shells**.
 6. Add automated tests for this first vertical slice and run them.

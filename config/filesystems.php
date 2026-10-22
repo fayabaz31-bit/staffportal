@@ -47,6 +47,20 @@ return [
             'report' => false,
         ],
 
+        /*
+         * Private document vault (J.2). Payslips, official letters, leave evidence
+         * and service-request attachments live here and are only ever streamed
+         * through authorised controllers -- never symlinked into the webroot.
+         */
+        'private' => [
+            'driver' => 'local',
+            'root' => storage_path('app/private'),
+            'serve' => false,
+            'visibility' => 'private',
+            'throw' => false,
+            'report' => false,
+        ],
+
         's3' => [
             'driver' => 's3',
             'key' => env('AWS_ACCESS_KEY_ID'),

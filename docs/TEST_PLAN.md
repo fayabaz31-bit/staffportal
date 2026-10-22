@@ -97,10 +97,11 @@ AC-level mapping: `docs/ACCEPTANCE_EVIDENCE.md`.
 - **Attachments and IDOR:** an attachment cannot be downloaded through a different document's URL; only the originator may attach while editable; downloads are audited; unsupported types and oversized files are rejected.
 - **Organisation structure:** reporting lines reject self-reference, cycles and overlapping open line-management records; delegations grant scope only inside their date window and stop on revocation; non-managers cannot mutate the hierarchy.
 - **Task vs approval vs issuance:** completing a work assignment does not approve a document; approval does not issue it; an issued document cannot be revised.
+- **Canonical departments only:** a personnel import row whose `department_code` is not one of the seven official codes is marked invalid before commit; manual entry accepts only active canonical departments. Legacy departments are deactivated, not deleted, so historical records keep their foreign key and are visibly marked "unmapped".
 
 ## 8. Current result
 
-**195 tests / 1172 assertions / 0 failures** (`php artisan test --compact`), ≈67 s on the local
+**197 tests / 1180 assertions / 0 failures** (`php artisan test --compact`), ≈67 s on the local
 Windows/MySQL machine. One test is reported as *risky* by PHPUnit (it exercises a path without
 its own assertion); the suite still exits successfully.
 

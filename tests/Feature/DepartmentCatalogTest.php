@@ -54,4 +54,19 @@ class DepartmentCatalogTest extends TestCase
         $this->assertSame(1, $legacy->fresh()->sort_order);
         $this->assertSame(7, Department::query()->where('is_active', true)->count());
     }
+
+    public function test_non_canonical_departments_are_deactivated_but_preserved(): void
+    {
+        $legacy = Department::factory()->create([
+            'code' => 'LANG',
+            'name' => 'Languages',
+            'is_active' => true,
+        ]);
+
+        DepartmentCatalog::sync();
+
+        $this->assertFalse($legacy->fresh()->is_active);
+        $this->assertDatabaseHas('departments', ['code' => 'LANG', 'is_active' => false]);
+        $this->assertSame(7, Department::query()->where('is_active', true)->count());
+    }
 }

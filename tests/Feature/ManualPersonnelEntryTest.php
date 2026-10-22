@@ -15,13 +15,13 @@ class ManualPersonnelEntryTest extends TestCase
     public function test_registry_can_open_the_manual_entry_form(): void
     {
         $hr = User::factory()->create(['role' => UserRole::HrRegistryAdmin]);
-        Department::factory()->create(['code' => 'ICT', 'name' => 'Information Technology']);
+        Department::factory()->create(['code' => 'REGISTRY', 'name' => 'Registry']);
 
         $response = $this->actingAs($hr)->get(route('registry.personnel.create'));
 
         $response->assertOk()
             ->assertSeeText('Add staff member')
-            ->assertSeeText('Information Technology');
+            ->assertSeeText('Registry');
     }
 
     public function test_non_registry_user_cannot_open_or_submit_manual_entry(): void
@@ -39,7 +39,7 @@ class ManualPersonnelEntryTest extends TestCase
     public function test_registry_can_create_a_suspended_staff_account_with_optional_email(): void
     {
         $hr = User::factory()->create(['role' => UserRole::HrRegistryAdmin]);
-        $department = Department::factory()->create(['code' => 'ICT', 'name' => 'Information Technology']);
+        $department = Department::factory()->create(['code' => 'REGISTRY', 'name' => 'Registry']);
 
         $response = $this->actingAs($hr)->post(route('registry.personnel.store'), [
             ...$this->validPayload(),
@@ -69,7 +69,7 @@ class ManualPersonnelEntryTest extends TestCase
     {
         $hr = User::factory()->create(['role' => UserRole::HrRegistryAdmin]);
         User::factory()->create(['staff_number' => 'NFLV-2200']);
-        Department::factory()->create(['code' => 'ICT', 'name' => 'Information Technology']);
+        Department::factory()->create(['code' => 'REGISTRY', 'name' => 'Registry']);
 
         $response = $this->actingAs($hr)->from(route('registry.personnel.create'))
             ->post(route('registry.personnel.store'), $this->validPayload());
@@ -86,8 +86,8 @@ class ManualPersonnelEntryTest extends TestCase
             'name' => 'Ada Sample',
             'email' => 'ada.sample@example.test',
             'department_id' => Department::query()->firstOrCreate(
-                ['code' => 'ICT'],
-                ['name' => 'Information Technology', 'is_active' => true],
+                ['code' => 'REGISTRY'],
+                ['name' => 'Registry', 'is_active' => true],
             )->id,
             'designation' => 'Analyst',
             'employment_status' => 'employed',

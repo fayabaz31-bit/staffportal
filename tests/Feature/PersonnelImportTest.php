@@ -71,7 +71,7 @@ class PersonnelImportTest extends TestCase
     public function test_valid_csv_preview_does_not_create_staff_accounts(): void
     {
         $hr = User::factory()->create(['role' => UserRole::HrRegistryAdmin]);
-        Department::factory()->create(['code' => 'ICT', 'name' => 'Information Technology']);
+        Department::factory()->create(['code' => 'REGISTRY', 'name' => 'Registry']);
 
         $response = $this->actingAs($hr)->post(route('registry.personnel-imports.store'), [
             'file' => $this->csvUpload($this->validCsv()),
@@ -92,8 +92,8 @@ class PersonnelImportTest extends TestCase
     public function test_duplicate_staff_numbers_block_the_preview_commit(): void
     {
         $hr = User::factory()->create(['role' => UserRole::HrRegistryAdmin]);
-        Department::factory()->create(['code' => 'ICT', 'name' => 'Information Technology']);
-        $duplicateCsv = $this->validCsv()."NFLV-1200,Second Sample,,ICT,Analyst,employed,,,\n";
+        Department::factory()->create(['code' => 'REGISTRY', 'name' => 'Registry']);
+        $duplicateCsv = $this->validCsv()."NFLV-1200,Second Sample,,REGISTRY,Analyst,employed,,,\n";
 
         $response = $this->actingAs($hr)->post(route('registry.personnel-imports.store'), [
             'file' => $this->csvUpload($duplicateCsv),
@@ -116,9 +116,9 @@ class PersonnelImportTest extends TestCase
     public function test_commit_creates_a_suspended_staff_account_and_profile_without_email(): void
     {
         $hr = User::factory()->create(['role' => UserRole::HrRegistryAdmin]);
-        Department::factory()->create(['code' => 'ICT', 'name' => 'Information Technology']);
+        Department::factory()->create(['code' => 'REGISTRY', 'name' => 'Registry']);
         $csv = "staff_number,name,email,department_code,designation,employment_status,phone_number,personal_email,residential_address\n"
-            .'NFLV-1200,Nneka Sample,,ICT,Instructor,employed,+2348000001200,,Badagry'."\n";
+            .'NFLV-1200,Nneka Sample,,REGISTRY,Instructor,employed,+2348000001200,,Badagry'."\n";
 
         $previewResponse = $this->actingAs($hr)->post(route('registry.personnel-imports.store'), [
             'file' => $this->csvUpload($csv),
@@ -216,6 +216,26 @@ class PersonnelImportTest extends TestCase
             ->assertDontSeeText('Academic Person');
     }
 
+    public function test_an_unknown_department_code_is_rejected_in_the_preview(): void
+    {
+        $hr = User::factory()->create(['role' => UserRole::HrRegistryAdmin]);
+
+        $csv = "staff_number,name,email,department_code,designation,employment_status,phone_number,personal_email,residential_address\n"
+            ."NFLV-1601,Legacy Person,,LANG,Instructor,employed,,,\n";
+
+        $this->actingAs($hr)->post(route('registry.personnel-imports.store'), [
+            'file' => $this->csvUpload($csv),
+        ])->assertRedirect();
+
+        $batch = PersonnelImportBatch::query()->latest('id')->firstOrFail();
+
+        $this->assertSame(1, $batch->error_row_count);
+        $this->get(route('registry.personnel-imports.show', $batch))
+            ->assertOk()
+            ->assertSeeText('Needs correction')
+            ->assertDontSeeText('Commit 1 staff records');
+    }
+
     private function csvUpload(string $contents): UploadedFile
     {
         return UploadedFile::fake()->createWithContent('personnel.csv', $contents);
@@ -224,6 +244,6 @@ class PersonnelImportTest extends TestCase
     private function validCsv(): string
     {
         return "staff_number,name,email,department_code,designation,employment_status,phone_number,personal_email,residential_address\n"
-            .'NFLV-1200,Nneka Sample,nneka@example.test,ICT,Instructor,employed,+2348000001200,nneka.personal@example.test,Badagry'."\n";
+            .'NFLV-1200,Nneka Sample,nneka@example.test,REGISTRY,Instructor,employed,+2348000001200,nneka.personal@example.test,Badagry'."\n";
     }
 }

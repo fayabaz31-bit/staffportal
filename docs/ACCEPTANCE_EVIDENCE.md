@@ -6,7 +6,7 @@ and pass at the time of writing. Where a criterion is only partially evidenced, 
 by a manual procedure rather than an automated test, that is stated explicitly rather than
 reported as a full pass.
 
-Last verified: **195 tests / 1172 assertions passing** (`php artisan test --compact`, 22 Oct 2026).
+Last verified: **197 tests / 1180 assertions passing** (`php artisan test --compact`, 22 Oct 2026).
 
 ---
 
@@ -40,7 +40,7 @@ method below exists in the repository and passed in the last full run.
 | R-01 | A staff-detail upload is previewed in the seven official department groups, regardless of CSV row order. | `PersonnelImportTest::test_import_preview_groups_rows_by_official_department_order` | **PASS** |
 | R-02 | Extended personnel details (gender, grade, unit, first appointment, DOB, marital status, next of kin) persist on commit. | `PersonnelImportTest::test_extended_csv_import_persists_personnel_detail_fields` | **PASS** |
 | R-03 | The staff directory can be filtered to one official department. | `PersonnelImportTest::test_directory_can_be_filtered_to_one_official_department` | **PASS** |
-| R-04 | The canonical seven departments are created in fixed order; syncing upgrades a legacy code with the same name instead of duplicating it. | `DepartmentCatalogTest::test_the_canonical_departments_are_created_in_display_order`, `test_syncing_is_idempotent_and_upgrades_a_legacy_code_with_the_same_name` | **PASS** |
+| R-04 | The canonical seven departments are created in fixed order; syncing upgrades a legacy code with the same name and deactivates other non-canonical departments without deleting historical rows. | `DepartmentCatalogTest::test_the_canonical_departments_are_created_in_display_order`, `test_syncing_is_idempotent_and_upgrades_a_legacy_code_with_the_same_name`, `test_non_canonical_departments_are_deactivated_but_preserved` | **PASS** |
 | R-05 | A supervisor assigns work; the officer acknowledges, progresses, submits and the supervisor completes the cycle. | `RegistryAssignmentTest::test_a_supervisor_can_assign_a_duty_to_a_report_and_the_officer_can_complete_the_cycle` | **PASS** |
 | R-06 | An assignee cannot close their own assignment (task completion is not self-approved). | `RegistryAssignmentTest::test_an_assignee_cannot_close_their_own_duty` | **PASS** |
 | R-07 | Returning work requires a comment and creates a new submission version. | `RegistryAssignmentTest::test_a_return_requires_a_comment_and_creates_a_new_version_for_resubmission` | **PASS** |
@@ -78,7 +78,7 @@ Run the full automated suite:
 php artisan test --compact
 ```
 
-Current result: **195 tests / 1172 assertions / 0 failures** (approximately 67 s on the developer
+Current result: **197 tests / 1180 assertions / 0 failures** (approximately 67 s on the developer
 Windows machine with MySQL 8.4.3). PHPUnit reports one test as *risky* (a path without its own
 assertion); the run still exits successfully. AC-14's load characteristic is inferred from row
 locking, transactions and rate limiting; it is not a substitute for a real load test.

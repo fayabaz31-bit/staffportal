@@ -342,7 +342,7 @@ class PersonnelImportController extends Controller
                     'staff_number' => ['required', 'string', 'max:32', 'regex:/^[A-Z0-9][A-Z0-9\/-]{0,31}$/'],
                     'name' => ['required', 'string', 'max:255'],
                     'email' => ['nullable', 'email', 'max:255'],
-                    'department_code' => ['required', 'string', 'max:20'],
+                    'department_code' => ['required', 'string', 'max:20', Rule::in(DepartmentCatalog::codes())],
                     'designation' => ['required', 'string', 'max:255'],
                     'employment_status' => ['required', Rule::in(['employed', 'on_leave', 'seconded', 'retired', 'terminated'])],
                     'phone_number' => ['nullable', 'string', 'max:40'],

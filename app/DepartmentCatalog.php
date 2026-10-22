@@ -90,5 +90,12 @@ final class DepartmentCatalog
 
             $order++;
         }
+
+        // Legacy placeholders (for example LANG, ICT, EXEC) stay in the table so
+        // historical staff records keep their foreign key, but they are no
+        // longer offered as official departments.
+        Department::query()
+            ->whereNotIn('code', self::codes())
+            ->update(['is_active' => false]);
     }
 }

@@ -75,7 +75,15 @@
                             <tbody>
                                 <tr class="directory-group-row">
                                     <th colspan="5" scope="colgroup">
-                                        {{ $code === 'UNASSIGNED' ? 'Not assigned' : \App\DepartmentCatalog::name($code) }}
+                                        @php($groupDepartment = $profiles->first()->department)
+                                        @if ($groupDepartment === null)
+                                            Not assigned
+                                        @else
+                                            {{ $groupDepartment->name }}
+                                            @unless (in_array($groupDepartment->code, \App\DepartmentCatalog::codes(), true))
+                                                <em class="directory-group-warning">unmapped department</em>
+                                            @endunless
+                                        @endif
                                         <span>{{ $profiles->count() }} on this page</span>
                                     </th>
                                 </tr>

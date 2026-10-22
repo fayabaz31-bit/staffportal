@@ -22,6 +22,7 @@ class PersonnelDirectoryController extends Controller
     {
         return view('registry.personnel.create', [
             'departments' => Department::query()
+                ->whereIn('code', DepartmentCatalog::codes())
                 ->where('is_active', true)
                 ->orderBy('sort_order')
                 ->orderBy('name')
@@ -40,7 +41,7 @@ class PersonnelDirectoryController extends Controller
             'staff_number' => ['required', 'string', 'max:32', 'regex:/^[A-Z0-9][A-Z0-9\/-]{0,31}$/', Rule::unique('users', 'staff_number')],
             'name' => ['required', 'string', 'max:255'],
             'email' => ['nullable', 'email', 'max:255', Rule::unique('users', 'email')],
-            'department_id' => ['required', Rule::exists('departments', 'id')->where('is_active', true)],
+            'department_id' => ['required', Rule::exists('departments', 'id')->whereIn('code', DepartmentCatalog::codes())->where('is_active', true)],
             'designation' => ['required', 'string', 'max:255'],
             'employment_status' => ['required', Rule::in(['employed', 'on_leave', 'seconded', 'retired', 'terminated'])],
             'phone_number' => ['nullable', 'string', 'max:40'],
@@ -110,6 +111,7 @@ class PersonnelDirectoryController extends Controller
         $departmentCode = Str::upper(trim($request->string('department')->toString()));
 
         $departments = Department::query()
+            ->whereIn('code', DepartmentCatalog::codes())
             ->where('is_active', true)
             ->orderBy('sort_order')
             ->orderBy('name')

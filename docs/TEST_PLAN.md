@@ -101,7 +101,7 @@ AC-level mapping: `docs/ACCEPTANCE_EVIDENCE.md`.
 
 ## 8. Current result
 
-**197 tests / 1180 assertions / 0 failures** (`php artisan test --compact`), ≈67 s on the local
+**198 tests / 1196 assertions / 0 failures** (`php artisan test --compact`), ≈68 s on the local
 Windows/MySQL machine. One test is reported as *risky* by PHPUnit (it exercises a path without
 its own assertion); the suite still exits successfully.
 

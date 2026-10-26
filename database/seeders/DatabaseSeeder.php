@@ -16,6 +16,7 @@ use App\UserRole;
 use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
 use Illuminate\Support\Collection;
+use Illuminate\Support\Facades\Hash;
 
 class DatabaseSeeder extends Seeder
 {
@@ -33,12 +34,13 @@ class DatabaseSeeder extends Seeder
         $this->syncDepartments();
 
         $departments = Department::query()->pluck('id', 'code');
+        $sharedPassword = Hash::make('password');
 
         foreach (UserRole::cases() as $role) {
             $user = User::updateOrCreate(['staff_number' => $role->demoStaffNumber()], [
                 'name' => $role->demoName(),
                 'email' => $role->demoEmail(),
-                'password' => 'password',
+                'password' => $sharedPassword,
                 'status' => 'active',
                 'role' => $role,
             ]);
@@ -57,14 +59,19 @@ class DatabaseSeeder extends Seeder
             $user->staffProfile()->updateOrCreate([], [
                 'department_id' => $departments[$departmentCode],
                 'designation' => $designation,
+                'gender' => $this->demoGender($role),
+                'grade_level' => $this->demoGradeLevel($role),
+                'unit' => $this->demoUnit($role),
                 'employment_status' => 'employed',
                 'phone_number' => '+234 800 000 '.substr($role->demoStaffNumber(), -4),
                 'personal_email' => 'contact.'.substr($role->demoStaffNumber(), -4).'@example.test',
-                'residential_address' => 'Demo Residence, Badagry',
+                'residential_address' => '12 Marina Road, Badagry, Lagos',
             ]);
         }
 
         $this->seedRegistryPilotAccounts($departments);
+
+        $this->call(StaffDirectorySeeder::class);
 
         $leaveTypes = [
             [
@@ -160,6 +167,47 @@ class DatabaseSeeder extends Seeder
     }
 
     /**
+     * The recorded gender for each demo role account.
+     */
+    private function demoGender(UserRole $role): string
+    {
+        return match ($role) {
+            UserRole::Staff, UserRole::HeadOfDepartment, UserRole::Director,
+            UserRole::IctSuperadmin, UserRole::AuditorReadonly => 'male',
+            UserRole::HrRegistryAdmin, UserRole::BursaryAdmin,
+            UserRole::InstitutionalSuperadmin => 'female',
+        };
+    }
+
+    private function demoGradeLevel(UserRole $role): string
+    {
+        return match ($role) {
+            UserRole::Staff => 'GL 10',
+            UserRole::HrRegistryAdmin => 'GL 15',
+            UserRole::BursaryAdmin => 'GL 12',
+            UserRole::HeadOfDepartment => 'GL 15',
+            UserRole::Director => 'GL 17',
+            UserRole::IctSuperadmin => 'GL 13',
+            UserRole::InstitutionalSuperadmin => 'GL 16',
+            UserRole::AuditorReadonly => 'GL 12',
+        };
+    }
+
+    private function demoUnit(UserRole $role): string
+    {
+        return match ($role) {
+            UserRole::Staff => 'Language Studies Unit',
+            UserRole::HrRegistryAdmin => 'Personnel Unit',
+            UserRole::BursaryAdmin => 'Accounts Unit',
+            UserRole::HeadOfDepartment => 'French Studies Unit',
+            UserRole::Director => 'Executive Office',
+            UserRole::InstitutionalSuperadmin => 'Registry Office',
+            UserRole::IctSuperadmin => 'ICT Unit',
+            UserRole::AuditorReadonly => 'Internal Audit Unit',
+        };
+    }
+
+    /**
      * Demo accounts for the Registry pilot: Registrar and Personnel Officer.
      *
      * These use the HR/Registry role so they receive the Registry dashboard, but
@@ -169,18 +217,20 @@ class DatabaseSeeder extends Seeder
      */
     private function seedRegistryPilotAccounts($departments): void
     {
+        $sharedPassword = Hash::make('password');
+
         $registrar = User::updateOrCreate(['staff_number' => 'NFLV-0009'], [
-            'name' => 'Demo Registrar',
+            'name' => 'Amina Bello',
             'email' => 'demo.registrar@nfvl.test',
-            'password' => 'password',
+            'password' => $sharedPassword,
             'status' => 'active',
             'role' => UserRole::HrRegistryAdmin,
         ]);
 
         $personnelOfficer = User::updateOrCreate(['staff_number' => 'NFLV-0010'], [
-            'name' => 'Demo Personnel Officer',
+            'name' => 'Tunde Ajayi',
             'email' => 'demo.personnel.officer@nfvl.test',
-            'password' => 'password',
+            'password' => $sharedPassword,
             'status' => 'active',
             'role' => UserRole::HrRegistryAdmin,
         ]);
@@ -189,10 +239,13 @@ class DatabaseSeeder extends Seeder
             $officer->staffProfile()->updateOrCreate([], [
                 'department_id' => $departments[DepartmentCatalog::REGISTRY],
                 'designation' => $officer->is($registrar) ? 'Registrar' : 'Personnel Officer',
+                'gender' => $officer->is($registrar) ? 'female' : 'male',
+                'grade_level' => $officer->is($registrar) ? 'GL 16' : 'GL 09',
+                'unit' => $officer->is($registrar) ? 'Registry Office' : 'Personnel Unit',
                 'employment_status' => 'employed',
                 'phone_number' => '+234 800 000 '.substr($officer->staff_number, -4),
                 'personal_email' => 'contact.'.substr($officer->staff_number, -4).'@example.test',
-                'residential_address' => 'Demo Residence, Badagry',
+                'residential_address' => '8 Market Street, Badagry, Lagos',
             ]);
         }
     }

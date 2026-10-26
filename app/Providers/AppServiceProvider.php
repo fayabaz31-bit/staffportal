@@ -60,6 +60,17 @@ class AppServiceProvider extends ServiceProvider
             ...DutyCatalog::DELEGATED_LEAD_DUTIES,
         ) && $user->primaryUnit() === 'registry');
 
+        // Read access to the personnel directory and full staff profiles is
+        // distinct from the power to create or correct records. Registry
+        // leaders need the full record without inheriting account-wide or
+        // technical-administration authority.
+        Gate::define('view-personnel-records', fn (User $user): bool => $active($user) && $user->hasDuty(
+            DutyCatalog::REGISTRY_PERSONNEL_RECORDS,
+            DutyCatalog::REGISTRY_HEAD_REVIEW,
+            DutyCatalog::REGISTRY_REGISTRAR_APPROVE,
+            DutyCatalog::REGISTRY_DIRECTOR_ESCALATION,
+        ));
+
         Gate::define('manage-personnel-records', fn (User $user): bool => $active($user) && $user->hasDuty(DutyCatalog::REGISTRY_PERSONNEL_RECORDS));
 
         Gate::define('manage-memos', fn (User $user): bool => $active($user) && $user->hasDuty(DutyCatalog::MEMO_AUTHOR));

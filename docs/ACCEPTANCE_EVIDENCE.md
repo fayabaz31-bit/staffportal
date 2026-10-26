@@ -6,7 +6,7 @@ and pass at the time of writing. Where a criterion is only partially evidenced, 
 by a manual procedure rather than an automated test, that is stated explicitly rather than
 reported as a full pass.
 
-Last verified: **197 tests / 1180 assertions passing** (`php artisan test --compact`, 22 Oct 2026).
+Last verified: **198 tests / 1196 assertions passing** (`php artisan test --compact`, 26 Oct 2026).
 
 ---
 
@@ -78,7 +78,7 @@ Run the full automated suite:
 php artisan test --compact
 ```
 
-Current result: **197 tests / 1180 assertions / 0 failures** (approximately 67 s on the developer
+Current result: **198 tests / 1196 assertions / 0 failures** (approximately 68 s on the developer
 Windows machine with MySQL 8.4.3). PHPUnit reports one test as *risky* (a path without its own
 assertion); the run still exits successfully. AC-14's load characteristic is inferred from row
 locking, transactions and rate limiting; it is not a substitute for a real load test.

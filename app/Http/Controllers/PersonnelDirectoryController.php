@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\DepartmentCatalog;
+use App\Models\AuditLog;
 use App\Models\Department;
 use App\Models\StaffProfile;
 use App\Models\User;
@@ -161,6 +162,21 @@ class PersonnelDirectoryController extends Controller
             'departmentCounts' => $departmentCounts,
             'departmentCode' => $departmentCode,
             'search' => $search,
+        ]);
+    }
+
+    public function show(StaffProfile $staffProfile): View
+    {
+        $staffProfile->load(['user', 'department', 'organisationalUnit']);
+
+        abort_if($staffProfile->user === null, 404);
+
+        AuditLog::record('personnel.profile_viewed', $staffProfile, [
+            'staff_number' => $staffProfile->user->staff_number,
+        ]);
+
+        return view('registry.personnel.show', [
+            'staffProfile' => $staffProfile,
         ]);
     }
 }

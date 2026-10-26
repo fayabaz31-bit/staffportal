@@ -48,7 +48,16 @@ enum UserRole: string
 
     public function demoName(): string
     {
-        return $this === self::Staff ? 'Demo Staff Member' : 'Demo '.$this->label();
+        return match ($this) {
+            self::Staff => 'Adebayo Ogunleye',
+            self::HrRegistryAdmin => 'Ngozi Okafor',
+            self::BursaryAdmin => 'Halima Sani',
+            self::HeadOfDepartment => 'Chinedu Eze',
+            self::Director => 'Olufemi Adeyemi',
+            self::IctSuperadmin => 'Musa Garba',
+            self::InstitutionalSuperadmin => 'Funmilayo Balogun',
+            self::AuditorReadonly => 'Emeka Nwosu',
+        };
     }
 
     public function dashboardTitle(): string
@@ -102,6 +111,7 @@ enum UserRole: string
                 ['category' => 'REPORTING', 'title' => 'Department overview', 'description' => 'View operational information within department scope.', 'status' => 'READY', 'route_name' => 'reports.index'],
             ],
             self::Director => [
+                ['category' => 'PERSONNEL', 'title' => 'Staff directory', 'description' => 'Read-only access to full institutional personnel profiles.', 'status' => 'READY', 'route_name' => 'registry.personnel.index'],
                 ['category' => 'WORKFLOW', 'title' => 'Approval queue', 'description' => 'Decide only on cases assigned to the current workflow stage.', 'status' => 'READY', 'route_name' => 'approvals.leave.index'],
                 ['category' => 'CORRESPONDENCE', 'title' => 'Registry correspondence', 'description' => 'Decide reserved Registry matters routed to the Director/CEO.', 'status' => 'READY', 'route_name' => 'registry.correspondence.index'],
                 ['category' => 'CORRESPONDENCE', 'title' => 'Memo review', 'description' => 'Review communications routed under approved policy.', 'status' => 'IN DEVELOPMENT'],

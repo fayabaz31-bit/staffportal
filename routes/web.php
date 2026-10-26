@@ -154,8 +154,19 @@ Route::middleware('auth')
                 ->name('personnel.create');
             Route::post('/personnel', [PersonnelDirectoryController::class, 'store'])
                 ->name('personnel.store');
+        });
+
+        // Registry leadership may read the directory and full profiles without
+        // being able to create or correct personnel records.
+        Route::middleware('can:view-personnel-records')->group(function () {
             Route::get('/personnel', [PersonnelDirectoryController::class, 'index'])
                 ->name('personnel.index');
+            Route::get('/personnel/{staffProfile}', [PersonnelDirectoryController::class, 'show'])
+                ->whereNumber('staffProfile')
+                ->name('personnel.show');
+        });
+
+        Route::middleware('can:manage-personnel-records')->group(function () {
             Route::get('/personnel-imports/create', [PersonnelImportController::class, 'create'])
                 ->name('personnel-imports.create');
             Route::get('/personnel-imports/template', [PersonnelImportController::class, 'template'])

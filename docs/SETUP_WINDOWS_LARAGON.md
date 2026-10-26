@@ -142,18 +142,20 @@ php artisan test --filter=AcceptanceCriteriaHardeningTest
 
 The database seeder syncs the seven official departments and provisions demo accounts across the 8 role domains plus two Registry pilot desks (password: `password`):
 
-| Role | Staff Number | Email | Primary Capability |
-|---|---|---|---|
-| **Staff Member** | `NFLV-0001` | `demo.staff@nfvl.test` | Profile, Memos, Payslips, Leave, Service Requests |
-| **Head of HR (Registry)** | `NFLV-0002` | `demo.hr.registry.admin@nfvl.test` | Personnel Directory, CSV Import, Profile Approvals, Leave Verify, Registry Desk, **Head of HR correspondence review** |
-| **Bursary Admin** | `NFLV-0003` | `demo.bursary.admin@nfvl.test` | Payslip ZIP Batches, Reconciliation, Confidential Salary Enquiries |
-| **Head of Department** | `NFLV-0004` | `demo.head.of.department@nfvl.test` | Department Leave Recommendation, Department Reports |
-| **Director** | `NFLV-0005` | `demo.director@nfvl.test` | Final Leave Approvals, Official PDF Letters, Institutional Oversight, **Director escalation for reserved Registry matters** |
-| **ICT Superadmin** | `NFLV-0006` | `demo.ict.superadmin@nfvl.test` | Account Lifecycle, Technical Configuration, ICT Helpdesk |
-| **Institutional Superadmin** | `NFLV-0007` | `demo.institutional.superadmin@nfvl.test` | Audited Governance Oversight across all units |
-| **Auditor / Read-Only** | `NFLV-0008` | `demo.auditor.readonly@nfvl.test` | Scoped Read-Only Reporting and Export Audits |
-| **Registrar (Registry pilot)** | `NFLV-0009` | `demo.registrar@nfvl.test` | **Final Registry approval**, Registry correspondence issuance, Registry duty assignment |
-| **Personnel Officer (Registry pilot)** | `NFLV-0010` | `demo.personnel.officer@nfvl.test` | Baseline Registry desk work and assigned duties only |
+| Role | Demo Name | Staff Number | Email | Primary Capability |
+|---|---|---|---|---|
+| **Staff Member** | Adebayo Ogunleye | `NFLV-0001` | `demo.staff@nfvl.test` | Profile, Memos, Payslips, Leave, Service Requests |
+| **Head of HR (Registry)** | Ngozi Okafor | `NFLV-0002` | `demo.hr.registry.admin@nfvl.test` | Personnel Directory, CSV Import, Profile Approvals, Leave Verify, Registry Desk, **Head of HR correspondence review** |
+| **Bursary Admin** | Halima Sani | `NFLV-0003` | `demo.bursary.admin@nfvl.test` | Payslip ZIP Batches, Reconciliation, Confidential Salary Enquiries |
+| **Head of Department** | Chinedu Eze | `NFLV-0004` | `demo.head.of.department@nfvl.test` | Department Leave Recommendation, Department Reports |
+| **Director** | Olufemi Adeyemi | `NFLV-0005` | `demo.director@nfvl.test` | Final Leave Approvals, Official PDF Letters, Institutional Oversight, **Director escalation for reserved Registry matters** |
+| **ICT Superadmin** | Musa Garba | `NFLV-0006` | `demo.ict.superadmin@nfvl.test` | Account Lifecycle, Technical Configuration, ICT Helpdesk |
+| **Institutional Superadmin** | Funmilayo Balogun | `NFLV-0007` | `demo.institutional.superadmin@nfvl.test` | Audited Governance Oversight across all units |
+| **Auditor / Read-Only** | Emeka Nwosu | `NFLV-0008` | `demo.auditor.readonly@nfvl.test` | Scoped Read-Only Reporting and Export Audits |
+| **Registrar (Registry pilot)** | Amina Bello | `NFLV-0009` | `demo.registrar@nfvl.test` | **Final Registry approval**, Registry correspondence issuance, Registry duty assignment |
+| **Personnel Officer (Registry pilot)** | Tunde Ajayi | `NFLV-0010` | `demo.personnel.officer@nfvl.test` | Baseline Registry desk work and assigned duties only |
+
+The seeder also creates 40 additional staff records (`NFLV-0011`–`NFLV-0050`) with Nigerian names and full personnel details, so a fresh database contains **50 staff in the directory**: Academics 14, Registry 9, Bursary 7, Health and Services 6, Works and Services 6, Staff School 5 and Directorate 3. Re-running `php artisan db:seed` updates these records in place.
 
 The seeder also creates the units `REG-PERSONNEL` (Head of HR), `REG-RECORDS` (Registrar) and
 `DIR-EXECUTIVE` (Director), reporting lines, and the three default correspondence workflow

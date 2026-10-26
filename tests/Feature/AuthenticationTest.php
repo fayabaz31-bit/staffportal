@@ -2,6 +2,9 @@
 
 namespace Tests\Feature;
 
+use App\DepartmentCatalog;
+use App\Models\Department;
+use App\Models\StaffProfile;
 use App\Models\User;
 use App\UserRole;
 use Database\Seeders\DatabaseSeeder;
@@ -100,8 +103,10 @@ class AuthenticationTest extends TestCase
 
         // One account per role, plus the two Registry pilot desks (Registrar and
         // Personnel Officer) that share the HR/Registry role but hold narrower
-        // duties.
-        $this->assertDatabaseCount('users', count(UserRole::cases()) + 2);
+        // duties, plus forty directory staff. The seeder is designed so the
+        // directory contains exactly fifty staff records.
+        $this->assertDatabaseCount('users', 50);
+        $this->assertDatabaseCount('staff_profiles', 50);
 
         foreach (UserRole::cases() as $role) {
             $this->assertDatabaseHas('users', [
@@ -110,8 +115,27 @@ class AuthenticationTest extends TestCase
             ]);
         }
 
-        $this->assertDatabaseHas('users', ['staff_number' => 'NFLV-0009', 'name' => 'Demo Registrar']);
-        $this->assertDatabaseHas('users', ['staff_number' => 'NFLV-0010', 'name' => 'Demo Personnel Officer']);
+        $this->assertDatabaseHas('users', ['staff_number' => 'NFLV-0009', 'name' => 'Amina Bello']);
+        $this->assertDatabaseHas('users', ['staff_number' => 'NFLV-0010', 'name' => 'Tunde Ajayi']);
+    }
+
+    public function test_seeded_staff_directory_covers_every_official_department(): void
+    {
+        $this->seed(DatabaseSeeder::class);
+
+        $this->assertSame(50, StaffProfile::query()->whereNotNull('department_id')->count());
+
+        foreach (DepartmentCatalog::codes() as $code) {
+            $department = Department::query()->where('code', $code)->first();
+
+            $this->assertNotNull($department, "Department {$code} was not seeded.");
+
+            $this->assertGreaterThan(
+                0,
+                StaffProfile::query()->where('department_id', $department->getKey())->count(),
+                "Department {$code} has no staff records.",
+            );
+        }
     }
 
     public function test_active_user_can_sign_in_with_staff_number(): void

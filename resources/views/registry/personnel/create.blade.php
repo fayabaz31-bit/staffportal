@@ -47,7 +47,7 @@
 
                 <section class="profile-section" aria-labelledby="official-heading">
                     <div class="section-heading"><div><p class="eyebrow eyebrow-dark">OFFICIAL RECORD</p><h2 id="official-heading">Personnel details</h2></div><span>REQUIRED</span></div>
-                    <form class="profile-form" method="POST" action="{{ route('registry.personnel.store') }}">
+                    <form class="profile-form" method="POST" action="{{ route('registry.personnel.store') }}" enctype="multipart/form-data">
                         @csrf
                         <div class="profile-form-grid">
                             <div class="field-group">
@@ -134,6 +134,11 @@
                                 @error('marital_status')<p class="field-error">{{ $message }}</p>@enderror
                             </div>
                             <div class="field-group">
+                                <label for="state_of_origin">State of origin</label>
+                                <input id="state_of_origin" name="state_of_origin" type="text" value="{{ old('state_of_origin') }}" maxlength="64" placeholder="e.g. Lagos">
+                                @error('state_of_origin')<p class="field-error">{{ $message }}</p>@enderror
+                            </div>
+                            <div class="field-group">
                                 <label for="grade_level">Grade level</label>
                                 <input id="grade_level" name="grade_level" type="text" value="{{ old('grade_level') }}" maxlength="40" placeholder="e.g. GL 08">
                                 @error('grade_level')<p class="field-error">{{ $message }}</p>@enderror
@@ -162,6 +167,35 @@
                                 <label for="next_of_kin_phone">Next of kin phone</label>
                                 <input id="next_of_kin_phone" name="next_of_kin_phone" type="tel" value="{{ old('next_of_kin_phone') }}" maxlength="40">
                                 @error('next_of_kin_phone')<p class="field-error">{{ $message }}</p>@enderror
+                            </div>
+                        </div>
+
+                        <div class="section-heading contact-section-heading"><div><p class="eyebrow eyebrow-dark">QUALIFICATIONS & PENSION</p><h2>Educational, professional, PENCOM and PFA</h2></div><span>OPTIONAL</span></div>
+                        <div class="profile-form-grid">
+                            <div class="field-group profile-address-field">
+                                <label for="educational_qualifications">Educational qualifications</label>
+                                <textarea id="educational_qualifications" name="educational_qualifications" rows="3" maxlength="2000">{{ old('educational_qualifications') }}</textarea>
+                                @error('educational_qualifications')<p class="field-error">{{ $message }}</p>@enderror
+                            </div>
+                            <div class="field-group profile-address-field">
+                                <label for="professional_qualifications">Professional qualifications</label>
+                                <textarea id="professional_qualifications" name="professional_qualifications" rows="3" maxlength="2000">{{ old('professional_qualifications') }}</textarea>
+                                @error('professional_qualifications')<p class="field-error">{{ $message }}</p>@enderror
+                            </div>
+                            <div class="field-group">
+                                <label for="pencom_number">PENCOM number</label>
+                                <input id="pencom_number" name="pencom_number" type="text" value="{{ old('pencom_number') }}" maxlength="64">
+                                @error('pencom_number')<p class="field-error">{{ $message }}</p>@enderror
+                            </div>
+                            <div class="field-group">
+                                <label for="pfa_name">PFA name</label>
+                                <input id="pfa_name" name="pfa_name" type="text" value="{{ old('pfa_name') }}" maxlength="128" placeholder="e.g. Premium Pension Limited">
+                                @error('pfa_name')<p class="field-error">{{ $message }}</p>@enderror
+                            </div>
+                            <div class="field-group profile-address-field">
+                                <label for="passport_photo">Passport photograph (JPG/JPEG/PNG, max 2MB)</label>
+                                <input id="passport_photo" name="passport_photo" type="file" accept=".jpg,.jpeg,.png">
+                                @error('passport_photo')<p class="field-error">{{ $message }}</p>@enderror
                             </div>
                         </div>
 

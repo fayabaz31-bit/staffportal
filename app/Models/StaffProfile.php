@@ -6,6 +6,7 @@ use Illuminate\Database\Eloquent\Attributes\Fillable;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
+use Illuminate\Database\Eloquent\Relations\HasMany;
 
 #[Fillable([
     'user_id',
@@ -24,6 +25,12 @@ use Illuminate\Database\Eloquent\Relations\BelongsTo;
     'phone_number',
     'personal_email',
     'residential_address',
+    'state_of_origin',
+    'educational_qualifications',
+    'professional_qualifications',
+    'pencom_number',
+    'pfa_name',
+    'passport_path',
 ])]
 class StaffProfile extends Model
 {
@@ -56,5 +63,20 @@ class StaffProfile extends Model
     public function organisationalUnit(): BelongsTo
     {
         return $this->belongsTo(OrganisationalUnit::class);
+    }
+
+    /** @return HasMany<StaffDocument, $this> */
+    public function documents(): HasMany
+    {
+        return $this->hasMany(StaffDocument::class)->latest();
+    }
+
+    public function passportUrl(): ?string
+    {
+        if (! $this->passport_path) {
+            return null;
+        }
+
+        return asset('storage/'.$this->passport_path);
     }
 }

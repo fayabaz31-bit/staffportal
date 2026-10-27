@@ -56,10 +56,16 @@ class PersonnelDirectoryController extends Controller
             'marital_status' => ['nullable', Rule::in(['single', 'married', 'divorced', 'widowed', 'other'])],
             'next_of_kin' => ['nullable', 'string', 'max:255'],
             'next_of_kin_phone' => ['nullable', 'string', 'max:40'],
+            'state_of_origin' => ['nullable', 'string', 'max:64'],
+            'educational_qualifications' => ['nullable', 'string', 'max:2000'],
+            'professional_qualifications' => ['nullable', 'string', 'max:2000'],
+            'pencom_number' => ['nullable', 'string', 'max:64'],
+            'pfa_name' => ['nullable', 'string', 'max:128'],
+            'passport_photo' => ['nullable', 'image', 'mimes:jpg,jpeg,png', 'max:2048'],
         ]);
 
         try {
-            DB::transaction(function () use ($validated): void {
+            DB::transaction(function () use ($validated, $request): void {
                 $department = Department::query()
                     ->whereKey($validated['department_id'])
                     ->where('is_active', true)
@@ -75,7 +81,7 @@ class PersonnelDirectoryController extends Controller
                     'role' => UserRole::Staff,
                 ]);
 
-                $user->staffProfile()->create([
+                $profile = $user->staffProfile()->create([
                     'department_id' => $department->id,
                     'designation' => trim($validated['designation']),
                     'gender' => $validated['gender'] ?? null,
@@ -90,7 +96,17 @@ class PersonnelDirectoryController extends Controller
                     'phone_number' => $validated['phone_number'] ?? null,
                     'personal_email' => $validated['personal_email'] ?? null,
                     'residential_address' => $validated['residential_address'] ?? null,
+                    'state_of_origin' => $validated['state_of_origin'] ?? null,
+                    'educational_qualifications' => $validated['educational_qualifications'] ?? null,
+                    'professional_qualifications' => $validated['professional_qualifications'] ?? null,
+                    'pencom_number' => $validated['pencom_number'] ?? null,
+                    'pfa_name' => $validated['pfa_name'] ?? null,
                 ]);
+
+                if ($request->hasFile('passport_photo')) {
+                    $path = $request->file('passport_photo')->store('staff/passports', 'public');
+                    $profile->update(['passport_path' => $path]);
+                }
             });
         } catch (QueryException $exception) {
             if (($exception->errorInfo[1] ?? null) !== 1062) {
@@ -167,7 +183,7 @@ class PersonnelDirectoryController extends Controller
 
     public function show(StaffProfile $staffProfile): View
     {
-        $staffProfile->load(['user', 'department', 'organisationalUnit']);
+        $staffProfile->load(['user', 'department', 'organisationalUnit', 'documents.uploader']);
 
         abort_if($staffProfile->user === null, 404);
 
@@ -178,5 +194,36 @@ class PersonnelDirectoryController extends Controller
         return view('registry.personnel.show', [
             'staffProfile' => $staffProfile,
         ]);
+    }
+
+    public function uploadDocument(Request $request, StaffProfile $staffProfile): RedirectResponse
+    {
+        $validated = $request->validate([
+            'title' => ['required', 'string', 'max:150'],
+            'type' => ['required', Rule::in(['certificate', 'id_card', 'appointment_letter', 'promotion_letter', 'other'])],
+            'document' => ['required', 'file', 'mimes:pdf,jpg,jpeg,png,doc,docx', 'max:5120'],
+            'notes' => ['nullable', 'string', 'max:500'],
+        ]);
+
+        $file = $request->file('document');
+        $path = $file->store('staff/documents', 'public');
+
+        $staffProfile->documents()->create([
+            'uploaded_by' => $request->user()->id,
+            'title' => $validated['title'],
+            'type' => $validated['type'],
+            'file_path' => $path,
+            'file_name' => $file->getClientOriginalName(),
+            'mime_type' => $file->getClientMimeType(),
+            'file_size' => $file->getSize(),
+            'notes' => $validated['notes'] ?? null,
+        ]);
+
+        AuditLog::record('personnel.document_uploaded', $staffProfile, [
+            'title' => $validated['title'],
+            'type' => $validated['type'],
+        ]);
+
+        return redirect()->route('registry.personnel.show', $staffProfile)->with('status', 'Document uploaded successfully.');
     }
 }

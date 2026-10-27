@@ -49,6 +49,7 @@ Route::middleware('auth')->group(function () {
     Route::post('/logout', [AuthenticatedSessionController::class, 'destroy'])->name('logout');
     Route::get('/profile', [StaffProfileController::class, 'show'])->name('profile.show');
     Route::patch('/profile/contact', [StaffProfileController::class, 'updateContact'])->name('profile.contact.update');
+    Route::post('/profile/documents', [StaffProfileController::class, 'uploadDocument'])->name('profile.documents.upload');
     Route::post('/profile/change-requests', [ProfileChangeRequestController::class, 'store'])
         ->name('profile.change-requests.store');
     Route::get('/memos', [MemoController::class, 'index'])->name('memos.index');
@@ -164,6 +165,10 @@ Route::middleware('auth')
             Route::get('/personnel/{staffProfile}', [PersonnelDirectoryController::class, 'show'])
                 ->whereNumber('staffProfile')
                 ->name('personnel.show');
+            Route::post('/personnel/{staffProfile}/documents', [PersonnelDirectoryController::class, 'uploadDocument'])
+                ->middleware('can:manage-personnel-records')
+                ->whereNumber('staffProfile')
+                ->name('personnel.documents.upload');
         });
 
         Route::middleware('can:manage-personnel-records')->group(function () {

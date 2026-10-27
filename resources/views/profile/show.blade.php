@@ -42,6 +42,15 @@
                     <p class="profile-notice profile-notice-error" role="alert">{{ session('error') }}</p>
                 @endif
 
+                @if ($profile->passportUrl())
+                    <section class="profile-section" aria-labelledby="my-photo-heading">
+                        <div class="section-heading"><div><p class="eyebrow eyebrow-dark">PHOTO</p><h2 id="my-photo-heading">My passport photograph</h2></div><span>ON FILE</span></div>
+                        <div class="profile-photo-wrap">
+                            <img src="{{ $profile->passportUrl() }}" alt="Your passport photograph" class="profile-passport-photo">
+                        </div>
+                    </section>
+                @endif
+
                 <section class="profile-section" aria-labelledby="official-heading">
                     <div class="section-heading"><div><p class="eyebrow eyebrow-dark">OFFICIAL RECORD</p><h2 id="official-heading">Employment details</h2></div><span>READ ONLY</span></div>
                     <dl class="profile-details">
@@ -51,12 +60,13 @@
                         <div><dt>Designation</dt><dd>{{ $profile->designation ?? 'Not recorded' }}</dd></div>
                         <div><dt>Employment status</dt><dd>{{ str($profile->employment_status)->replace('_', ' ')->title() }}</dd></div>
                         <div><dt>Institutional email</dt><dd>{{ $user->email }}</dd></div>
+                        <div><dt>State of origin</dt><dd>{{ $profile->state_of_origin ?? 'Not recorded' }}</dd></div>
                     </dl>
                 </section>
 
                 <section class="profile-section" aria-labelledby="contact-heading">
-                    <div class="section-heading"><div><p class="eyebrow eyebrow-dark">SELF-EDITABLE</p><h2 id="contact-heading">Contact details</h2></div><span>PERSONAL INFORMATION</span></div>
-                    <form class="profile-form" method="POST" action="{{ route('profile.contact.update') }}">
+                    <div class="section-heading"><div><p class="eyebrow eyebrow-dark">SELF-EDITABLE</p><h2 id="contact-heading">Contact, bio-data, qualifications and passport</h2></div><span>PERSONAL INFORMATION</span></div>
+                    <form class="profile-form" method="POST" action="{{ route('profile.contact.update') }}" enctype="multipart/form-data">
                         @csrf
                         @method('PATCH')
                         <div class="profile-form-grid">
@@ -70,14 +80,93 @@
                                 <input id="personal_email" name="personal_email" type="email" value="{{ old('personal_email', $profile->personal_email) }}" autocomplete="email">
                                 @error('personal_email')<p class="field-error">{{ $message }}</p>@enderror
                             </div>
+                            <div class="field-group">
+                                <label for="state_of_origin">State of origin</label>
+                                <input id="state_of_origin" name="state_of_origin" type="text" value="{{ old('state_of_origin', $profile->state_of_origin) }}" maxlength="64">
+                                @error('state_of_origin')<p class="field-error">{{ $message }}</p>@enderror
+                            </div>
+                            <div class="field-group">
+                                <label for="pencom_number">PENCOM number</label>
+                                <input id="pencom_number" name="pencom_number" type="text" value="{{ old('pencom_number', $profile->pencom_number) }}" maxlength="64">
+                                @error('pencom_number')<p class="field-error">{{ $message }}</p>@enderror
+                            </div>
+                            <div class="field-group">
+                                <label for="pfa_name">PFA name</label>
+                                <input id="pfa_name" name="pfa_name" type="text" value="{{ old('pfa_name', $profile->pfa_name) }}" maxlength="128">
+                                @error('pfa_name')<p class="field-error">{{ $message }}</p>@enderror
+                            </div>
                             <div class="field-group profile-address-field">
                                 <label for="residential_address">Residential address</label>
                                 <textarea id="residential_address" name="residential_address" rows="3">{{ old('residential_address', $profile->residential_address) }}</textarea>
                                 @error('residential_address')<p class="field-error">{{ $message }}</p>@enderror
                             </div>
+                            <div class="field-group profile-address-field">
+                                <label for="educational_qualifications">Educational qualifications</label>
+                                <textarea id="educational_qualifications" name="educational_qualifications" rows="3" maxlength="2000">{{ old('educational_qualifications', $profile->educational_qualifications) }}</textarea>
+                                @error('educational_qualifications')<p class="field-error">{{ $message }}</p>@enderror
+                            </div>
+                            <div class="field-group profile-address-field">
+                                <label for="professional_qualifications">Professional qualifications</label>
+                                <textarea id="professional_qualifications" name="professional_qualifications" rows="3" maxlength="2000">{{ old('professional_qualifications', $profile->professional_qualifications) }}</textarea>
+                                @error('professional_qualifications')<p class="field-error">{{ $message }}</p>@enderror
+                            </div>
+                            <div class="field-group profile-address-field">
+                                <label for="passport_photo">Update passport photograph (JPG/JPEG/PNG, max 2MB)</label>
+                                <input id="passport_photo" name="passport_photo" type="file" accept=".jpg,.jpeg,.png">
+                                @error('passport_photo')<p class="field-error">{{ $message }}</p>@enderror
+                            </div>
                         </div>
-                        <button class="button button-primary profile-submit" type="submit">Save contact details <span aria-hidden="true">&#8594;</span></button>
+                        <button class="button button-primary profile-submit" type="submit">Save profile details <span aria-hidden="true">&#8594;</span></button>
                     </form>
+                </section>
+
+                <section class="profile-section" aria-labelledby="my-docs-upload-heading">
+                    <div class="section-heading"><div><p class="eyebrow eyebrow-dark">MY DOCUMENTS</p><h2 id="my-docs-upload-heading">Upload certificates and other relevant documents</h2></div><span>SELF SERVICE</span></div>
+                    <form class="profile-form" method="POST" action="{{ route('profile.documents.upload') }}" enctype="multipart/form-data">
+                        @csrf
+                        <div class="profile-form-grid">
+                            <div class="field-group">
+                                <label for="my_doc_title">Document title</label>
+                                <input id="my_doc_title" name="title" type="text" maxlength="150" required>
+                            </div>
+                            <div class="field-group">
+                                <label for="my_doc_type">Document type</label>
+                                <select id="my_doc_type" name="type" required>
+                                    <option value="certificate">Certificate</option>
+                                    <option value="id_card">ID card</option>
+                                    <option value="appointment_letter">Appointment letter</option>
+                                    <option value="promotion_letter">Promotion letter</option>
+                                    <option value="other">Other</option>
+                                </select>
+                            </div>
+                            <div class="field-group profile-address-field">
+                                <label for="my_doc_file">File (PDF, JPG, PNG, DOC, DOCX, max 5MB)</label>
+                                <input id="my_doc_file" name="document" type="file" accept=".pdf,.jpg,.jpeg,.png,.doc,.docx" required>
+                            </div>
+                            <div class="field-group profile-address-field">
+                                <label for="my_doc_notes">Notes</label>
+                                <textarea id="my_doc_notes" name="notes" rows="2" maxlength="500"></textarea>
+                            </div>
+                        </div>
+                        <button class="button button-primary profile-submit" type="submit">Upload document <span aria-hidden="true">&#8594;</span></button>
+                    </form>
+                </section>
+
+                <section class="profile-section" aria-labelledby="my-docs-list-heading">
+                    <div class="section-heading"><div><p class="eyebrow eyebrow-dark">MY DOCUMENTS</p><h2 id="my-docs-list-heading">Uploaded documents</h2></div><span>{{ $profile->documents->count() }} FILES</span></div>
+                    @forelse ($profile->documents as $document)
+                        <article class="request-history-item">
+                            <div>
+                                <span class="detail-label">{{ str($document->type)->replace('_', ' ')->upper() }}</span>
+                                <h3>{{ $document->title }}</h3>
+                                <p>{{ $document->file_name }}@if ($document->file_size) · {{ number_format($document->file_size / 1024, 1) }} KB @endif</p>
+                                @if ($document->notes)<p class="reviewer-note">{{ $document->notes }}</p>@endif
+                            </div>
+                            <a class="directory-profile-link" href="{{ $document->downloadUrl() }}" target="_blank" rel="noopener">View / Download</a>
+                        </article>
+                    @empty
+                        <p class="profile-empty">No documents uploaded yet.</p>
+                    @endforelse
                 </section>
 
                 <section class="profile-section" aria-labelledby="request-heading">

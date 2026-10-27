@@ -45,6 +45,15 @@
 
                 <p class="profile-notice">Full personnel records are restricted to authorised Registry leadership. This view is recorded in the audit trail.</p>
 
+                @if ($profile->passportUrl())
+                    <section class="profile-section" aria-labelledby="photo-heading">
+                        <div class="section-heading"><div><p class="eyebrow eyebrow-dark">PHOTO</p><h2 id="photo-heading">Passport photograph</h2></div><span>ON FILE</span></div>
+                        <div class="profile-photo-wrap">
+                            <img src="{{ $profile->passportUrl() }}" alt="Passport photograph of {{ $profile->user->name }}" class="profile-passport-photo">
+                        </div>
+                    </section>
+                @endif
+
                 <section class="profile-section" aria-labelledby="official-heading">
                     <div class="section-heading"><div><p class="eyebrow eyebrow-dark">OFFICIAL RECORD</p><h2 id="official-heading">Employment details</h2></div><span>READ ONLY</span></div>
                     <dl class="profile-details">
@@ -60,6 +69,7 @@
                         <div><dt>Date of birth</dt><dd>{{ $profile->date_of_birth?->format('j M Y') ?? 'Not recorded' }}</dd></div>
                         <div><dt>Gender</dt><dd>{{ $profile->gender ? str($profile->gender)->replace('_', ' ')->title() : 'Not recorded' }}</dd></div>
                         <div><dt>Marital status</dt><dd>{{ $profile->marital_status ? str($profile->marital_status)->replace('_', ' ')->title() : 'Not recorded' }}</dd></div>
+                        <div><dt>State of origin</dt><dd>{{ $profile->state_of_origin ?? 'Not recorded' }}</dd></div>
                     </dl>
                 </section>
 
@@ -72,6 +82,68 @@
                         <div><dt>Next of kin phone</dt><dd>{{ $profile->next_of_kin_phone ?? 'Not recorded' }}</dd></div>
                         <div class="profile-detail-wide"><dt>Residential address</dt><dd>{{ $profile->residential_address ?? 'Not recorded' }}</dd></div>
                     </dl>
+                </section>
+
+                <section class="profile-section" aria-labelledby="qualifications-heading">
+                    <div class="section-heading"><div><p class="eyebrow eyebrow-dark">QUALIFICATIONS & PENSION</p><h2 id="qualifications-heading">Educational, professional, PENCOM and PFA</h2></div><span>CONFIDENTIAL</span></div>
+                    <dl class="profile-details">
+                        <div class="profile-detail-wide"><dt>Educational qualifications</dt><dd>{!! nl2br(e($profile->educational_qualifications ?? 'Not recorded')) !!}</dd></div>
+                        <div class="profile-detail-wide"><dt>Professional qualifications</dt><dd>{!! nl2br(e($profile->professional_qualifications ?? 'Not recorded')) !!}</dd></div>
+                        <div><dt>PENCOM number</dt><dd>{{ $profile->pencom_number ?? 'Not recorded' }}</dd></div>
+                        <div><dt>PFA name</dt><dd>{{ $profile->pfa_name ?? 'Not recorded' }}</dd></div>
+                    </dl>
+                </section>
+
+                @can('manage-personnel-records')
+                    <section class="profile-section" aria-labelledby="documents-upload-heading">
+                        <div class="section-heading"><div><p class="eyebrow eyebrow-dark">DOCUMENTS</p><h2 id="documents-upload-heading">Upload certificates and other documents</h2></div><span>REGISTRY</span></div>
+                        <form class="profile-form" method="POST" action="{{ route('registry.personnel.documents.upload', $profile) }}" enctype="multipart/form-data">
+                            @csrf
+                            <div class="profile-form-grid">
+                                <div class="field-group">
+                                    <label for="doc_title">Document title</label>
+                                    <input id="doc_title" name="title" type="text" maxlength="150" required>
+                                </div>
+                                <div class="field-group">
+                                    <label for="doc_type">Document type</label>
+                                    <select id="doc_type" name="type" required>
+                                        <option value="certificate">Certificate</option>
+                                        <option value="id_card">ID card</option>
+                                        <option value="appointment_letter">Appointment letter</option>
+                                        <option value="promotion_letter">Promotion letter</option>
+                                        <option value="other">Other</option>
+                                    </select>
+                                </div>
+                                <div class="field-group profile-address-field">
+                                    <label for="doc_file">File (PDF, JPG, PNG, DOC, DOCX, max 5MB)</label>
+                                    <input id="doc_file" name="document" type="file" accept=".pdf,.jpg,.jpeg,.png,.doc,.docx" required>
+                                </div>
+                                <div class="field-group profile-address-field">
+                                    <label for="doc_notes">Notes</label>
+                                    <textarea id="doc_notes" name="notes" rows="2" maxlength="500"></textarea>
+                                </div>
+                            </div>
+                            <button class="button button-primary profile-submit" type="submit">Upload document <span aria-hidden="true">&#8594;</span></button>
+                        </form>
+                    </section>
+                @endcan
+
+                <section class="profile-section" aria-labelledby="documents-list-heading">
+                    <div class="section-heading"><div><p class="eyebrow eyebrow-dark">DOCUMENTS</p><h2 id="documents-list-heading">Uploaded documents</h2></div><span>{{ $profile->documents->count() }} FILES</span></div>
+                    @forelse ($profile->documents as $document)
+                        <article class="request-history-item">
+                            <div>
+                                <span class="detail-label">{{ str($document->type)->replace('_', ' ')->upper() }}</span>
+                                <h3>{{ $document->title }}</h3>
+                                <p>{{ $document->file_name }}@if ($document->file_size) · {{ number_format($document->file_size / 1024, 1) }} KB @endif</p>
+                                @if ($document->notes)<p class="reviewer-note">{{ $document->notes }}</p>@endif
+                                @if ($document->uploader)<p>Uploaded by {{ $document->uploader->name }} · {{ $document->created_at->format('j M Y, H:i') }}</p>@endif
+                            </div>
+                            <a class="directory-profile-link" href="{{ $document->downloadUrl() }}" target="_blank" rel="noopener">View / Download</a>
+                        </article>
+                    @empty
+                        <p class="profile-empty">No documents uploaded yet.</p>
+                    @endforelse
                 </section>
 
                 <section class="profile-section" aria-labelledby="account-heading">

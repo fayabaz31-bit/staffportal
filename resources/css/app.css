@@ -237,6 +237,8 @@ a.kpi-tile:hover { background: #fbfaf5; }
 .profile-details dt, .review-request-details dt { color: #78857d; font-size: 9px; font-weight: 700; }
 .profile-details dd, .review-request-details dd { margin: 6px 0 0; color: var(--pine); font-size: 12px; line-height: 1.5; overflow-wrap: anywhere; }
 .profile-detail-wide { grid-column: 1 / -1; }
+.profile-photo-wrap { margin-top: 16px; }
+.profile-passport-photo { width: 160px; height: 200px; object-fit: cover; border: 1px solid var(--line); background: var(--white); }
 .profile-form { display: grid; justify-items: start; gap: 16px; }
 .profile-form-grid { display: grid; width: 100%; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 15px 20px; }
 .profile-form .field-group input, .profile-form .field-group select, .profile-form .field-group textarea, .review-actions input { width: 100%; min-height: 42px; padding: 9px 11px; border: 1px solid #cbd4cc; border-radius: 2px; background: white; color: var(--ink); font-size: 12px; }

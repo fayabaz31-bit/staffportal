@@ -85,11 +85,10 @@
                                         @php($groupDepartment = $profiles->first()->department)
                                         @if ($groupDepartment === null)
                                             Not assigned
+                                        @elseif (! in_array($groupDepartment->code, \App\DepartmentCatalog::codes(), true))
+                                            {{ $groupDepartment->name }} <em class="directory-group-warning">unmapped department</em>
                                         @else
                                             {{ $groupDepartment->name }}
-                                            @unless (in_array($groupDepartment->code, \App\DepartmentCatalog::codes(), true))
-                                                <em class="directory-group-warning">unmapped department</em>
-                                            @endunless
                                         @endif
                                         <span>{{ $profiles->count() }} on this page</span>
                                     </th>

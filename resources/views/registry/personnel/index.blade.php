@@ -78,7 +78,9 @@
                             <tbody>
                                 <tr class="directory-group-row">
                                     <th colspan="6" scope="colgroup">
-                                        @php($groupDepartment = $profiles->first()->department)
+                                        @php
+                                            $groupDepartment = $profiles->first()->department;
+                                        @endphp
                                         @if ($groupDepartment === null)
                                             Not assigned
                                         @elseif (! in_array($groupDepartment->code, \App\DepartmentCatalog::codes(), true))

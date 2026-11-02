@@ -2,7 +2,9 @@
 
 @section('title', $staffProfile->user->name.' | Staff profile | NfLV Staff Portal')
 
-@php($profile = $staffProfile)
+@php
+    $profile = $staffProfile;
+@endphp
 
 @section('content')
     <div class="dashboard-page">

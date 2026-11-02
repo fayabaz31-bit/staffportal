@@ -62,7 +62,9 @@
                         </thead>
                         <tbody>
                             @forelse ($notifications as $notification)
-                                @php($data = $notification->data)
+                                @php
+                                    $data = $notification->data;
+                                @endphp
                                 <tr style="{{ $notification->read_at ? '' : 'background: #f9fafb;' }}">
                                     <td>
                                         <strong>{{ $data['title'] ?? 'Portal notification' }}</strong>

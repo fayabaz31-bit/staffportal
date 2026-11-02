@@ -65,7 +65,9 @@
                                 <p style="font-size: 11px; color: #6b7280;">
                                     {{ $member->staff_number }} · {{ $member->role->label() }}
                                 </p>
-                                @php($held = $member->dutyCodes())
+                                @php
+                                    $held = $member->dutyCodes();
+                                @endphp
                                 @if (empty($held))
                                     <p style="font-size: 11px; color: #6b7280;">No duties assigned</p>
                                 @else

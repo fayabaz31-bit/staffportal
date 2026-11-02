@@ -125,7 +125,9 @@
                                         </form>
                                     </td>
                                     <td style="min-width: 240px;">
-                                        @php($heldDuties = $account->dutyCodes())
+                                        @php
+                                            $heldDuties = $account->dutyCodes();
+                                        @endphp
                                         @if (empty($heldDuties))
                                             <span style="font-size: 11px; color: #6b7280;">No duties assigned</span>
                                         @else

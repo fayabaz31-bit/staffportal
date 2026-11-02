@@ -27,6 +27,8 @@ use App\Http\Controllers\WorkAssignmentController;
 use Illuminate\Support\Facades\Route;
 
 Route::view('/', 'landing')->name('home');
+Route::view('/website-preview', 'public.home')->name('website.preview');
+Route::view('/website-preview/about', 'public.about')->name('website.about');
 
 Route::middleware('guest')->group(function () {
     Route::get('/login', [AuthenticatedSessionController::class, 'create'])->name('login');

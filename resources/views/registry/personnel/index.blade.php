@@ -44,7 +44,7 @@
                 <div class="directory-toolbar">
                     <form class="directory-search" method="GET" action="{{ route('registry.personnel.index') }}">
                         <label class="sr-only" for="directory-search">Search staff</label>
-                        <input id="directory-search" name="search" type="search" value="{{ $search }}" placeholder="Search by staff number, name, or department">
+                        <input id="directory-search" name="search" type="search" value="{{ $search }}" placeholder="Search by Staff ID, name, or department">
                         <button class="button directory-search-button" type="submit">Search</button>
                     </form>
                     @can('manage-personnel-records')
@@ -128,3 +128,4 @@
         </div>
     </div>
 @endsection
+

@@ -55,7 +55,7 @@
                     </div>
                     <div class="directory-table-wrap import-preview-table-wrap">
                         <table class="directory-table import-preview-table">
-                            <thead><tr><th scope="col">Line</th><th scope="col">Staff number</th><th scope="col">Name</th><th scope="col">Designation</th><th scope="col">Result</th><th scope="col">Issues</th></tr></thead>
+                            <thead><tr><th scope="col">Line</th><th scope="col">Staff ID</th><th scope="col">Name</th><th scope="col">Designation</th><th scope="col">Result</th><th scope="col">Issues</th></tr></thead>
                             <tbody>
                                 @foreach ($rows as $row)
                                     <tr>
@@ -87,3 +87,4 @@
         </div>
     </div>
 @endsection
+

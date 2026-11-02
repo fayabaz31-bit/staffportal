@@ -65,7 +65,7 @@
 
                 <section class="status-bar" aria-label="Your account status">
                     <div class="status-bar-item">
-                        <span class="detail-label">STAFF NUMBER</span>
+                        <span class="detail-label">Staff ID</span>
                         <strong>{{ $user->staff_number }}</strong>
                     </div>
                     <div class="status-bar-item">
@@ -152,3 +152,4 @@
 @push('scripts')
     @vite('resources/js/charts.js')
 @endpush
+

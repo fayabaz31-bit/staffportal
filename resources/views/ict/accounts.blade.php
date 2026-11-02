@@ -51,7 +51,7 @@
                 <form method="GET" action="{{ route('ict.accounts.index') }}" style="display: flex; gap: 8px; flex-wrap: wrap; align-items: flex-end; margin: 16px 0;">
                     <div class="field-group" style="margin: 0;">
                         <label for="search">Search</label>
-                        <input id="search" name="search" type="text" value="{{ $search }}" placeholder="Name, staff number or email">
+                        <input id="search" name="search" type="text" value="{{ $search }}" placeholder="Name, Staff ID or email">
                     </div>
                     <div class="field-group" style="margin: 0;">
                         <label for="status">Status</label>
@@ -171,4 +171,5 @@
         </div>
     </div>
 @endsection
+
 

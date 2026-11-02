@@ -1,7 +1,7 @@
 <form class="signin-form" method="POST" action="{{ route('login.store') }}">
     @csrf
     <div class="field-group">
-        <label for="identifier">Staff number or institutional email</label>
+        <label for="identifier">Staff ID or institutional email</label>
         <input
             id="identifier"
             name="identifier"

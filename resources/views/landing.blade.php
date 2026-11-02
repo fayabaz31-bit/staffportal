@@ -45,7 +45,7 @@
                     <div class="panel-heading">
                         <p class="eyebrow eyebrow-dark">WELCOME BACK</p>
                         <h2 id="signin-heading">Sign in to your<br>staff account.</h2>
-                        <p>Use your staff number or institutional email.</p>
+                        <p>Use your Staff ID or institutional email.</p>
                     </div>
                     @include('partials.login-form')
                     <p class="access-help">Need help accessing your account? Contact the ICT Unit through your usual institutional channel.</p>
@@ -69,3 +69,4 @@
         </footer>
     </div>
 @endsection
+

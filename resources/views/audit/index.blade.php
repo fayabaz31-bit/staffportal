@@ -40,7 +40,7 @@
                     </div>
                     <div class="field-group" style="margin: 0;">
                         <label for="actor">Actor</label>
-                        <input id="actor" name="actor" type="text" value="{{ $actorFilter }}" placeholder="Name or staff number">
+                        <input id="actor" name="actor" type="text" value="{{ $actorFilter }}" placeholder="Name or Staff ID">
                     </div>
                     <button class="button button-primary" type="submit">Filter</button>
                 </form>
@@ -104,4 +104,5 @@
         </div>
     </div>
 @endsection
+
 

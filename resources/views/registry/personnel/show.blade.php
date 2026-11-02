@@ -53,7 +53,7 @@
                 <section class="profile-section" aria-labelledby="official-heading">
                     <div class="section-heading"><div><p class="eyebrow eyebrow-dark">OFFICIAL RECORD</p><h2 id="official-heading">Employment details</h2></div><span>READ ONLY</span></div>
                     <dl class="profile-details">
-                        <div><dt>Staff number</dt><dd>{{ $profile->user->staff_number }}</dd></div>
+                        <div><dt>Staff ID</dt><dd>{{ $profile->user->staff_number }}</dd></div>
                         <div><dt>Full name</dt><dd>{{ $profile->user->name }}</dd></div>
                         <div><dt>Institutional email</dt><dd>{{ $profile->user->email ?? 'No institutional email' }}</dd></div>
                         <div><dt>Department</dt><dd>{{ $profile->department?->name ?? 'Not assigned' }}</dd></div>
@@ -167,4 +167,5 @@
         </div>
     </div>
 @endsection
+
 

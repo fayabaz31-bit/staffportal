@@ -30,7 +30,7 @@
                 <section class="dashboard-welcome">
                     <p class="eyebrow eyebrow-dark">STAGE PAYSLIPS</p>
                     <h1>Upload Payslip Batch</h1>
-                    <p>Upload monthly payroll outputs as a ZIP archive or individual PDF. All files will be dry-run validated against staff numbers.</p>
+                    <p>Upload monthly payroll outputs as a ZIP archive or individual PDF. All files will be dry-run validated against Staff IDs.</p>
                 </section>
 
                 @if ($errors->any())
@@ -81,4 +81,5 @@
         </div>
     </div>
 @endsection
+
 

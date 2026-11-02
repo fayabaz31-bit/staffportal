@@ -47,7 +47,7 @@
                         @csrf
                         <div class="profile-form-grid">
                             <div class="field-group">
-                                <label for="staff_number">Staff number</label>
+                                <label for="staff_number">Staff ID</label>
                                 <input id="staff_number" name="staff_number" type="text" value="{{ old('staff_number') }}" maxlength="32" autocomplete="off" required>
                                 @error('staff_number')<p class="field-error">{{ $message }}</p>@enderror
                             </div>
@@ -210,3 +210,4 @@
         </div>
     </div>
 @endsection
+

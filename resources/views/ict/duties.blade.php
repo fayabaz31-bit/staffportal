@@ -44,7 +44,9 @@
                     <p class="profile-notice" role="alert" style="color: #b91c1c; border-color: #fecaca; background: #fef2f2;">{{ session('error') }}</p>
                 @endif
 
-                @php($conflicts = $account->separationOfDutyConflicts())
+                @php
+                    $conflicts = $account->separationOfDutyConflicts();
+                @endphp
                 @if (! empty($conflicts))
                     <p class="profile-notice" role="alert" style="color: #b45309; border-color: #fde68a; background: #fffbeb;">
                         <strong>Separation-of-duties warning:</strong> this account holds incompatible duties ({{ implode(', ', $conflicts) }}).
@@ -84,7 +86,9 @@
                                     @foreach ($assignable as $unit => $unitDuties)
                                         <optgroup label="{{ ucfirst($unit) }}">
                                             @foreach ($unitDuties as $duty)
-                                                @php($held = $account->hasDuty($duty->code))
+                                                @php
+                                                    $held = $account->hasDuty($duty->code);
+                                                @endphp
                                                 <option value="{{ $duty->code }}" @disabled($held)>{{ $duty->label }}{{ $held ? ' (already held)' : '' }}</option>
                                             @endforeach
                                         </optgroup>

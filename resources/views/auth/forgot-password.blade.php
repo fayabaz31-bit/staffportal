@@ -4,11 +4,7 @@
 
 @section('content')
     <main class="login-page">
-        <a class="wordmark login-wordmark" href="{{ route('home') }}">
-            <span class="wordmark-name">NfLV</span>
-            <span class="wordmark-divider" aria-hidden="true"></span>
-            <span class="wordmark-caption">Staff Portal</span>
-        </a>
+        <a class="wordmark login-wordmark" href="{{ route('home') }}"><span class="wordmark-caption">Staff Portal</span></a>
         <section class="login-card" aria-labelledby="forgot-heading">
             <p class="eyebrow eyebrow-dark">PASSWORD RECOVERY</p>
             <h1 id="forgot-heading">Reset your<br>password.</h1>
@@ -44,3 +40,4 @@
         <p class="login-footer">NIGERIA FRENCH LANGUAGE VILLAGE · BADAGRY</p>
     </main>
 @endsection
+

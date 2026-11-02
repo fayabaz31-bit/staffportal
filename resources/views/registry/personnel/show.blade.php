@@ -7,11 +7,7 @@
 @section('content')
     <div class="dashboard-page">
         <header class="dashboard-header">
-            <a class="wordmark dashboard-wordmark" href="{{ route('dashboard') }}">
-                <span class="wordmark-name">NfLV</span>
-                <span class="wordmark-divider" aria-hidden="true"></span>
-                <span class="wordmark-caption">Staff Portal</span>
-            </a>
+            <a class="wordmark dashboard-wordmark" href="{{ route('dashboard') }}"><span class="wordmark-caption">Staff Portal</span></a>
             <div class="account-tools">
                 <span class="account-name">{{ auth()->user()->name }}</span>
                 <form method="POST" action="{{ route('logout') }}">
@@ -64,7 +60,20 @@
                         <div><dt>Designation</dt><dd>{{ $profile->designation ?? 'Not recorded' }}</dd></div>
                         <div><dt>Unit</dt><dd>{{ $profile->unit ?? $profile->organisationalUnit?->name ?? 'Not recorded' }}</dd></div>
                         <div><dt>Grade level</dt><dd>{{ $profile->grade_level ?? 'Not recorded' }}</dd></div>
-                        <div><dt>Employment status</dt><dd>{{ str($profile->employment_status)->replace('_', ' ')->title() }}</dd></div>
+                        <div><dt>Employment status</dt><dd>
+                            @php
+                                $employmentLabel = match($profile->employment_status) {
+                                    'employed' => 'Permanent',
+                                    'seconded' => 'Contract',
+                                    'on_leave' => 'Probation',
+                                    'sabbatical' => 'Sabbatical',
+                                    'retired' => 'Retired',
+                                    'terminated' => 'Terminated',
+                                    default => str($profile->employment_status)->replace('_', ' ')->title(),
+                                };
+                            @endphp
+                            {{ $employmentLabel }}
+                        </dd></div>
                         <div><dt>Date of first appointment</dt><dd>{{ $profile->date_of_first_appointment?->format('j M Y') ?? 'Not recorded' }}</dd></div>
                         <div><dt>Date of birth</dt><dd>{{ $profile->date_of_birth?->format('j M Y') ?? 'Not recorded' }}</dd></div>
                         <div><dt>Gender</dt><dd>{{ $profile->gender ? str($profile->gender)->replace('_', ' ')->title() : 'Not recorded' }}</dd></div>
@@ -158,3 +167,4 @@
         </div>
     </div>
 @endsection
+

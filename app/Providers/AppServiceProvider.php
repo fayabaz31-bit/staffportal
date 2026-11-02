@@ -69,6 +69,7 @@ class AppServiceProvider extends ServiceProvider
             DutyCatalog::REGISTRY_HEAD_REVIEW,
             DutyCatalog::REGISTRY_REGISTRAR_APPROVE,
             DutyCatalog::REGISTRY_DIRECTOR_ESCALATION,
+            DutyCatalog::BURSARY_SALARY_ENQUIRY,
         ));
 
         Gate::define('manage-personnel-records', fn (User $user): bool => $active($user) && $user->hasDuty(DutyCatalog::REGISTRY_PERSONNEL_RECORDS));

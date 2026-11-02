@@ -5,11 +5,7 @@
 @section('content')
     <div class="dashboard-page">
         <header class="dashboard-header">
-            <a class="wordmark dashboard-wordmark" href="{{ route('dashboard') }}">
-                <span class="wordmark-name">NfLV</span>
-                <span class="wordmark-divider" aria-hidden="true"></span>
-                <span class="wordmark-caption">Staff Portal</span>
-            </a>
+            <a class="wordmark dashboard-wordmark" href="{{ route('dashboard') }}"><span class="wordmark-caption">Staff Portal</span></a>
             <div class="account-tools">
                 <span class="account-name">{{ auth()->user()->name }}</span>
                 <form method="POST" action="{{ route('logout') }}">
@@ -98,3 +94,4 @@
         </div>
     </div>
 @endsection
+

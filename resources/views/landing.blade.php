@@ -5,9 +5,7 @@
 @section('content')
     <div class="public-page">
         <header class="site-header">
-            <a class="wordmark" href="{{ route('home') }}" aria-label="NfLV Staff Portal home">
-                <span class="wordmark-name">NfLV</span>
-                <span class="wordmark-divider" aria-hidden="true"></span>
+            <a class="wordmark" href="{{ route('home') }}" aria-label="Staff Portal home">
                 <span class="wordmark-caption">Staff Portal</span>
             </a>
             <nav class="site-nav" aria-label="Main navigation">

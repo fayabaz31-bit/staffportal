@@ -31,10 +31,8 @@ class StaffProfileController extends Controller
             'phone_number' => ['nullable', 'string', 'max:40'],
             'personal_email' => ['nullable', 'email', 'max:255'],
             'residential_address' => ['nullable', 'string', 'max:1000'],
-            'state_of_origin' => ['nullable', 'string', 'max:64'],
             'educational_qualifications' => ['nullable', 'string', 'max:2000'],
             'professional_qualifications' => ['nullable', 'string', 'max:2000'],
-            'pencom_number' => ['nullable', 'string', 'max:64'],
             'pfa_name' => ['nullable', 'string', 'max:128'],
             'passport_photo' => ['nullable', 'image', 'mimes:jpg,jpeg,png', 'max:2048'],
         ]);

@@ -5,11 +5,7 @@
 @section('content')
     <div class="dashboard-page">
         <header class="dashboard-header">
-            <a class="wordmark dashboard-wordmark" href="{{ route('dashboard') }}">
-                <span class="wordmark-name">NfLV</span>
-                <span class="wordmark-divider" aria-hidden="true"></span>
-                <span class="wordmark-caption">Staff Portal</span>
-            </a>
+            <a class="wordmark dashboard-wordmark" href="{{ route('dashboard') }}"><span class="wordmark-caption">Staff Portal</span></a>
             <div class="account-tools">
                 <span class="account-name">{{ auth()->user()->name }}</span>
                 <form method="POST" action="{{ route('logout') }}">
@@ -101,7 +97,20 @@
                                         </td>
                                         <td>{{ $profile->designation ?? 'Not recorded' }}@if ($profile->unit)<span>{{ $profile->unit }}</span>@endif</td>
                                         <td>{{ $profile->grade_level ?? '—' }}</td>
-                                        <td>{{ str($profile->employment_status)->replace('_', ' ')->title() }}</td>
+                                        <td>
+                                            @php
+                                                $employmentLabel = match($profile->employment_status) {
+                                                    'employed' => 'Permanent',
+                                                    'seconded' => 'Contract',
+                                                    'on_leave' => 'Probation',
+                                                    'sabbatical' => 'Sabbatical',
+                                                    'retired' => 'Retired',
+                                                    'terminated' => 'Terminated',
+                                                    default => str($profile->employment_status)->replace('_', ' ')->title(),
+                                                };
+                                            @endphp
+                                            {{ $employmentLabel }}
+                                        </td>
                                         <td><span class="directory-account-status directory-account-{{ $profile->user->status }}">{{ str($profile->user->status)->title() }}</span></td>
                                         <td><a class="directory-profile-link" href="{{ route('registry.personnel.show', $profile) }}" aria-label="View full profile for {{ $profile->user->name }}">View profile</a></td>
                                     </tr>

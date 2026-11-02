@@ -5,11 +5,7 @@
 @section('content')
     <div class="dashboard-page">
         <header class="dashboard-header">
-            <a class="wordmark dashboard-wordmark" href="{{ route('dashboard') }}">
-                <span class="wordmark-name">NfLV</span>
-                <span class="wordmark-divider" aria-hidden="true"></span>
-                <span class="wordmark-caption">Staff Portal</span>
-            </a>
+            <a class="wordmark dashboard-wordmark" href="{{ route('dashboard') }}"><span class="wordmark-caption">Staff Portal</span></a>
             <div class="account-tools">
                 <span class="account-name">{{ $user->name }}</span>
                 <form method="POST" action="{{ route('logout') }}">
@@ -54,11 +50,24 @@
                 <section class="profile-section" aria-labelledby="official-heading">
                     <div class="section-heading"><div><p class="eyebrow eyebrow-dark">OFFICIAL RECORD</p><h2 id="official-heading">Employment details</h2></div><span>READ ONLY</span></div>
                     <dl class="profile-details">
-                        <div><dt>Staff number</dt><dd>{{ $user->staff_number }}</dd></div>
+                        <div><dt>Staff ID</dt><dd>{{ $user->staff_number }}</dd></div>
                         <div><dt>Name</dt><dd>{{ $user->name }}</dd></div>
                         <div><dt>Department</dt><dd>{{ $profile->department?->name ?? 'Not assigned' }}</dd></div>
                         <div><dt>Designation</dt><dd>{{ $profile->designation ?? 'Not recorded' }}</dd></div>
-                        <div><dt>Employment status</dt><dd>{{ str($profile->employment_status)->replace('_', ' ')->title() }}</dd></div>
+                        <div><dt>Employment status</dt><dd>
+                            @php
+                                $employmentLabel = match($profile->employment_status) {
+                                    'employed' => 'Permanent',
+                                    'seconded' => 'Contract',
+                                    'on_leave' => 'Probation',
+                                    'sabbatical' => 'Sabbatical',
+                                    'retired' => 'Retired',
+                                    'terminated' => 'Terminated',
+                                    default => str($profile->employment_status)->replace('_', ' ')->title(),
+                                };
+                            @endphp
+                            {{ $employmentLabel }}
+                        </dd></div>
                         <div><dt>Institutional email</dt><dd>{{ $user->email }}</dd></div>
                         <div><dt>State of origin</dt><dd>{{ $profile->state_of_origin ?? 'Not recorded' }}</dd></div>
                     </dl>
@@ -80,15 +89,10 @@
                                 <input id="personal_email" name="personal_email" type="email" value="{{ old('personal_email', $profile->personal_email) }}" autocomplete="email">
                                 @error('personal_email')<p class="field-error">{{ $message }}</p>@enderror
                             </div>
+
                             <div class="field-group">
-                                <label for="state_of_origin">State of origin</label>
-                                <input id="state_of_origin" name="state_of_origin" type="text" value="{{ old('state_of_origin', $profile->state_of_origin) }}" maxlength="64">
-                                @error('state_of_origin')<p class="field-error">{{ $message }}</p>@enderror
-                            </div>
-                            <div class="field-group">
-                                <label for="pencom_number">PENCOM number</label>
-                                <input id="pencom_number" name="pencom_number" type="text" value="{{ old('pencom_number', $profile->pencom_number) }}" maxlength="64">
-                                @error('pencom_number')<p class="field-error">{{ $message }}</p>@enderror
+                                <label>PENCOM number</label>
+                                <input type="text" value="{{ $profile->pencom_number ?? 'Not assigned' }}" readonly>
                             </div>
                             <div class="field-group">
                                 <label for="pfa_name">PFA name</label>

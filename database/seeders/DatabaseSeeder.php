@@ -72,6 +72,7 @@ class DatabaseSeeder extends Seeder
         $this->seedRegistryPilotAccounts($departments);
 
         $this->call(StaffDirectorySeeder::class);
+        $this->call(RegistryStaffDirectorySeeder::class);
 
         $leaveTypes = [
             [

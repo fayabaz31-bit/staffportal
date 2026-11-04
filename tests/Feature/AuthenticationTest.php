@@ -30,7 +30,7 @@ class AuthenticationTest extends TestCase
         $response = $this->get(route('login'));
 
         $response->assertOk()
-            ->assertSeeText('Staff number or institutional email');
+            ->assertSeeText('Staff ID or institutional email');
     }
 
     public function test_login_page_lists_all_demo_roles(): void

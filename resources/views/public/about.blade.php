@@ -8,8 +8,8 @@
             <div class="nfv-container nfv-utility-content">
                 <p>Inter-University Centre for French Studies · Badagry, Nigeria</p>
                 <nav aria-label="Utility navigation">
-                    <a href="{{ route('website.preview') }}#contact">Contact</a>
-                    <a href="{{ route('website.preview') }}#news">News</a>
+                    <a href="{{ route('website.preview') }}">Contact</a>
+                    <a href="{{ route('website.news') }}">News</a>
                     <a href="https://portal.frenchvillage.edu.ng/">Student portal</a>
                     <a href="{{ route('home') }}">Staff portal</a>
                 </nav>
@@ -24,10 +24,10 @@
                 </a>
                 <nav class="nfv-main-nav" aria-label="Main navigation">
                     <a class="nfv-nav-active" href="{{ route('website.about') }}">About NfLV</a>
-                    <a href="{{ route('website.preview') }}#programmes">Study at NfLV</a>
-                    <a href="{{ route('website.preview') }}#admissions">Admissions</a>
-                    <a href="{{ route('website.preview') }}#research">Research &amp; resources</a>
-                    <a href="{{ route('website.preview') }}#news">News &amp; events</a>
+                    <a href="{{ route('website.programmes') }}">Study at NfLV</a>
+                    <a href="{{ route('website.admissions') }}">Admissions</a>
+                    <a href="{{ route('website.research') }}">Research &amp; resources</a>
+                    <a href="{{ route('website.news') }}">News &amp; events</a>
                 </nav>
                 <a class="nfv-header-action" href="https://portal.frenchvillage.edu.ng/register">Apply now <span aria-hidden="true">↗</span></a>
             </div>
@@ -99,7 +99,7 @@
                 <div class="nfv-container nfv-about-callout-content">
                     <p class="nfv-kicker"><span></span> STUDY AT NFLV</p>
                     <h2>Ready to begin your French learning journey?</h2>
-                    <a class="nfv-button nfv-button-primary" href="{{ route('website.preview') }}#programmes">Explore programmes <span aria-hidden="true">→</span></a>
+                    <a class="nfv-button nfv-button-primary" href="{{ route('website.programmes') }}">Explore programmes <span aria-hidden="true">→</span></a>
                 </div>
             </section>
         </main>
@@ -107,7 +107,7 @@
         <footer class="nfv-footer" id="contact">
             <div class="nfv-container nfv-footer-grid">
                 <div><a class="nfv-brand nfv-brand-footer" href="{{ route('website.preview') }}"><span class="nfv-brand-mark" aria-hidden="true"></span><span><strong>Nigeria French<br>Language Village</strong><small>Badagry, Nigeria</small></span></a><p>French immersion, education, research and cultural exchange.</p></div>
-                <div><h2>Explore</h2><a href="{{ route('website.about') }}">About NfLV</a><a href="{{ route('website.preview') }}#programmes">Programmes</a><a href="{{ route('website.preview') }}#admissions">Admissions</a><a href="{{ route('website.preview') }}#news">News &amp; events</a></div>
+                <div><h2>Explore</h2><a href="{{ route('website.about') }}">About NfLV</a><a href="{{ route('website.programmes') }}">Programmes</a><a href="{{ route('website.admissions') }}">Admissions</a><a href="{{ route('website.news') }}">News &amp; events</a></div>
                 <div><h2>Portals</h2><a href="https://portal.frenchvillage.edu.ng/">Student portal</a><a href="{{ route('home') }}">Staff portal</a><a href="https://portal.frenchvillage.edu.ng/paynow">Fees &amp; payments</a><a href="https://www.frenchvillage.edu.ng/contact-us">Contact us</a></div>
                 <div><h2>Visit or contact us</h2><p>Badagry, Lagos State, Nigeria</p><a href="https://www.frenchvillage.edu.ng/contact-us">Get in touch <span aria-hidden="true">→</span></a></div>
             </div>

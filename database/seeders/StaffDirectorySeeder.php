@@ -155,7 +155,35 @@ class StaffDirectorySeeder extends Seeder
             ['name' => 'Fatima Usman', 'gender' => 'female', 'department' => DepartmentCatalog::ACADEMICS, 'designation' => 'Associate professor', 'unit' => 'Translation and interpretation', 'grade' => 'GL 15'],
         ];
 
-        $allStaff = array_merge($baseStaff, $this->staff);
+        $bursaryStaff = [
+            ['name' => 'Chukwudi Obi', 'gender' => 'male', 'department' => DepartmentCatalog::BURSARY, 'designation' => 'Bursar', 'unit' => 'Accounts Unit', 'grade' => 'GL 17'],
+            ['name' => 'Ngozi Okafor', 'gender' => 'female', 'department' => DepartmentCatalog::BURSARY, 'designation' => 'Deputy Bursar', 'unit' => 'Accounts Unit', 'grade' => 'GL 16'],
+            ['name' => 'Hauwa Mohammed', 'gender' => 'female', 'department' => DepartmentCatalog::BURSARY, 'designation' => 'Chief Accountant', 'unit' => 'Accounts Unit', 'grade' => 'GL 15'],
+            ['name' => 'Kunle Adewale', 'gender' => 'male', 'department' => DepartmentCatalog::BURSARY, 'designation' => 'Head of Salary Unit', 'unit' => 'Payroll Unit', 'grade' => 'GL 15'],
+            ['name' => 'Nneka Eze', 'gender' => 'female', 'department' => DepartmentCatalog::BURSARY, 'designation' => 'Principal Accountant', 'unit' => 'Accounts Unit', 'grade' => 'GL 14'],
+            ['name' => 'Abubakar Sadiq', 'gender' => 'male', 'department' => DepartmentCatalog::BURSARY, 'designation' => 'Principal Accountant', 'unit' => 'Revenue Unit', 'grade' => 'GL 14'],
+            ['name' => 'Bukola Ajayi', 'gender' => 'female', 'department' => DepartmentCatalog::BURSARY, 'designation' => 'Senior Accountant', 'unit' => 'Payroll Unit', 'grade' => 'GL 13'],
+            ['name' => 'Tunde Balogun', 'gender' => 'male', 'department' => DepartmentCatalog::BURSARY, 'designation' => 'Senior Accountant', 'unit' => 'Accounts Unit', 'grade' => 'GL 13'],
+            ['name' => 'Amina Yusuf', 'gender' => 'female', 'department' => DepartmentCatalog::BURSARY, 'designation' => 'Accountant I', 'unit' => 'Revenue Unit', 'grade' => 'GL 12'],
+            ['name' => 'Oluwafemi Olaniyi', 'gender' => 'male', 'department' => DepartmentCatalog::BURSARY, 'designation' => 'Accountant I', 'unit' => 'Payroll Unit', 'grade' => 'GL 12'],
+            ['name' => 'Rukayat Bello', 'gender' => 'female', 'department' => DepartmentCatalog::BURSARY, 'designation' => 'Accountant II', 'unit' => 'Accounts Unit', 'grade' => 'GL 11'],
+            ['name' => 'Emmanuel Okonkwo', 'gender' => 'male', 'department' => DepartmentCatalog::BURSARY, 'designation' => 'Accountant II', 'unit' => 'Revenue Unit', 'grade' => 'GL 11'],
+            ['name' => 'Hadiza Ibrahim', 'gender' => 'female', 'department' => DepartmentCatalog::BURSARY, 'designation' => 'Higher Executive Officer', 'unit' => 'Payroll Unit', 'grade' => 'GL 10'],
+            ['name' => 'Ayodeji Adekunle', 'gender' => 'male', 'department' => DepartmentCatalog::BURSARY, 'designation' => 'Higher Executive Officer', 'unit' => 'Accounts Unit', 'grade' => 'GL 10'],
+            ['name' => 'Tolulope Ogunlade', 'gender' => 'female', 'department' => DepartmentCatalog::BURSARY, 'designation' => 'Executive Officer', 'unit' => 'Revenue Unit', 'grade' => 'GL 09'],
+            ['name' => 'Chinedu Nwankwo', 'gender' => 'male', 'department' => DepartmentCatalog::BURSARY, 'designation' => 'Executive Officer', 'unit' => 'Payroll Unit', 'grade' => 'GL 09'],
+            ['name' => 'Kemi Adesanya', 'gender' => 'female', 'department' => DepartmentCatalog::BURSARY, 'designation' => 'Senior Clerical Officer', 'unit' => 'Accounts Unit', 'grade' => 'GL 08'],
+            ['name' => 'Musa Abdullahi', 'gender' => 'male', 'department' => DepartmentCatalog::BURSARY, 'designation' => 'Senior Clerical Officer', 'unit' => 'Revenue Unit', 'grade' => 'GL 08'],
+            ['name' => 'Omowunmi Fashola', 'gender' => 'female', 'department' => DepartmentCatalog::BURSARY, 'designation' => 'Clerical Officer I', 'unit' => 'Payroll Unit', 'grade' => 'GL 07'],
+            ['name' => 'Ibrahim Sule', 'gender' => 'male', 'department' => DepartmentCatalog::BURSARY, 'designation' => 'Clerical Officer I', 'unit' => 'Accounts Unit', 'grade' => 'GL 07'],
+            ['name' => 'Adetutu Olaniyi', 'gender' => 'female', 'department' => DepartmentCatalog::BURSARY, 'designation' => 'Clerical Officer II', 'unit' => 'Revenue Unit', 'grade' => 'GL 06'],
+            ['name' => 'Bello Garba', 'gender' => 'male', 'department' => DepartmentCatalog::BURSARY, 'designation' => 'Clerical Officer II', 'unit' => 'Payroll Unit', 'grade' => 'GL 06'],
+            ['name' => 'Titilayo Bamidele', 'gender' => 'female', 'department' => DepartmentCatalog::BURSARY, 'designation' => 'Cashier', 'unit' => 'Cash Office', 'grade' => 'GL 07'],
+            ['name' => 'Oladipo Akande', 'gender' => 'male', 'department' => DepartmentCatalog::BURSARY, 'designation' => 'Cashier', 'unit' => 'Cash Office', 'grade' => 'GL 07'],
+            ['name' => 'Funmilayo Odukoya', 'gender' => 'female', 'department' => DepartmentCatalog::BURSARY, 'designation' => 'Store Officer', 'unit' => 'Procurement Unit', 'grade' => 'GL 09'],
+        ];
+
+        $allStaff = array_merge($baseStaff, $this->staff, $bursaryStaff);
 
         foreach ($allStaff as $index => $staff) {
             $staffNumber = 'NFLV-'.str_pad((string) (11 + $index), 4, '0', STR_PAD_LEFT);

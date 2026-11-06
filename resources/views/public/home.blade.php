@@ -37,67 +37,90 @@
         </header>
 
         <main id="top">
-            <section class="nfv-hero" aria-labelledby="hero-heading">
-                <img
-                    class="nfv-hero-background"
-                    src="https://www.frenchvillage.edu.ng/pictures/132000651.JPG"
-                    alt=""
-                    fetchpriority="high"
-                >
-                <div class="nfv-hero-overlay" aria-hidden="true"></div>
-                <div class="nfv-container nfv-hero-content">
-                    <div class="nfv-hero-copy">
-                        <p class="nfv-kicker"><span></span> INTER-UNIVERSITY CENTRE FOR FRENCH STUDIES</p>
-                        <h1 id="hero-heading">Nigeria French<br>Language Village.</h1>
-                        <p class="nfv-hero-intro">Learn French through immersive study, specialist teaching and a vibrant Francophone community in Badagry.</p>
-                        <div class="nfv-hero-actions">
-                            <a class="nfv-button nfv-button-primary" href="https://portal.frenchvillage.edu.ng/register">Apply now <span aria-hidden="true">↗</span></a>
-                            <a class="nfv-hero-secondary" href="{{ route('website.programmes') }}">Explore programmes <span aria-hidden="true">→</span></a>
-                        </div>
-                    </div>
-                    <div class="nfv-hero-caption">
-                        <span>BADAGRY · NIGERIA</span>
-                        <span>LEARN FRENCH. CONNECT AFRICA.</span>
-                    </div>
-                </div>
+            <section class="nfv-carousel" aria-label="Discover Nigeria French Language Village" aria-roledescription="carousel" data-carousel>
+                <article class="nfv-slide is-active nfv-slide-banner" data-slide role="group" aria-roledescription="slide" aria-label="1 of 4" >
+                    <img src="{{ asset('media/hero-excellence.png') }}" alt="Nigeria French Language Village: a centre of excellence in French" fetchpriority="high">
+                </article>
+                <article class="nfv-slide" data-slide role="group" aria-roledescription="slide" aria-label="2 of 4" inert aria-hidden="true">
+                    <img src="{{ asset('media/hero-visit.jpg') }}" alt="Institutional visitors at the administrative block" loading="lazy">
+                    <div class="nfv-slide-shade"></div>
+                    <div class="nfv-container nfv-slide-copy"><p>CONNECTIONS THAT MATTER</p><h2>Opening doors.<br>Connecting cultures.</h2><div class="nfv-slide-description">Developing relationships through French language, education and exchange.</div><a class="nfv-button" href="{{ route('website.programmes') }}">Explore programmes <span aria-hidden="true">→</span></a></div>
+                </article>
+                <article class="nfv-slide" data-slide role="group" aria-roledescription="slide" aria-label="3 of 4" inert aria-hidden="true">
+                    <img src="{{ asset('media/hero-community.jpg') }}" alt="Students taking part in a campus activity" loading="lazy">
+                    <div class="nfv-slide-shade"></div>
+                    <div class="nfv-container nfv-slide-copy"><p>A LIVING LANGUAGE. A VIBRANT COMMUNITY.</p><h2>Learn together.<br>Go further.</h2><div class="nfv-slide-description">Experience French through active learning and a rich campus community.</div><a class="nfv-button" href="{{ route('website.programmes') }}">Explore programmes <span aria-hidden="true">→</span></a></div>
+                </article>
+                <article class="nfv-slide" data-slide role="group" aria-roledescription="slide" aria-label="4 of 4" inert aria-hidden="true">
+                    <img src="{{ asset('media/hero-administration.png') }}" alt="Staff and guests outside the administrative block" loading="lazy">
+                    <div class="nfv-slide-shade"></div>
+                    <div class="nfv-container nfv-slide-copy"><p>WELCOME TO BADAGRY</p><h2>Your journey to<br>French starts here.</h2><div class="nfv-slide-description">Discover immersion programmes and flexible pathways for your next chapter.</div><a class="nfv-button" href="{{ route('website.programmes') }}">Explore programmes <span aria-hidden="true">→</span></a></div>
+                </article>
+                <h1 class="nfv-carousel-sr">Nigeria French Language Village</h1>
             </section>
 
             <section class="nfv-quick-links" aria-label="Popular services">
                 <div class="nfv-container nfv-quick-links-grid">
-                    <a href="{{ route('website.admissions') }}"><span>01</span><strong>Admissions</strong><small>Requirements, intakes and how to apply</small><b aria-hidden="true">→</b></a>
-                    <a href="https://portal.frenchvillage.edu.ng/paynow"><span>02</span><strong>Fees &amp; payments</strong><small>Pay tuition or confirm a payment</small><b aria-hidden="true">→</b></a>
-                    <a href="https://portal.frenchvillage.edu.ng/"><span>03</span><strong>Student portal</strong><small>Registration and student services</small><b aria-hidden="true">→</b></a>
-                    <a href="{{ route('home') }}"><span>04</span><strong>Staff portal</strong><small>Secure staff self-service</small><b aria-hidden="true">→</b></a>
+                    <a href="{{ route('website.admissions') }}"><strong>Admissions</strong><small>Requirements, intakes and how to apply</small><b aria-hidden="true">→</b></a>
+                    <a href="https://portal.frenchvillage.edu.ng/paynow"><strong>Fees &amp; payments</strong><small>Pay tuition or confirm a payment</small><b aria-hidden="true">→</b></a>
+                    <a href="https://portal.frenchvillage.edu.ng/"><strong>Student portal</strong><small>Registration and student services</small><b aria-hidden="true">→</b></a>
+                    <a href="{{ route('home') }}"><strong>Staff portal</strong><small>Secure staff self-service</small><b aria-hidden="true">→</b></a>
                 </div>
             </section>
 
-            <section class="nfv-section nfv-programmes" id="programmes" aria-labelledby="programmes-heading">
+            <section class="nfv-discover" aria-labelledby="discover-heading">
                 <div class="nfv-container">
-                    <div class="nfv-section-heading">
-                        <div>
-                            <p class="nfv-kicker nfv-kicker-dark"><span></span> STUDY AT NFLV</p>
-                            <h2 id="programmes-heading">Find the programme<br>that fits your path.</h2>
-                        </div>
-                        <p>From university immersion to professional and flexible learning, NfLV offers French studies for every stage of life.</p>
+                    <div class="nfv-discover-heading">
+                        <div><p class="nfv-kicker nfv-kicker-dark"><span></span> DISCOVER YOUR NEXT CHAPTER</p><h2 id="discover-heading">Study, connect and thrive at NfLV.</h2></div>
+                        <a class="nfv-text-action" href="{{ route('website.programmes') }}">All programmes <span aria-hidden="true">→</span></a>
                     </div>
-                    <div class="nfv-programme-grid">
-                        <article class="nfv-programme-card nfv-programme-card-featured">
-                            <p>FOR UNDERGRADUATES</p>
-                            <h3>French Language<br>Immersion Programme</h3>
-                            <span>Universities &amp; Colleges of Education</span>
-                            <a href="{{ route('website.admissions') }}">Explore the immersion programme <b aria-hidden="true">→</b></a>
-                        </article>
-                        <article class="nfv-programme-card">
-                            <p>CAREER &amp; PROFESSIONAL</p>
-                            <h3>Diploma and<br>Certificate programmes</h3>
-                            <span>Structured French study with recognised qualifications</span>
-                            <a href="{{ route('website.admissions') }}">View programme options <b aria-hidden="true">→</b></a>
-                        </article>
-                        <article class="nfv-programme-card">
-                            <p>FLEXIBLE LEARNING</p>
-                            <h3>Short courses and<br>custom programmes</h3>
-                            <span>Weekend, evening, holiday and tailored learning</span>
-                            <a href="{{ route('website.admissions') }}">Discover flexible learning <b aria-hidden="true">→</b></a>
+                    <div class="nfv-discover-grid">
+                        <div class="nfv-study-options" aria-label="Study at NfLV">
+                            <a class="nfv-study-option" href="{{ route('website.programmes') }}">
+                                <span class="nfv-study-symbol" aria-hidden="true">Aa</span>
+                                <span class="nfv-study-category">IMMERSIVE LEARNING</span>
+                                <h3>Language immersion</h3>
+                                <p>French studies for universities and Colleges of Education.</p>
+                                <span class="nfv-study-action">Explore programme <b aria-hidden="true">↗</b></span>
+                            </a>
+                            <a class="nfv-study-option" href="{{ route('website.programmes') }}">
+                                <span class="nfv-study-symbol" aria-hidden="true">D</span>
+                                <span class="nfv-study-category">DEVELOP YOUR POTENTIAL</span>
+                                <h3>Diploma programmes</h3>
+                                <p>Build your French language skills through structured study.</p>
+                                <span class="nfv-study-action">Find your pathway <b aria-hidden="true">↗</b></span>
+                            </a>
+                            <a class="nfv-study-option" href="{{ route('website.programmes') }}">
+                                <span class="nfv-study-symbol" aria-hidden="true">C</span>
+                                <span class="nfv-study-category">TAKE THE NEXT STEP</span>
+                                <h3>Certificate programmes</h3>
+                                <p>Develop practical French for personal and professional goals.</p>
+                                <span class="nfv-study-action">Discover options <b aria-hidden="true">↗</b></span>
+                            </a>
+                            <a class="nfv-study-option" href="{{ route('website.programmes') }}">
+                                <span class="nfv-study-symbol" aria-hidden="true">↗</span>
+                                <span class="nfv-study-category">LEARNING THAT FITS</span>
+                                <h3>Flexible &amp; short courses</h3>
+                                <p>Evening, weekend and customised learning experiences.</p>
+                                <span class="nfv-study-action">Explore courses <b aria-hidden="true">↗</b></span>
+                            </a>
+                        </div>
+                        <article class="nfv-welcome-panel" aria-labelledby="director-welcome-heading">
+                            <div class="nfv-welcome-copy">
+                                <p class="nfv-kicker"><span></span> A MESSAGE FROM OUR DIRECTOR</p>
+                                <h2 id="director-welcome-heading">Bienvenue.<br>Welcome to the Village.</h2>
+                                <p class="nfv-welcome-greeting">Ici on parle Français!</p>
+                                <div class="nfv-welcome-summary">
+                                    <p>The Director welcomes students, alumni, researchers and partners to a community connecting Nigeria with the Francophone world.</p>
+                                    <p>His address celebrates learning through immersion, cultural understanding and practical communication, and invites you to discover NfLV’s programmes, collaborations and campus life in Badagry.</p>
+                                </div>
+                                <div class="nfv-welcome-signoff"><strong>Prof. Samuel Oladiipo Kolawole</strong><span>FNITI, MNAL</span><small>Director &amp; Chief Executive Officer</small></div>
+                                <a href="https://www.frenchvillage.edu.ng/" class="nfv-welcome-link">Read the full welcome address <span aria-hidden="true">→</span></a>
+                            </div>
+                            <div class="nfv-welcome-portrait">
+                                <img src="{{ asset('media/director-portrait.webp') }}" alt="Prof. Samuel Oladiipo Kolawole, Director and Chief Executive Officer" width="715" height="1000" loading="lazy">
+                                <span>LEADERSHIP WITH PURPOSE</span>
+                            </div>
                         </article>
                     </div>
                 </div>

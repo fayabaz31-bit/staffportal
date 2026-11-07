@@ -71,7 +71,7 @@
             <section class="nfv-discover" aria-labelledby="discover-heading">
                 <div class="nfv-container">
                     <div class="nfv-discover-heading">
-                        <div><p class="nfv-kicker nfv-kicker-dark"><span></span> DISCOVER YOUR NEXT CHAPTER</p><h2 id="discover-heading">Study, connect and thrive at NfLV.</h2></div>
+                        <div><p class="nfv-kicker nfv-kicker-dark nfv-section-label">Discover your next chapter</p><h2 id="discover-heading">Study, connect and <em>thrive at NfLV.</em></h2></div>
                         <a class="nfv-text-action" href="{{ route('website.programmes') }}">All programmes <span aria-hidden="true">→</span></a>
                     </div>
                     <div class="nfv-discover-grid">
@@ -126,27 +126,34 @@
                 </div>
             </section>
 
-            <section class="nfv-section nfv-about" id="about" aria-labelledby="about-heading">
-                <div class="nfv-container nfv-about-grid">
-                    <div class="nfv-statements">
-                        <p class="nfv-kicker"><span></span> WHY NFLV</p>
-                        <h2 id="about-heading">A place where French becomes part of everyday life.</h2>
-                        <p>NfLV brings together language learning, culture, research and regional exchange. Our programmes build confident communicators ready for academic, professional and cross-border opportunities.</p>
-                        <a class="nfv-text-action nfv-text-action-light" href="{{ route('website.about') }}">Discover NfLV <span aria-hidden="true">→</span></a>
+            <section class="nfv-campus-showcase" aria-labelledby="about-heading" data-campus-showcase>
+                <div class="nfv-container nfv-campus-heading">
+                    <div><p class="nfv-kicker nfv-kicker-dark nfv-section-label">Why NfLV</p><h2 id="about-heading">Discover a campus<br><em>that brings French to life.</em></h2><p>Green spaces, cultural experiences and a community where learning continues beyond the classroom.</p></div>
+                    <a class="nfv-campus-explore" href="{{ route('website.about') }}">Explore NfLV <span aria-hidden="true">→</span></a>
+                </div>
+                <div class="nfv-campus-reel-wrap">
+                    <div class="nfv-campus-reel" data-campus-reel tabindex="0" role="region" aria-label="NfLV campus gallery">
+                        <a class="nfv-campus-tile" href="{{ asset('media/campus-brick-building.jpg') }}" target="_blank" rel="noopener" aria-label="Spaces to discover: open full photograph in a new tab"><img class="nfv-campus-photograph" src="{{ asset('media/campus-brick-building.jpg') }}" alt="Brick campus building framed by a traveller palm" loading="lazy"><span class="nfv-campus-tile-caption">Spaces to discover<b aria-hidden="true">↗</b></span></a>
+                        <a class="nfv-campus-tile" href="{{ asset('media/campus-palms.jpg') }}" target="_blank" rel="noopener" aria-label="Under the palms: open full photograph in a new tab"><img class="nfv-campus-photograph" src="{{ asset('media/campus-palms.jpg') }}" alt="Palm trees beside NfLV campus buildings" loading="lazy"><span class="nfv-campus-tile-caption">Under the palms<b aria-hidden="true">↗</b></span></a>
+                        <a class="nfv-campus-tile" href="{{ asset('media/campus-balconies.jpg') }}" target="_blank" rel="noopener" aria-label="Around the Village: open full photograph in a new tab"><img class="nfv-campus-photograph" src="{{ asset('media/campus-balconies.jpg') }}" alt="NfLV building with open balconies and covered walkways" loading="lazy"><span class="nfv-campus-tile-caption">Around the Village<b aria-hidden="true">↗</b></span></a>
+                        <a class="nfv-campus-tile" href="{{ asset('media/campus-green-courtyard.jpg') }}" target="_blank" rel="noopener" aria-label="A greener outlook: open full photograph in a new tab"><img class="nfv-campus-photograph" src="{{ asset('media/campus-green-courtyard.jpg') }}" alt="Landscaped courtyard beside a two-storey NfLV building" loading="lazy"><span class="nfv-campus-tile-caption">A greener outlook<b aria-hidden="true">↗</b></span></a>
+                        <a class="nfv-campus-tile" href="{{ asset('media/campus-photo-collection.jpg') }}" target="_blank" rel="noopener" aria-label="Campus building: open full campus photo collection in a new tab"><span class="nfv-campus-crop" style="--campus-x: 0.0000%; --campus-y: 0%;" role="img" aria-label="Campus building"></span><span class="nfv-campus-tile-caption">Campus building<b aria-hidden="true">↗</b></span></a>
+                        <a class="nfv-campus-tile" href="{{ asset('media/campus-photo-collection.jpg') }}" target="_blank" rel="noopener" aria-label="Landscaped campus: open full campus photo collection in a new tab"><span class="nfv-campus-crop" style="--campus-x: 39.5170%; --campus-y: 0%;" role="img" aria-label="Landscaped campus"></span><span class="nfv-campus-tile-caption">Landscaped campus<b aria-hidden="true">↗</b></span></a>
+                        <a class="nfv-campus-tile" href="{{ asset('media/campus-photo-collection.jpg') }}" target="_blank" rel="noopener" aria-label="Campus gardens: open full campus photo collection in a new tab"><span class="nfv-campus-crop" style="--campus-x: 98.7925%; --campus-y: 0%;" role="img" aria-label="Campus gardens"></span><span class="nfv-campus-tile-caption">Campus gardens<b aria-hidden="true">↗</b></span></a>
+                        <a class="nfv-campus-tile" href="{{ asset('media/campus-photo-collection.jpg') }}" target="_blank" rel="noopener" aria-label="Campus road: open full campus photo collection in a new tab"><span class="nfv-campus-crop" style="--campus-x: 19.7585%; --campus-y: 91.6667%;" role="img" aria-label="Campus road"></span><span class="nfv-campus-tile-caption">Campus road<b aria-hidden="true">↗</b></span></a>
+                        <a class="nfv-campus-tile" href="{{ asset('media/campus-photo-collection.jpg') }}" target="_blank" rel="noopener" aria-label="Campus architecture: open full campus photo collection in a new tab"><span class="nfv-campus-crop" style="--campus-x: 39.5170%; --campus-y: 91.6667%;" role="img" aria-label="Campus architecture"></span><span class="nfv-campus-tile-caption">Campus architecture<b aria-hidden="true">↗</b></span></a>
+                        <a class="nfv-campus-tile" href="{{ asset('media/campus-photo-collection.jpg') }}" target="_blank" rel="noopener" aria-label="Administrative block: open full campus photo collection in a new tab"><span class="nfv-campus-crop" style="--campus-x: 79.0340%; --campus-y: 91.6667%;" role="img" aria-label="Administrative block"></span><span class="nfv-campus-tile-caption">Administrative block<b aria-hidden="true">↗</b></span></a>
+                        <figure class="nfv-campus-tile nfv-campus-video-tile"><video controls playsinline preload="none" poster="{{ asset('media/hall-week-poster.jpg') }}" aria-label="NfLV Hall Week video"><source src="{{ asset('media/hall-week.mp4') }}" type="video/mp4"><a href="{{ asset('media/hall-week.mp4') }}">Download Hall Week video</a></video><figcaption>Hall Week · Culture &amp; community</figcaption></figure>
                     </div>
-                    <div class="nfv-benefits">
-                        <article><span>01</span><h3>Immersive learning</h3><p>Practice French in a learning environment designed for active communication.</p></article>
-                        <article><span>02</span><h3>Specialist teaching</h3><p>Learn with educators focused on French language, culture and pedagogy.</p></article>
-                        <article><span>03</span><h3>Regional connection</h3><p>Develop skills that deepen Nigeria’s ties with the wider Francophone world.</p></article>
-                    </div>
+                    <div class="nfv-campus-reel-controls" aria-label="Campus gallery controls"><button type="button" data-campus-prev aria-label="Previous campus photos">←</button><button type="button" data-campus-next aria-label="Next campus photos">→</button></div>
                 </div>
             </section>
 
             <section class="nfv-section nfv-admissions" id="admissions" aria-labelledby="admissions-heading">
                 <div class="nfv-container nfv-admissions-grid">
                     <div>
-                        <p class="nfv-kicker nfv-kicker-dark"><span></span> ADMISSIONS</p>
-                        <h2 id="admissions-heading">Your next step<br>starts here.</h2>
+                        <p class="nfv-kicker nfv-kicker-dark nfv-section-label">Admissions</p>
+                        <h2 id="admissions-heading">Your next step<br><em>starts here.</em></h2>
                     </div>
                     <div class="nfv-admission-steps">
                         <article><span>01</span><h3>Choose a programme</h3><p>Compare programmes and find the option that suits your goals.</p></article>
@@ -157,27 +164,46 @@
                 </div>
             </section>
 
-            <section class="nfv-section nfv-news" id="news" aria-labelledby="news-heading">
-                <div class="nfv-container">
-                    <div class="nfv-section-heading nfv-news-heading">
-                        <div><p class="nfv-kicker nfv-kicker-dark"><span></span> FROM NFLV</p><h2 id="news-heading">News &amp; events</h2></div>
-                        <a class="nfv-text-action" href="{{ route('website.news') }}">View all news <span aria-hidden="true">→</span></a>
+            <section class="nfv-updates" id="news" aria-labelledby="news-heading">
+                <div class="nfv-container nfv-updates-layout">
+                    <div class="nfv-updates-news">
+                        <header class="nfv-updates-heading"><h2 id="news-heading">News &amp; <em>happenings.</em></h2><p>Stories, announcements and perspectives from the Village.</p></header>
+                        <div class="nfv-updates-cards">
+                            <article class="nfv-update-card">
+                                <a class="nfv-update-image" href="https://www.frenchvillage.edu.ng/newsletter/78/news" tabindex="-1" aria-hidden="true"><img src="{{ asset('media/hero-community.jpg') }}" alt="" loading="lazy" width="2048" height="1261"></a>
+                                <time datetime="2026-06-24">24 June 2026</time>
+                                <h3><a href="https://www.frenchvillage.edu.ng/newsletter/78/news">Diploma in French: Batch A 2026</a></h3>
+                                <a class="nfv-update-read" href="https://www.frenchvillage.edu.ng/newsletter/78/news" aria-label="Read Diploma in French: Batch A 2026">Read story <span aria-hidden="true">↗</span></a>
+                            </article>
+                            <article class="nfv-update-card">
+                                <a class="nfv-update-image" href="https://www.frenchvillage.edu.ng/newsletter/77/news" tabindex="-1" aria-hidden="true"><img src="{{ asset('media/hero-administration.png') }}" alt="" loading="lazy" width="2048" height="984"></a>
+                                <time datetime="2026-06-24">24 June 2026</time>
+                                <h3><a href="https://www.frenchvillage.edu.ng/newsletter/77/news">Certificate in French: Third Batch 2026</a></h3>
+                                <a class="nfv-update-read" href="https://www.frenchvillage.edu.ng/newsletter/77/news" aria-label="Read Certificate in French: Third Batch 2026">Read story <span aria-hidden="true">↗</span></a>
+                            </article>
+                            <article class="nfv-update-card">
+                                <a class="nfv-update-image" href="https://www.frenchvillage.edu.ng/newsletter/73/news" tabindex="-1" aria-hidden="true"><img src="{{ asset('media/hero-visit.jpg') }}" alt="" loading="lazy" width="2048" height="1256"></a>
+                                <time datetime="2026-04-15">15 April 2026</time>
+                                <h3><a href="https://www.frenchvillage.edu.ng/newsletter/73/news">French Embassy officials visit NfLV for a technical meeting</a></h3>
+                                <a class="nfv-update-read" href="https://www.frenchvillage.edu.ng/newsletter/73/news" aria-label="Read about the French Embassy technical meeting">Read story <span aria-hidden="true">↗</span></a>
+                            </article>
+                        </div>
+                        <a class="nfv-updates-all" href="{{ route('website.news') }}">View all news <span aria-hidden="true">↗</span></a>
                     </div>
-                    <div class="nfv-news-grid">
-                        <article class="nfv-news-feature"><div class="nfv-news-image nfv-news-image-main"><span>Campus &amp; community</span></div><p>FEATURED</p><h3>Discover the people, culture and opportunities that make up life at NfLV.</h3><a href="{{ route('website.about') }}">Explore campus life <b aria-hidden="true">→</b></a></article>
-                        <article class="nfv-news-item"><p>PROGRAMMES · JUNE 2026</p><h3>Diploma in French: Batch A 2026</h3><a href="https://www.frenchvillage.edu.ng/newsletter/78/news">Read story <b aria-hidden="true">→</b></a></article>
-                        <article class="nfv-news-item"><p>PROGRAMMES · JUNE 2026</p><h3>Certificate in French: Third Batch 2026</h3><a href="https://www.frenchvillage.edu.ng/newsletter/77/news">Read story <b aria-hidden="true">→</b></a></article>
-                        <article class="nfv-news-item"><p>INSTITUTION · APRIL 2026</p><h3>French Embassy officials visit NfLV for a technical meeting</h3><a href="https://www.frenchvillage.edu.ng/newsletter/73/news">Read story <b aria-hidden="true">→</b></a></article>
-                    </div>
+                    <aside class="nfv-updates-events" aria-labelledby="events-heading">
+                        <h2 id="events-heading">Events</h2><p class="nfv-events-subtitle">Upcoming events</p>
+                        <div class="nfv-events-notice"><span class="nfv-events-calendar" aria-hidden="true">✦</span><h3>More moments to look forward to.</h3><p>New event dates will be announced here. Explore our news page for programme and campus updates.</p></div>
+                        <a class="nfv-updates-all" href="{{ route('website.news') }}">News &amp; event updates <span aria-hidden="true">↗</span></a>
+                    </aside>
                 </div>
             </section>
 
             <section class="nfv-section nfv-research" id="research" aria-labelledby="research-heading">
                 <div class="nfv-container nfv-research-grid">
-                    <p class="nfv-kicker"><span></span> RESEARCH &amp; RESOURCES</p>
-                    <h2 id="research-heading">Advancing French studies<br>in Nigeria and beyond.</h2>
+                    <p class="nfv-kicker nfv-section-label">Research &amp; resources</p>
+                    <h2 id="research-heading">Advancing French studies<br><em>in Nigeria and beyond.</em></h2>
                     <p>Explore teaching resources, journals, specialist programmes and opportunities for institutional collaboration.</p>
-                    <a class="nfv-text-action nfv-text-action-light" href="https://www.frenchvillage.edu.ng/journals">Explore resources <span aria-hidden="true">→</span></a>
+                    <a class="nfv-text-action nfv-text-action-light" href="{{ route('website.research') }}">Explore resources <span aria-hidden="true">→</span></a>
                 </div>
             </section>
         </main>
@@ -189,6 +215,7 @@
                 <div><h2>Portals</h2><a href="https://portal.frenchvillage.edu.ng/">Student portal</a><a href="{{ route('home') }}">Staff portal</a><a href="https://portal.frenchvillage.edu.ng/paynow">Fees &amp; payments</a><a href="https://www.frenchvillage.edu.ng/contact-us">Contact us</a></div>
                 <div><h2>Visit or contact us</h2><p>Badagry, Lagos State, Nigeria</p><a href="https://www.frenchvillage.edu.ng/contact-us">Get in touch <span aria-hidden="true">→</span></a></div>
             </div>
+            @include('partials.public-social-links')
             <div class="nfv-container nfv-footer-bottom"><span>© {{ now()->year }} Nigeria French Language Village</span><span>Privacy · Accessibility · Terms</span></div>
         </footer>
     </div>

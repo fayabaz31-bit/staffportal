@@ -1,3 +1,22 @@
+document.querySelectorAll('[data-campus-showcase]').forEach((section) => {
+    const reel = section.querySelector('[data-campus-reel]');
+    const reducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)');
+    const advance = (direction) => {
+        const distance = reel.firstElementChild.getBoundingClientRect().width + 8;
+        const atEnd = reel.scrollLeft >= reel.scrollWidth - reel.clientWidth - 4;
+        reel.scrollTo({ left: direction > 0 && atEnd ? 0 : reel.scrollLeft + distance * direction, behavior: reducedMotion.matches ? 'instant' : 'smooth' });
+    };
+    section.querySelector('[data-campus-prev]').addEventListener('click', () => advance(-1));
+    section.querySelector('[data-campus-next]').addEventListener('click', () => advance(1));
+    setInterval(() => {
+        const bounds = section.getBoundingClientRect();
+        const video = section.querySelector('video');
+        if (!reducedMotion.matches && !document.hidden && bounds.top < window.innerHeight && bounds.bottom > 0 && !section.matches(':hover') && !section.contains(document.activeElement) && video.paused) {
+            advance(1);
+        }
+    }, 4500);
+});
+
 document.querySelectorAll('[data-carousel]').forEach((carousel) => {
     const slides = [...carousel.querySelectorAll('[data-slide]')];
     const motion = window.matchMedia('(prefers-reduced-motion: reduce)');

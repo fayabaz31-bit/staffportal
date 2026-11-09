@@ -20,6 +20,8 @@ document.querySelectorAll('[data-campus-showcase]').forEach((section) => {
 document.querySelectorAll('[data-carousel]').forEach((carousel) => {
     const slides = [...carousel.querySelectorAll('[data-slide]')];
     const motion = window.matchMedia('(prefers-reduced-motion: reduce)');
+    const pagination = [...carousel.querySelectorAll('[data-hero-go]')];
+    const pauseButton = carousel.querySelector('[data-hero-pause]');
     let current = 0;
     let paused = motion.matches;
     let timer;
@@ -39,15 +41,18 @@ document.querySelectorAll('[data-carousel]').forEach((carousel) => {
         }
     };
     const show = (index) => {
+        const next = (index + slides.length) % slides.length;
+        if (next === current) { schedule(); return; }
         const outgoing = slides[current];
         clearTimeout(transitionTimer);
-        slides.forEach((slide) => slide.classList.remove('is-leaving'));
-        current = (index + slides.length) % slides.length;
+        slides.forEach((slide) => { slide.getAnimations().forEach((animation) => animation.cancel()); slide.classList.remove('is-leaving'); });
+        current = next;
         slides.forEach((slide, position) => {
             const active = position === current;
             slide.classList.toggle('is-active', active);
             slide.inert = !active;
             slide.setAttribute('aria-hidden', String(!active));
+            pagination[position]?.setAttribute('aria-pressed', String(active));
         });
         if (!motion.matches) {
             outgoing.classList.add('is-leaving');
@@ -62,8 +67,16 @@ document.querySelectorAll('[data-carousel]').forEach((carousel) => {
         schedule();
     };
     const updatePause = () => {
+        if (pauseButton) {
+            pauseButton.textContent = paused ? 'Play' : 'Pause';
+            pauseButton.setAttribute('aria-label', paused ? 'Play slideshow' : 'Pause slideshow');
+        }
         schedule();
     };
+    pagination.forEach((button, index) => button.addEventListener('click', () => show(index)));
+    carousel.querySelector('[data-hero-prev]')?.addEventListener('click', () => show(current - 1));
+    carousel.querySelector('[data-hero-next]')?.addEventListener('click', () => show(current + 1));
+    pauseButton?.addEventListener('click', () => { paused = !paused; updatePause(); });
     carousel.addEventListener('mouseenter', () => clearTimeout(timer));
     carousel.addEventListener('mouseleave', schedule);
     carousel.addEventListener('focusin', () => clearTimeout(timer));

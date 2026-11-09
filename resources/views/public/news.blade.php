@@ -4,35 +4,9 @@
 
 @section('content')
     <div class="nfv-site">
-        <div class="nfv-utility-bar">
-            <div class="nfv-container nfv-utility-content">
-                <p>Inter-University Centre for French Studies · Badagry, Nigeria</p>
-                <nav aria-label="Utility navigation">
-                    <a href="{{ route('website.preview') }}">Home</a>
-                    <a href="{{ route('website.about') }}">About</a>
-                    <a href="{{ route('home') }}">Staff portal</a>
-                </nav>
-            </div>
-        </div>
+        @include('partials.public-header')
 
-        <header class="nfv-header">
-            <div class="nfv-container nfv-header-content">
-                <a class="nfv-brand" href="{{ route('website.preview') }}" aria-label="Nigeria French Language Village home">
-                    <span class="nfv-brand-mark" aria-hidden="true"></span>
-                    <span><strong>Nigeria French<br>Language Village</strong><small>Inter-University Centre for French Studies</small></span>
-                </a>
-                <nav class="nfv-main-nav" aria-label="Main navigation">
-                    @include('partials.public-about-navigation')
-                    <a href="{{ route('website.programmes') }}">Study at NfLV</a>
-                    <a href="{{ route('website.admissions') }}">Admissions</a>
-                    <a href="{{ route('website.research') }}">Research &amp; resources</a>
-                    <a class="nfv-nav-active" href="{{ route('website.news') }}">News &amp; events</a>
-                </nav>
-                <a class="nfv-header-action" href="https://www.frenchvillage.edu.ng/event">Browse events <span aria-hidden="true">↗</span></a>
-            </div>
-        </header>
-
-        <main>
+        <main id="main-content" tabindex="-1">
             <section class="nfv-page-hero" aria-labelledby="news-page-heading">
                 <div class="nfv-container nfv-page-hero-content">
                     <p class="nfv-kicker nfv-kicker-dark"><span></span> NEWS &amp; EVENTS</p>

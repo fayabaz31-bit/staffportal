@@ -4,9 +4,39 @@
 
 @section('content')
     <div class="nfv-site nfv-home-editorial">
-        @include('partials.public-header')
+        <div class="nfv-utility-bar">
+            <div class="nfv-container nfv-utility-content">
+                <p>Inter-University Centre for French Studies · Badagry, Nigeria</p>
+                <nav aria-label="Utility navigation">
+                    <a href="{{ route('website.preview') }}">Home</a>
+                    <a href="{{ route('website.news') }}">News</a>
+                    <a href="https://portal.frenchvillage.edu.ng/">Student portal</a>
+                    <a href="{{ route('home') }}">Staff portal</a>
+                </nav>
+            </div>
+        </div>
 
-        <main id="main-content" tabindex="-1">
+        <header class="nfv-header">
+            <div class="nfv-container nfv-header-content">
+                <a class="nfv-brand" href="{{ route('website.preview') }}" aria-label="Nigeria French Language Village home">
+                    <span class="nfv-brand-mark" aria-hidden="true"></span>
+                    <span>
+                        <strong>Nigeria French<br>Language Village</strong>
+                        <small>Inter-University Centre for French Studies</small>
+                    </span>
+                </a>
+                <nav class="nfv-main-nav" aria-label="Main navigation">
+                    @include('partials.public-about-navigation')
+                    <a href="{{ route('website.programmes') }}">Study at NfLV</a>
+                    <a href="{{ route('website.admissions') }}">Admissions</a>
+                    <a href="{{ route('website.research') }}">Research &amp; resources</a>
+                    <a href="{{ route('website.news') }}">News &amp; events</a>
+                </nav>
+                <a class="nfv-header-action" href="https://portal.frenchvillage.edu.ng/register">Apply now</a>
+            </div>
+        </header>
+
+        <main id="top">
             <section class="nfv-carousel" aria-label="Discover Nigeria French Language Village" aria-roledescription="carousel" data-carousel>
                 <article class="nfv-slide is-active nfv-slide-banner" data-slide role="group" aria-roledescription="slide" aria-label="1 of 4" >
                     <img src="{{ asset('media/hero-excellence-navy-blend.png') }}" alt="Nigeria French Language Village: a centre of excellence in French, with the portrait on the left, the original green and black logo blended into the navy design, and French tricolour accents" fetchpriority="high">

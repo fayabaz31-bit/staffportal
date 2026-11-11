@@ -2,8 +2,6 @@
 
 @import './public-home-editorial.css';
 
-@import './public-navigation.css';
-
 .nfv-campus-map { background: #eeeee5; }
 .nfv-campus-map iframe { display: block; width: 100%; height: 360px; border: 0; }
 @media (max-width: 700px) { .nfv-campus-map iframe { height: 280px; } }

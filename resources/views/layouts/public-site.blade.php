@@ -12,7 +12,6 @@
         @vite(['resources/css/public-site.css', 'resources/js/public-site.js'])
     </head>
     <body>
-        <a class="nfv-skip-link" href="#main-content">Skip to main content</a>
         @yield('content')
     </body>
 </html>

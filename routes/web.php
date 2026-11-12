@@ -15,6 +15,7 @@ use App\Http\Controllers\OrganisationController;
 use App\Http\Controllers\PersonnelDirectoryController;
 use App\Http\Controllers\PersonnelImportController;
 use App\Http\Controllers\ProfileChangeRequestController;
+use App\Http\Controllers\PublicWebsiteController;
 use App\Http\Controllers\RegistryCorrespondenceController;
 use App\Http\Controllers\RegistryProfileChangeRequestController;
 use App\Http\Controllers\ReportController;
@@ -27,16 +28,19 @@ use App\Http\Controllers\WorkAssignmentController;
 use Illuminate\Support\Facades\Route;
 
 Route::view('/', 'landing')->name('home');
-Route::view('/website-preview', 'public.home')->name('website.preview');
+Route::get('/website-preview', [PublicWebsiteController::class, 'home'])->name('website.preview');
 Route::view('/website-preview/about', 'public.about')->name('website.about');
 Route::view('/website-preview/director-welcome', 'public.director-welcome')->name('website.director-welcome');
 Route::view('/website-preview/programmes', 'public.programmes')->name('website.programmes');
 Route::view('/website-preview/admissions', 'public.admissions')->name('website.admissions');
 Route::view('/website-preview/research', 'public.research')->name('website.research');
-Route::view('/website-preview/news', 'public.news')->name('website.news');
+Route::get('/website-preview/news', [PublicWebsiteController::class, 'news'])->name('website.news');
 Route::view('/website-preview/news/diploma-french-2026', 'public.news-diploma-french-2026')->name('website.news.diploma-french-2026');
 Route::view('/website-preview/news/certificate-french-2026', 'public.news-certificate-french-2026')->name('website.news.certificate-french-2026');
 Route::view('/website-preview/news/french-embassy-technical-meeting', 'public.news-french-embassy-technical-meeting')->name('website.news.french-embassy-technical-meeting');
+Route::get('/website-preview/news/story/{id}', [PublicWebsiteController::class, 'article'])
+    ->where('id', '[1-9][0-9]{0,8}')
+    ->name('website.news.story');
 
 Route::middleware('guest')->group(function () {
     Route::get('/login', [AuthenticatedSessionController::class, 'create'])->name('login');

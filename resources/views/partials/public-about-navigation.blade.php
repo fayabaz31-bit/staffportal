@@ -1,7 +1,7 @@
 <div class="nfv-nav-about">
-    <a href="{{ route('website.about') }}">About NfLV</a>
+    <a href="{{ route('website.about') }}">About NFLV</a>
     <details class="nfv-about-dropdown">
-        <summary aria-label="Open About NfLV submenu"><span aria-hidden="true">⌄</span></summary>
+        <summary aria-label="Open About NFLV submenu"><span aria-hidden="true">⌄</span></summary>
         <div class="nfv-about-submenu"><a href="{{ route('website.director-welcome') }}" @if (request()->routeIs('website.director-welcome')) aria-current="page" @endif>Director’s welcome message</a></div>
     </details>
 </div>

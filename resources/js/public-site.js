@@ -1,16 +1,53 @@
+const programmeCards = document.querySelectorAll('[data-programme-cards] .nfv-study-option');
+const programmeMotion = window.matchMedia('(prefers-reduced-motion: reduce)');
+
+if (programmeCards.length && 'IntersectionObserver' in window && !programmeMotion.matches) {
+    const programmeEntrance = new IntersectionObserver((entries, observer) => {
+        entries.forEach(({ target: card, intersectionRatio }) => {
+            if (intersectionRatio < 0.3) {
+                return;
+            }
+
+            observer.unobserve(card);
+
+            if (!programmeMotion.matches && !card.matches(':focus')) {
+                card.animate([
+                    { transform: 'translateX(50%)', opacity: 0 },
+                    { transform: 'translateX(0)', opacity: 1 },
+                ], { duration: 1000, easing: 'ease-in-out' });
+            }
+        });
+    }, { threshold: 0.3 });
+
+    programmeCards.forEach((card) => programmeEntrance.observe(card));
+}
+
 document.querySelectorAll('[data-campus-showcase]').forEach((section) => {
     const reel = section.querySelector('[data-campus-reel]');
+    const video = reel.querySelector('video');
     const reducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)');
+
     const advance = (direction) => {
-        const distance = reel.firstElementChild.getBoundingClientRect().width + 8;
-        const atEnd = reel.scrollLeft >= reel.scrollWidth - reel.clientWidth - 4;
-        reel.scrollTo({ left: direction > 0 && atEnd ? 0 : reel.scrollLeft + distance * direction, behavior: reducedMotion.matches ? 'instant' : 'smooth' });
+        const gap = parseFloat(getComputedStyle(reel).columnGap) || 0;
+        const step = reel.firstElementChild.getBoundingClientRect().width + gap;
+        const end = reel.scrollWidth - reel.clientWidth;
+        let position = reel.scrollLeft + step * direction;
+
+        if (direction > 0 && reel.scrollLeft >= end - 2) {
+            position = 0;
+        } else if (direction < 0 && reel.scrollLeft <= 2) {
+            position = end;
+        }
+
+        reel.scrollTo({ left: position, behavior: reducedMotion.matches ? 'instant' : 'smooth' });
     };
+
     section.querySelector('[data-campus-prev]').addEventListener('click', () => advance(-1));
     section.querySelector('[data-campus-next]').addEventListener('click', () => advance(1));
+
     setInterval(() => {
         const bounds = section.getBoundingClientRect();
-        const video = section.querySelector('video');
+
         if (!reducedMotion.matches && !document.hidden && bounds.top < window.innerHeight && bounds.bottom > 0 && !section.matches(':hover') && !section.contains(document.activeElement) && video.paused) {
             advance(1);
         }

@@ -13,6 +13,9 @@
                 <span class="wordmark-caption">Staff Portal</span>
             </a>
             <div class="account-tools">
+                @can('access-student-administration')
+                    <a class="text-button" href="{{ route('students.admin.index') }}">Student administration</a>
+                @endcan
                 <a class="text-button" href="{{ route('notifications.index') }}">Notifications @if ($unreadCount > 0)<span aria-hidden="true">({{ $unreadCount }})</span>@endif</a>
                 <span class="account-name">{{ $user->name }}</span>
                 <form method="POST" action="{{ route('logout') }}">

@@ -38,6 +38,10 @@ class AppServiceProvider extends ServiceProvider
 
         $active = static fn (User $user): bool => $user->status === 'active';
 
+        Gate::define('manage-students', fn (User $user): bool => $active($user) && $user->hasDuty(DutyCatalog::REGISTRY_PERSONNEL_RECORDS));
+        Gate::define('manage-student-finance', fn (User $user): bool => $active($user) && $user->hasDuty(DutyCatalog::BURSARY_RECONCILIATION));
+        Gate::define('access-student-administration', fn (User $user): bool => $active($user) && $user->hasDuty(DutyCatalog::REGISTRY_PERSONNEL_RECORDS, DutyCatalog::BURSARY_RECONCILIATION));
+
         Gate::define('review-profile-change-requests', fn (User $user): bool => $active($user) && $user->hasDuty(DutyCatalog::REGISTRY_PROFILE_CHANGE_REVIEW));
 
         Gate::define('any-registry-approval', fn (User $user): bool => $active($user) && $user->hasDuty(

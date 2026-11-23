@@ -27,6 +27,7 @@ use App\Http\Controllers\UnitServiceRequestController;
 use App\Http\Controllers\WorkAssignmentController;
 use Illuminate\Support\Facades\Route;
 
+require __DIR__.'/student.php';
 Route::view('/', 'landing')->name('home');
 Route::get('/website-preview', [PublicWebsiteController::class, 'home'])->name('website.preview');
 Route::view('/website-preview/about', 'public.about')->name('website.about');

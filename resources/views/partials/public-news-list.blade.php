@@ -26,7 +26,7 @@
         @endforeach
         <aside class="nfv-news-calendar" aria-labelledby="events-heading">
             <h3 id="events-heading">Events</h3>
-            <a href="https://www.frenchvillage.edu.ng/event">View the NFLV events calendar</a>
+            <a href="{{ route('website.events') }}">Browse NFLV events</a>
         </aside>
     </div>
 </div>

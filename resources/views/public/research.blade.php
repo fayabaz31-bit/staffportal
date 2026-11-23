@@ -27,8 +27,9 @@
                     <a href="{{ route('website.admissions') }}">Admissions</a>
                     <a class="nfv-nav-active" href="{{ route('website.research') }}">Research &amp; resources</a>
                     <a href="{{ route('website.news') }}">News &amp; events</a>
+                    @include('partials.public-tetfund-navigation')
                 </nav>
-                <a class="nfv-header-action" href="https://www.frenchvillage.edu.ng/journals">Explore resources <span aria-hidden="true">↗</span></a>
+                <a class="nfv-header-action" href="#research-support">Research support <span aria-hidden="true">↓</span></a>
             </div>
         </header>
 
@@ -58,7 +59,7 @@
                 </div>
             </section>
 
-            <section class="nfv-about-history" aria-labelledby="research-support-heading">
+            <section class="nfv-about-history" id="research-support" aria-labelledby="research-support-heading">
                 <div class="nfv-container nfv-about-history-grid">
                     <p class="nfv-section-index">03</p>
                     <div>
@@ -77,7 +78,7 @@
             <div class="nfv-container nfv-footer-grid">
                 <div><a class="nfv-brand nfv-brand-footer" href="{{ route('website.preview') }}"><span class="nfv-brand-mark" aria-hidden="true"></span><span><strong>Nigeria French<br>Language Village</strong><small>Badagry, Nigeria</small></span></a>@include('partials.public-footer-intro')</div>
                 <div><h2>Explore</h2><a href="{{ route('website.about') }}">About NfLV</a><a href="{{ route('website.programmes') }}">Programmes</a><a href="{{ route('website.admissions') }}">Admissions</a><a href="{{ route('website.news') }}">News &amp; events</a></div>
-                <div><h2>Portals</h2><a href="https://portal.frenchvillage.edu.ng/">Student portal</a><a href="{{ route('home') }}">Staff portal</a><a href="https://portal.frenchvillage.edu.ng/paynow">Fees &amp; payments</a><a href="https://www.frenchvillage.edu.ng/contact-us">Contact us</a></div>
+                <div><h2>Portals</h2><a href="{{ route('website.student-portal') }}">Student portal</a><a href="{{ route('home') }}">Staff portal</a><a href="{{ route('website.fees') }}">Fees &amp; payments</a><a href="{{ route('website.contact') }}">Contact us</a></div>
                 @include('partials.public-footer-contact')
             </div>
             <div class="nfv-container nfv-footer-bottom"><span>© {{ now()->year }} Nigeria French Language Village</span></div>

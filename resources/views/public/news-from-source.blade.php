@@ -26,5 +26,5 @@
         </a>
     @endif
 
-    <p><a class="nfv-text-action" href="{{ $source }}">Original announcement on the official NFLV website</a></p>
+    <p>Source: <a href="{{ $source }}">Official NFLV announcement</a></p>
 @endsection

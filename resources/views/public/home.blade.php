@@ -10,7 +10,7 @@
                 <nav aria-label="Utility navigation">
                     <a href="{{ route('website.preview') }}">Home</a>
                     <a href="{{ route('website.news') }}">News</a>
-                    <a href="https://portal.frenchvillage.edu.ng/">Student portal</a>
+                    <a href="{{ route('website.student-portal') }}">Student portal</a>
                     <a href="{{ route('home') }}">Staff portal</a>
                 </nav>
             </div>
@@ -31,8 +31,9 @@
                     <a href="{{ route('website.admissions') }}">Admissions</a>
                     <a href="{{ route('website.research') }}">Research &amp; resources</a>
                     <a href="{{ route('website.news') }}">News &amp; events</a>
+                    @include('partials.public-tetfund-navigation')
                 </nav>
-                <a class="nfv-header-action" href="https://portal.frenchvillage.edu.ng/register">Apply now</a>
+                <a class="nfv-header-action" href="{{ route('website.admissions') }}">Apply now</a>
             </div>
         </header>
 
@@ -70,8 +71,8 @@
             <section class="nfv-quick-links" aria-label="Popular services">
                 <div class="nfv-container nfv-quick-links-grid">
                     <a href="{{ route('website.admissions') }}"><strong>Admissions</strong><small>Requirements, intakes and how to apply</small><b aria-hidden="true">→</b></a>
-                    <a href="https://portal.frenchvillage.edu.ng/paynow"><strong>Fees &amp; payments</strong><small>Pay tuition or confirm a payment</small><b aria-hidden="true">→</b></a>
-                    <a href="https://portal.frenchvillage.edu.ng/"><strong>Student portal</strong><small>Registration and student services</small><b aria-hidden="true">→</b></a>
+                    <a href="{{ route('website.fees') }}"><strong>Fees &amp; payments</strong><small>Pay tuition or confirm a payment</small><b aria-hidden="true">→</b></a>
+                    <a href="{{ route('website.student-portal') }}"><strong>Student portal</strong><small>Registration and student services</small><b aria-hidden="true">→</b></a>
                     <a href="{{ route('home') }}"><strong>Staff portal</strong><small>Secure staff self-service</small><b aria-hidden="true">→</b></a>
                 </div>
             </section>
@@ -168,24 +169,14 @@
                     <a class="nfv-text-action" href="{{ route('website.research') }}">Explore resources <span aria-hidden="true">→</span></a>
                 </div>
             </section>
-            <section class="nfv-campus-map" aria-label="Find Nigeria French Language Village in Badagry">
-                <iframe
-                    src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3964.6980390253807!2d2.892601514273933!3d6.432820695345869!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x103b6257735a5093:0x709631afff924fc9!2sNIGERIA+FRENCH+LANGUAGE+VILLAGE!5e0!3m2!1sen!2sng!4v1575147388419!5m2!1sen!2sng"
-                    title="Nigeria French Language Village campus location on Google Maps"
-                    width="1600"
-                    height="360"
-                    loading="lazy"
-                    referrerpolicy="no-referrer-when-downgrade"
-                    allowfullscreen
-                ></iframe>
-            </section>
+            @include('partials.public-campus-map')
         </main>
 
         <footer class="nfv-footer" id="contact">
             <div class="nfv-container nfv-footer-grid">
                 <div><a class="nfv-brand nfv-brand-footer" href="{{ route('website.preview') }}"><span class="nfv-brand-mark" aria-hidden="true"></span><span><strong>Nigeria French<br>Language Village</strong><small>Badagry, Nigeria</small></span></a>@include('partials.public-footer-intro')</div>
                 <div><h2>Explore</h2><a href="{{ route('website.about') }}">About NFLV</a><a href="{{ route('website.programmes') }}">Programmes</a><a href="{{ route('website.admissions') }}">Admissions</a><a href="{{ route('website.news') }}">News &amp; events</a></div>
-                <div><h2>Portals</h2><a href="https://portal.frenchvillage.edu.ng/">Student portal</a><a href="{{ route('home') }}">Staff portal</a><a href="https://portal.frenchvillage.edu.ng/paynow">Fees &amp; payments</a><a href="https://www.frenchvillage.edu.ng/contact-us">Contact us</a></div>
+                <div><h2>Portals</h2><a href="{{ route('website.student-portal') }}">Student portal</a><a href="{{ route('home') }}">Staff portal</a><a href="{{ route('website.fees') }}">Fees &amp; payments</a><a href="{{ route('website.contact') }}">Contact us</a></div>
                 @include('partials.public-footer-contact')
             </div>
             <div class="nfv-container nfv-footer-bottom"><span>© {{ now()->year }} Nigeria French Language Village</span></div>

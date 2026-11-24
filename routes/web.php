@@ -15,6 +15,7 @@ use App\Http\Controllers\OrganisationController;
 use App\Http\Controllers\PersonnelDirectoryController;
 use App\Http\Controllers\PersonnelImportController;
 use App\Http\Controllers\ProfileChangeRequestController;
+use App\Http\Controllers\PublicContactController;
 use App\Http\Controllers\PublicWebsiteController;
 use App\Http\Controllers\RegistryCorrespondenceController;
 use App\Http\Controllers\RegistryProfileChangeRequestController;
@@ -25,6 +26,7 @@ use App\Http\Controllers\StaffProfileController;
 use App\Http\Controllers\StaffServiceRequestController;
 use App\Http\Controllers\UnitServiceRequestController;
 use App\Http\Controllers\WorkAssignmentController;
+use Illuminate\Http\RedirectResponse;
 use Illuminate\Support\Facades\Route;
 
 require __DIR__.'/student.php';
@@ -35,9 +37,10 @@ Route::view('/website-preview/leadership', 'public.leadership')->name('website.l
 Route::view('/website-preview/director-welcome', 'public.director-welcome')->name('website.director-welcome');
 Route::view('/website-preview/programmes', 'public.programmes')->name('website.programmes');
 Route::view('/website-preview/admissions', 'public.admissions')->name('website.admissions');
-Route::view('/website-preview/student-portal', 'public.student-portal')->name('website.student-portal');
+Route::get('/website-preview/student-portal', static fn (): RedirectResponse => redirect()->route('student.login'))->name('website.student-portal');
 Route::view('/website-preview/fees', 'public.fees')->name('website.fees');
 Route::view('/website-preview/contact', 'public.contact')->name('website.contact');
+Route::post('/website-preview/contact', [PublicContactController::class, 'store'])->middleware('throttle:3,1')->name('website.contact.send');
 Route::view('/website-preview/events', 'public.events')->name('website.events');
 Route::view('/website-preview/research', 'public.research')->name('website.research');
 Route::view('/website-preview/tetfund-impact', 'public.tetfund-impact')->name('website.tetfund.impact');

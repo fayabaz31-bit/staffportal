@@ -52,10 +52,6 @@
 .sp-item p { white-space: pre-line; }
 .sp-item .sp-form { margin-top: 12px; }
 .sp-status { font-size: 12px; color: #425f4c; font-weight: 700; text-transform: uppercase; }
-.sp-auth { display: grid; grid-template-columns: 1.15fr 1fr; gap: clamp(28px, 6vw, 85px); align-items: start; max-width: 1100px; padding: 45px 0; margin: auto; }
-.sp-auth-intro { padding-top: 20px; }
-.sp-auth-intro h1 { max-width: 12ch; font-size: clamp(42px, 5.2vw, 68px); }
-.sp-auth-intro p, .sp-auth-intro > a { display: block; margin-top: 22px; max-width: 47ch; }
 .sp-footer { margin-top: 32px; padding-top: 15px; border-top: 1px solid #d8dfd2; color: #657468; font-size: 12px; }
 .sp-skip { position: fixed; top: -100px; background: white; padding: 12px; z-index: 20; }
 .sp-skip:focus { top: 10px; }
@@ -67,8 +63,7 @@
     .sp-shell { grid-template-columns: 1fr; }
     .sp-nav { display: flex; overflow-x: auto; gap: 4px; padding: 8px 14px; }
     .sp-nav a { white-space: nowrap; border: 0; border-bottom: 3px solid transparent; }
-    .sp-grid, .sp-auth { grid-template-columns: 1fr; }
-    .sp-auth { padding-top: 5px; }
+    .sp-grid { grid-template-columns: 1fr; }
     .sp-meta { grid-template-columns: 115px minmax(0, 1fr); }
 }
 @media print { .sp-header, .sp-nav, .sp-form, .sp-footer { display: none; } .sp-shell { display: block; } }

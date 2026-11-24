@@ -19,7 +19,7 @@
                     <button type="submit" class="sp-text-button">Sign out</button>
                 </form>
             @else
-                <a href="{{ route('website.preview') }}">Main website</a>
+                <a href="{{ route('website.preview') }}">Home</a>
             @endif
         </div>
     </header>

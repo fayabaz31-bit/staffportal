@@ -144,6 +144,47 @@ a { color: inherit; }
 .nfv-article-flyer img { display: block; width: 100%; height: auto; }
 .nfv-article-flyer span { display: block; margin-top: 14px; font-size: 12px; }
 .nfv-article-body .nfv-button { background: #173d35; color: white; }
+.nfv-contact-details { margin: 0; }
+.nfv-contact-details > div { padding: 15px 0; border-bottom: 1px solid #d9ded7; }
+.nfv-contact-details dt { margin-bottom: 4px; font-size: 14px; font-weight: 700; }
+.nfv-contact-details dd { margin: 0; font-size: 16px; overflow-wrap: anywhere; }
+.nfv-contact-details a { text-decoration: underline; text-underline-offset: 4px; }
+.nfv-contact-page .nfv-page-hero { padding: clamp(30px, 5vw, 62px) 0; background: #153d33; }
+.nfv-contact-page .nfv-page-hero h1 { margin: 0; color: #fffefa; font-size: clamp(42px, 5.2vw, 66px); line-height: 1.05; }
+.nfv-contact-page .nfv-page-hero p:last-child { margin-top: 17px; color: #e2eadd; font-size: 16px; }
+.nfv-contact-page .nfv-article-body { max-width: 1180px; padding-block: clamp(28px, 4.5vw, 58px); }
+.nfv-contact-grid { display: grid; grid-template-columns: minmax(0, .9fr) minmax(0, 1.1fr); gap: clamp(28px, 6vw, 78px); align-items: start; }
+.nfv-contact-page .nfv-contact-grid h2 { margin: 0 0 18px; font-size: 32px; line-height: 1.1; }
+.nfv-contact-info > p { max-width: 42ch; font-size: 15px; }
+.nfv-contact-address { margin-top: 30px; }
+.nfv-contact-address h3 { margin: 0 0 9px; font: 500 26px/1.2 'Newsreader', Georgia, serif; }
+.nfv-contact-address address { margin-bottom: 10px; font-style: normal; line-height: 1.75; }
+.nfv-contact-address a { display: inline-flex; align-items: center; min-height: 36px; font-size: 14px; text-decoration: underline; text-underline-offset: 4px; }
+.nfv-contact-message { padding: clamp(20px, 3.2vw, 37px); border: 1px solid #d9ddd1; border-top: 3px solid #b18a3f; background: #f4f3eb; scroll-margin-top: 150px; }
+.nfv-contact-form { display: grid; gap: 18px; }
+.nfv-contact-fields { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 18px; }
+.nfv-contact-form label { display: grid; gap: 7px; font-size: 14px; font-weight: 600; }
+.nfv-contact-form input, .nfv-contact-form textarea { width: 100%; min-width: 0; padding: 11px 12px; border: 1px solid #afbbad; border-radius: 2px; background: #fffefa; color: #183d35; font: 400 16px/1.5 'DM Sans', Arial, sans-serif; }
+.nfv-contact-form input { min-height: 46px; }
+.nfv-contact-form textarea { resize: vertical; }
+.nfv-contact-form [aria-invalid="true"] { border-color: #a64c36; }
+.nfv-contact-form button { justify-self: start; min-height: 46px; padding: 12px 25px; border: 1px solid #153d33; border-radius: 2px; background: #153d33; color: #fffefa; font: 700 14px/1.4 'DM Sans', Arial, sans-serif; cursor: pointer; }
+.nfv-contact-form button:hover { background: #2b604c; }
+.nfv-contact-page .nfv-contact-feedback, .nfv-contact-errors { padding: 13px 15px; border-left: 3px solid #497a51; background: #e6efdf; font-size: 14px; line-height: 1.6; }
+.nfv-contact-errors { margin-bottom: 18px; border-color: #a64c36; background: #fae9e2; }
+.nfv-contact-page .nfv-contact-errors p { margin: 0; font-size: 14px; }
+.nfv-contact-errors ul { margin: 5px 0 0; padding-left: 18px; }
+.nfv-contact-support { display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between; gap: 18px 30px; margin-top: 38px; padding-top: 28px; border-top: 1px solid #d9ddd1; }
+.nfv-contact-page .nfv-contact-support h2 { margin: 0 0 10px; font-size: 30px; }
+.nfv-contact-support p { max-width: 63ch; }
+.nfv-contact-support-links { display: flex; flex-wrap: wrap; gap: 10px 24px; }
+.nfv-contact-support-links a { display: inline-flex; align-items: center; min-height: 44px; font-size: 14px; font-weight: 700; text-decoration: underline; text-underline-offset: 4px; }
+.nfv-contact-page #campus-location { scroll-margin-top: 150px; }
+@media (max-width: 800px) {
+    .nfv-contact-grid { grid-template-columns: 1fr; }
+    .nfv-contact-message { order: -1; }
+}
+@media (max-width: 500px) { .nfv-contact-fields { grid-template-columns: 1fr; } }
 .nfv-officer-profile { display: grid; grid-template-columns: clamp(72px, 16vw, 112px) minmax(0, 1fr); align-items: start; gap: clamp(12px, 3vw, 24px); padding-block: 18px; }
 .nfv-officer-profile img { display: block; width: 100%; height: auto; aspect-ratio: 4 / 5; object-fit: cover; object-position: center top; border-radius: 4px; }
 .nfv-officer-profile h3 { margin: 0 0 4px; }

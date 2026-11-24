@@ -1,36 +1,44 @@
-@extends('student.layout')
-@section('student-content')
-    <div class="sp-auth">
-        <section class="sp-auth-intro">
-            <p class="sp-eyebrow">NFLV STUDENT SERVICES</p>
-            <h1>{{ $mode === 'login' ? 'Your studies, in one place.' : 'Account recovery' }}</h1>
-            <p>Manage registration, view academic records, track your fees and get help from the Village.</p>
-            <p>Use the student account issued by Registry. Your student number is shown on your registration documents.</p>
-            <a href="{{ route('website.contact') }}">Contact NFLV for account assistance</a>
-        </section>
-        <section class="sp-panel">
-            <h2>{{ match ($mode) { 'forgot' => 'Forgot your password?', 'reset' => 'Choose a new password', default => 'Student sign-in' } }}</h2>
-            <form method="POST" action="{{ match ($mode) { 'forgot' => route('student.password.email'), 'reset' => route('student.password.save'), default => route('student.authenticate') } }}" class="sp-form">
-                @csrf
-                @if ($mode === 'login')
-                    <label>Student number or email<input name="identifier" value="{{ old('identifier') }}" autocomplete="username" required autofocus>
-                    </label>
-                    <label>Password<input type="password" name="password" autocomplete="current-password" required>
-                    </label>
-                @else
-                    <label>Email<input type="email" name="email" value="{{ old('email', $email ?? '') }}" autocomplete="email" required>
-                    </label>
-                @endif
-                @if ($mode === 'reset')
-                    <input type="hidden" name="token" value="{{ $token }}">
-                    <label>New password (at least 12 characters)<input type="password" name="password" minlength="12" autocomplete="new-password" required>
-                    </label>
-                    <label>Confirm password<input type="password" name="password_confirmation" minlength="12" autocomplete="new-password" required>
-                    </label>
-                @endif
-                <button type="submit" class="sp-button">{{ match ($mode) { 'forgot' => 'Send reset link', 'reset' => 'Reset password', default => 'Sign in' } }}</button>
-                <a href="{{ $mode === 'login' ? route('student.password.request') : route('student.login') }}">{{ $mode === 'login' ? 'Forgot password?' : 'Back to sign-in' }}</a>
-            </form>
-        </section>
-    </div>
+@extends('layouts.portal-entry', ['audience' => 'student'])
+
+@section('title', match ($mode) {
+    'forgot' => 'Password recovery | NFLV Student Portal',
+    'reset' => 'Reset password | NFLV Student Portal',
+    default => 'NFLV Student Portal',
+})
+
+@section('portal-form')
+    <form method="POST" action="{{ match ($mode) { 'forgot' => route('student.password.email'), 'reset' => route('student.password.save'), default => route('student.authenticate') } }}" class="signin-form">
+        @csrf
+        @if ($mode === 'login')
+            <div class="field-group">
+                <label for="student-identifier">Student number or email</label>
+                <input id="student-identifier" name="identifier" value="{{ old('identifier') }}" autocomplete="username" autocapitalize="none" spellcheck="false" aria-invalid="{{ $errors->has('identifier') ? 'true' : 'false' }}" required>
+            </div>
+            <div class="field-group">
+                <label for="student-password">Password</label>
+                <input id="student-password" type="password" name="password" autocomplete="current-password" aria-invalid="{{ $errors->has('password') ? 'true' : 'false' }}" required>
+            </div>
+        @else
+            <div class="field-group">
+                <label for="student-email">Registered email</label>
+                <input id="student-email" type="email" name="email" value="{{ old('email', $email ?? '') }}" autocomplete="email" aria-invalid="{{ $errors->has('email') ? 'true' : 'false' }}" required>
+            </div>
+        @endif
+        @if ($mode === 'reset')
+            <input type="hidden" name="token" value="{{ $token }}">
+            <div class="field-group">
+                <label for="student-new-password">New password</label>
+                <input id="student-new-password" type="password" name="password" minlength="12" autocomplete="new-password" required aria-describedby="student-password-help">
+                <p class="entry-field-help" id="student-password-help">Use at least 12 characters.</p>
+            </div>
+            <div class="field-group">
+                <label for="student-password-confirmation">Confirm password</label>
+                <input id="student-password-confirmation" type="password" name="password_confirmation" minlength="12" autocomplete="new-password" required>
+            </div>
+        @endif
+        <button type="submit" class="button button-primary">{{ match ($mode) { 'forgot' => 'Send reset link', 'reset' => 'Reset password', default => 'Sign in' } }}</button>
+        <p class="entry-recovery">
+            <a href="{{ $mode === 'login' ? route('student.password.request') : route('student.login') }}">{{ $mode === 'login' ? 'Forgot your password?' : 'Back to student sign-in' }}</a>
+        </p>
+    </form>
 @endsection

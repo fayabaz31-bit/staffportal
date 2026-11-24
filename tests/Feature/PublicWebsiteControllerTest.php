@@ -68,6 +68,23 @@ class PublicWebsiteControllerTest extends TestCase
         Http::assertSentCount(1);
     }
 
+    public function test_student_portal_links_bypass_the_removed_information_page(): void
+    {
+        Http::preventStrayRequests();
+        Http::fake([self::SOURCE.'/' => Http::response($this->listing())]);
+
+        $this->get('/website-preview/student-portal')->assertRedirect(route('student.login'));
+
+        foreach (['/website-preview', '/website-preview/about', '/website-preview/contact', '/website-preview/news'] as $page) {
+            $this->get($page)
+                ->assertOk()
+                ->assertSee('href="'.route('student.login').'"', false)
+                ->assertDontSee('href="'.route('website.student-portal').'"', false);
+        }
+
+        Http::assertSentCount(1);
+    }
+
     private function listing(): string
     {
         return <<<'HTML'
